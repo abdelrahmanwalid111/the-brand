@@ -37,6 +37,7 @@ export default function WishlistDrawer() {
 
       {/* Drawer */}
       <div
+        className="responsive-drawer"
         style={{
           position: 'relative',
           width: '100%',
@@ -51,7 +52,7 @@ export default function WishlistDrawer() {
         }}
       >
         {/* Header */}
-        <div style={{ padding: '24px', borderBottom: '1px solid var(--card-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: 'clamp(14px, 3vw, 24px)', borderBottom: '1px solid var(--card-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Heart size={18} style={{ color: '#e11d48' }} fill="#e11d48" />
             <h3 style={{ fontSize: '1rem', fontWeight: '800', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--fg-primary)' }}>

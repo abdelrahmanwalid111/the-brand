@@ -26,6 +26,15 @@ import ToastNotification from './components/ToastNotification';
 function StoreMain() {
   const { setIsNewsletterOpen, selectedProduct, closeProductPage } = useStore();
   const [activeCategory, setActiveCategory] = useState('all');
+  const [showFloatingDiscount, setShowFloatingDiscount] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowFloatingDiscount(window.scrollY > 450);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Trigger title red line draw animation once per title when loaded or scrolled into view
   useEffect(() => {
@@ -84,7 +93,6 @@ function StoreMain() {
           {/* 3. Runway Campaign Hero Carousel */}
           <HeroSection
             onShopClick={() => scrollToSection('collection-section')}
-            onLookbookClick={() => scrollToSection('lookbook-section')}
           />
 
           {/* 4. Quick Category Selector Rails */}
@@ -137,13 +145,18 @@ function StoreMain() {
       <CheckoutModal />
       <ToastNotification />
 
-      {/* Floating Privilege Trigger Pill (Bottom Left) */}
+      {/* Floating Privilege Trigger Pill (Bottom Left, shows only after scrolling past hero) */}
       <div
+        className="desktop-only"
         style={{
           position: 'fixed',
-          bottom: '24px',
-          left: '24px',
-          zIndex: 35
+          bottom: 'clamp(14px, 2.5vw, 28px)',
+          left: 'clamp(14px, 2.5vw, 28px)',
+          zIndex: 35,
+          opacity: showFloatingDiscount ? 1 : 0,
+          pointerEvents: showFloatingDiscount ? 'auto' : 'none',
+          transform: showFloatingDiscount ? 'translateY(0)' : 'translateY(12px)',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
         <button
@@ -151,12 +164,12 @@ function StoreMain() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            padding: '10px 18px',
+            gap: '6px',
+            padding: 'clamp(7px, 1.5vw, 10px) clamp(12px, 2.5vw, 18px)',
             borderRadius: '9999px',
             backgroundColor: '#ffd312',
             color: '#010000',
-            fontSize: '0.78rem',
+            fontSize: 'clamp(0.68rem, 1.8vw, 0.78rem)',
             fontWeight: '900',
             letterSpacing: '0.06em',
             textTransform: 'uppercase',

@@ -66,7 +66,7 @@ export default function FeaturedSpotlight() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '48px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(24px, 4vw, 48px)', alignItems: 'start' }}>
           {/* Left: Product Gallery */}
           <div>
             {/* Main Active Image with Zoom */}
@@ -258,7 +258,7 @@ export default function FeaturedSpotlight() {
             </div>
 
             {/* Quantity Stepper & Add To Bag Button */}
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '16px' }}>
               {/* Stepper */}
               <div
                 style={{
@@ -276,7 +276,7 @@ export default function FeaturedSpotlight() {
                 >
                   <Minus size={14} />
                 </button>
-                <span style={{ minWidth: '32px', textAlign: 'center', fontWeight: '900', fontSize: '0.9rem', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ minWidth: '30px', textAlign: 'center', fontWeight: '900', fontSize: '0.9rem', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
                   {quantity}
                 </span>
                 <button
@@ -292,18 +292,18 @@ export default function FeaturedSpotlight() {
                 onClick={handleAddToCart}
                 disabled={isAdding}
                 className="btn-primary"
-                style={{ flex: 1, padding: '16px', fontSize: '0.9rem' }}
+                style={{ flex: '1 1 200px', padding: '14px 18px', fontSize: 'clamp(0.78rem, 1.8vw, 0.9rem)' }}
               >
                 {isAdding ? (
                   <span>RESERVING PRE-ORDER...</span>
                 ) : (
-                  <span>RESERVE PRE-ORDER • CASH ON DELIVERY</span>
+                  <span>RESERVE PRE-ORDER • COD</span>
                 )}
               </button>
             </div>
 
             {/* Trust Badges Rail */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', margin: '20px 0', padding: '14px 0', borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '8px', margin: '20px 0', padding: '14px 0', borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
               <div style={{ fontSize: '0.72rem', color: '#ffffff', fontWeight: '800', letterSpacing: '0.05em' }}>
                 • Express Courier Dispatch
               </div>

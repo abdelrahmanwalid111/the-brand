@@ -252,11 +252,11 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* Product Details Section */}
-      <div style={{ padding: '16px 18px', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+      <div style={{ padding: 'clamp(12px, 2vw, 18px)', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
         <div>
           {/* Category */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-            <span style={{ fontSize: '0.68rem', fontWeight: '900', letterSpacing: '0.1em', color: '#ffd312', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.66rem', fontWeight: '900', letterSpacing: '0.1em', color: '#ffd312', textTransform: 'uppercase' }}>
               {product.categoryLabel || product.category}
             </span>
           </div>
@@ -265,14 +265,14 @@ export default function ProductCard({ product }) {
           <h3
             onClick={() => openProductPage(product)}
             style={{
-              fontSize: '0.92rem',
+              fontSize: 'clamp(0.85rem, 1.8vw, 0.95rem)',
               fontWeight: '900',
               color: '#ffffff',
               lineHeight: 1.25,
-              marginBottom: '6px',
+              marginBottom: '4px',
               cursor: 'pointer',
               transition: 'color 0.2s',
-              minHeight: '2.3em',
+              minHeight: '2.4em',
               display: '-webkit-box',
               WebkitLineClamp: 2,
               WebkitBoxOrient: 'vertical',
@@ -287,11 +287,11 @@ export default function ProductCard({ product }) {
           {/* Subtitle */}
           <p
             style={{
-              fontSize: '0.76rem',
+              fontSize: '0.74rem',
               color: '#8c8c9e',
-              lineHeight: 1.4,
-              marginBottom: '12px',
-              minHeight: '2.8em',
+              lineHeight: 1.35,
+              marginBottom: '10px',
+              minHeight: '2.7em',
               display: '-webkit-box',
               WebkitLineClamp: 2,
               WebkitBoxOrient: 'vertical',
@@ -306,15 +306,15 @@ export default function ProductCard({ product }) {
         <div>
           {/* Color Swatches */}
           {product.colors && product.colors.length > 1 ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', minHeight: '22px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px', minHeight: '20px' }}>
               {product.colors.map((c) => (
                 <button
                   key={c.name}
                   onClick={(e) => handleColorChange(e, c)}
                   title={c.name}
                   style={{
-                    width: '18px',
-                    height: '18px',
+                    width: '16px',
+                    height: '16px',
                     borderRadius: '50%',
                     backgroundColor: c.hex,
                     border: selectedColor === c.name ? '2px solid #ffd312' : '1px solid rgba(255,255,255,0.3)',
@@ -326,29 +326,29 @@ export default function ProductCard({ product }) {
                   onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
                 />
               ))}
-              <span style={{ fontSize: '0.65rem', color: '#8c8c9e', marginLeft: '4px', fontWeight: '700' }}>
+              <span style={{ fontSize: '0.62rem', color: '#8c8c9e', marginLeft: '4px', fontWeight: '700' }}>
                 {selectedColor}
               </span>
             </div>
           ) : (
-            <div style={{ minHeight: '22px', marginBottom: '12px' }} />
+            <div style={{ minHeight: '20px', marginBottom: '10px' }} />
           )}
 
           {/* Price & Pre-order info */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-              <span style={{ fontSize: '1.05rem', fontWeight: '900', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '4px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+              <span style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.05rem)', fontWeight: '900', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(product.price)}
               </span>
               {product.compareAtPrice && product.compareAtPrice > product.price && (
-                <span style={{ fontSize: '0.8rem', color: '#8c8c9e', textDecoration: 'line-through' }}>
+                <span style={{ fontSize: '0.74rem', color: '#8c8c9e', textDecoration: 'line-through' }}>
                   {formatPrice(product.compareAtPrice)}
                 </span>
               )}
             </div>
 
-            <span style={{ fontSize: '0.68rem', color: '#ffd312', fontWeight: '900' }}>
-              CASH ON DELIVERY
+            <span style={{ fontSize: '0.62rem', color: '#ffd312', fontWeight: '900', letterSpacing: '0.04em' }}>
+              100% COD
             </span>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { useStore } from '../context/StoreContext';
 import { PRODUCTS } from '../data/storeData';
 import BloodText from './BloodText';
 
-export default function HeroSection({ onShopClick, onLookbookClick }) {
+export default function HeroSection({ onShopClick }) {
   const { openQuickView, formatPrice } = useStore();
   const [activeHotspot, setActiveHotspot] = useState(null);
 
@@ -20,8 +20,6 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
     subtitle: 'ATELIER PRE-ORDER ARCHIVE',
     description: 'Ultra-structured matte Italian lambskins, 650gsm heavyweight hoodies, and French terry sweatshirts. Handcrafted upon pre-order in limited allocations. 0 EGP due today — pay cash upon delivery.',
     image: '/assets/genz_hero_yellow.jpg',
-    tag: '100% CASH ON DELIVERY',
-    badge: 'BATCH 01 ALLOCATION',
     hotspots: [
       {
         id: 'hs-hero-1',
@@ -30,8 +28,8 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
         shortLabel: 'LAMBSKIN MOTO TOP',
         category: 'TOPS',
         price: 4200,
-        x: 64,
-        y: 42,
+        x: 68,
+        y: 26,
         image: '/assets/radian_cropped_jacket.jpg'
       },
       {
@@ -41,8 +39,8 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
         shortLabel: 'HEAVYWEIGHT HOODIE',
         category: 'HOODIES',
         price: 3600,
-        x: 48,
-        y: 64,
+        x: 62,
+        y: 44,
         image: '/assets/genz_hero_yellow.jpg'
       }
     ]
@@ -105,15 +103,13 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
     <section
       style={{
         position: 'relative',
-        height: 'calc(100vh - 70px)',
-        minHeight: '600px',
-        maxHeight: '920px',
-        marginTop: '-76px',
-        paddingTop: '76px',
+        minHeight: 'clamp(560px, 92vh, 960px)',
         overflow: 'hidden',
         display: 'flex',
-        alignItems: 'center',
-        color: '#ffffff'
+        alignItems: 'flex-end',
+        color: '#ffffff',
+        paddingTop: '80px',
+        paddingBottom: 'clamp(28px, 5vh, 60px)'
       }}
     >
       {/* 1. Single Editorial Hero Background with Radian Parallax Zoom */}
@@ -136,12 +132,12 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
             objectPosition: 'center 20%'
           }}
         />
-        {/* Contrast Gradient for Text Legibility on Left Side */}
+        {/* Contrast Gradient for Text Legibility at the Bottom and Left */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to right, rgba(1,1,0,0.96) 0%, rgba(1,1,0,0.72) 38%, rgba(1,1,0,0.3) 70%, rgba(1,1,0,0.6) 100%), linear-gradient(to top, rgba(1,1,0,0.96) 0%, transparent 40%, rgba(1,1,0,0.5) 100%)'
+            background: 'linear-gradient(to top, rgba(1,0,0,0.98) 0%, rgba(1,0,0,0.85) 38%, rgba(1,0,0,0.3) 70%, rgba(1,0,0,0.2) 100%), linear-gradient(to right, rgba(1,0,0,0.7) 0%, transparent 60%)'
           }}
         />
       </div>
@@ -202,12 +198,13 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
                   <Plus size={19} strokeWidth={3.5} />
                 </button>
 
-                {/* Floating Label Badge */}
+                {/* Floating Label Badge (desktop / tablet) */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     handleHotspotClick(hs.productId);
                   }}
+                  className="desktop-only"
                   style={{
                     backgroundColor: 'rgba(1, 1, 0, 0.92)',
                     backdropFilter: 'blur(12px)',
@@ -221,7 +218,6 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
                     letterSpacing: '0.04em',
                     whiteSpace: 'nowrap',
                     cursor: 'pointer',
-                    display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
                     boxShadow: '0 4px 16px rgba(0,0,0,0.85)',
@@ -253,9 +249,11 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
                   style={{
                     position: 'absolute',
                     bottom: '48px',
-                    left: '50%',
-                    width: '260px',
-                    padding: '14px',
+                    left: hs.x > 50 ? 'auto' : '0',
+                    right: hs.x > 50 ? '0' : 'auto',
+                    transform: 'none',
+                    width: 'min(82vw, 250px)',
+                    padding: '12px',
                     borderRadius: '14px',
                     border: '1.5px solid #ffd312',
                     boxShadow: '0 20px 50px rgba(0,0,0,0.95), 0 0 25px rgba(255,211,18,0.3)',
@@ -360,30 +358,6 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
             pointerEvents: 'auto'
           }}
         >
-          {/* Subtle Sticker Badges */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
-            <span className="sticker-badge" style={{ fontSize: '0.62rem', padding: '3px 8px' }}>
-              {heroData.badge}
-            </span>
-            <span
-              className="sticker-cash"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                backgroundColor: '#010000',
-                color: '#ffd312',
-                border: '1px solid #ffd312',
-                padding: '3px 8px',
-                borderRadius: '9999px',
-                fontSize: '0.62rem',
-                fontWeight: '900',
-                letterSpacing: '0.06em'
-              }}
-            >
-              {heroData.tag}
-            </span>
-          </div>
-
           {/* Compact Refined Syne Headline */}
           <h1
             style={{
@@ -428,50 +402,39 @@ export default function HeroSection({ onShopClick, onLookbookClick }) {
             {heroData.description}
           </p>
 
-          {/* Compact Luxury Action Buttons */}
+          {/* Compact Luxury Action Button */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <button
               onClick={onShopClick}
               className="btn-primary"
               style={{
-                padding: '10px 20px',
-                fontSize: '0.74rem',
+                padding: '10px 22px',
+                fontSize: '0.78rem',
                 letterSpacing: '0.06em'
               }}
             >
               <span>RESERVE PRE-ORDER</span>
               <ArrowUpRight size={14} />
             </button>
-
-            <button
-              onClick={onLookbookClick}
-              className="btn-crimson"
-              style={{
-                padding: '10px 18px',
-                fontSize: '0.74rem',
-                letterSpacing: '0.06em'
-              }}
-            >
-              <span>LOOKBOOK RADAR</span>
-            </button>
           </div>
         </div>
       </div>
 
-      {/* 4. Radian Scroll Down Indicator Cue */}
+      {/* 4. Radian Scroll Down Indicator Cue (desktop only, centered at bottom) */}
       <div
         ref={scrollCueRef}
+        className="desktop-only"
         onClick={() => {
           const el = document.getElementById('wardrobe-section');
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }}
         style={{
           position: 'absolute',
-          bottom: '20px',
+          bottom: '28px',
           left: '50%',
+          right: 'auto',
           transform: 'translateX(-50%)',
           zIndex: 15,
-          display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '5px',

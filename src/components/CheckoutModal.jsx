@@ -67,7 +67,7 @@ export default function CheckoutModal() {
   };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(8px, 2.5vw, 16px)' }}>
       <div
         onClick={() => {
           if (step !== 'confirmed') setIsCheckoutOpen(false);
@@ -81,6 +81,7 @@ export default function CheckoutModal() {
       />
 
       <div
+        className="responsive-modal"
         style={{
           position: 'relative',
           backgroundColor: '#08080a',
@@ -92,7 +93,7 @@ export default function CheckoutModal() {
           maxHeight: '92vh',
           overflowY: 'auto',
           zIndex: 150,
-          padding: '36px clamp(20px, 4vw, 40px)'
+          padding: 'clamp(22px, 3.5vw, 36px) clamp(16px, 3vw, 36px)'
         }}
       >
         <button
@@ -128,12 +129,12 @@ export default function CheckoutModal() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: 'clamp(20px, 3vw, 32px)' }}>
               {/* Form Side */}
               <div>
                 {step === 'shipping' ? (
                   <form onSubmit={handleNextToConfirmation} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '12px' }}>
                       <div>
                         <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '900', color: '#ffd312', marginBottom: '4px' }}>FIRST NAME</label>
                         <input
@@ -192,7 +193,7 @@ export default function CheckoutModal() {
                       />
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '12px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '12px' }}>
                       <div>
                         <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '900', color: '#ffd312', marginBottom: '4px' }}>CITY</label>
                         <input

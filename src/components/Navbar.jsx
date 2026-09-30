@@ -68,11 +68,8 @@ export default function Navbar({ onNavigateSection }) {
         <div
           className={`nav-shell ${isScrolled ? 'scrolled' : ''}`}
           style={{
-            width: isScrolled ? '50%' : '100%',
-            maxWidth: isScrolled ? 'none' : '100%',
             margin: '0 auto',
-            pointerEvents: 'auto',
-            transition: 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+            pointerEvents: 'auto'
           }}
         >
           <nav
@@ -82,7 +79,7 @@ export default function Navbar({ onNavigateSection }) {
               alignItems: 'center',
               justifyContent: 'space-between',
               width: '100%',
-              padding: isScrolled ? '8px 24px' : '14px clamp(20px, 4vw, 56px)',
+              padding: isScrolled ? '8px clamp(12px, 2.5vw, 24px)' : '12px clamp(12px, 3.5vw, 56px)',
               borderRadius: isScrolled ? '9999px' : '0',
               borderTop: isScrolled ? '1.5px solid #ffd312' : 'none',
               borderLeft: isScrolled ? '1.5px solid #ffd312' : 'none',
@@ -98,24 +95,25 @@ export default function Navbar({ onNavigateSection }) {
             }}
           >
             {/* Left Nav Links */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: isScrolled ? '14px' : '22px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: isScrolled ? '10px' : '16px' }}>
               <button
                 onClick={() => setMobileMenuOpen(true)}
+                className="mobile-burger-btn mobile-only"
+                aria-label="Open menu"
                 style={{
-                  display: 'none',
                   color: '#ffffff',
-                  padding: '4px',
+                  padding: '6px',
                   background: 'none',
                   border: 'none',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
-                className="mobile-burger-btn"
-                aria-label="Open menu"
               >
                 <Menu size={22} />
               </button>
 
-              <div className="desktop-links" style={{ display: 'flex', alignItems: 'center', gap: isScrolled ? '14px' : '18px' }}>
+              <div className="desktop-links desktop-only" style={{ alignItems: 'center', gap: isScrolled ? '14px' : '18px' }}>
                 {/* Pre-Order Drops Mega Menu */}
                 <div
                   style={{ position: 'relative' }}
@@ -407,7 +405,7 @@ export default function Navbar({ onNavigateSection }) {
             </div>
 
             {/* Right Action Icons & Utilities */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: isScrolled ? '12px' : '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: isScrolled ? '8px' : '12px' }}>
               {/* Search Toggle */}
               <button
                 onClick={() => setIsSearchOpen(true)}
@@ -478,10 +476,10 @@ export default function Navbar({ onNavigateSection }) {
                   position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '6px',
                   backgroundColor: '#ffd312',
                   color: '#010000',
-                  padding: isScrolled ? '6px 12px' : '7px 16px',
+                  padding: isScrolled ? '6px 10px' : '6px 12px',
                   borderRadius: '9999px',
                   border: '1.5px solid #010000',
                   fontWeight: '900',

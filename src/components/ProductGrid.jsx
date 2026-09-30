@@ -60,8 +60,8 @@ export default function ProductGrid({ activeCategory, setActiveCategory }) {
             paddingBottom: '16px'
           }}
         >
-          {/* Category Tabs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          {/* Category Tabs (Horizontally scrollable with smooth touch) */}
+          <div className="category-tabs-scroll" style={{ width: '100%', maxWidth: '100%' }}>
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat.id;
               return (
@@ -80,7 +80,9 @@ export default function ProductGrid({ activeCategory, setActiveCategory }) {
                     border: `1.5px solid ${isActive ? '#ffd312' : 'rgba(255,255,255,0.15)'}`,
                     boxShadow: isActive ? '2px 2px 0px #ffffff' : 'none',
                     transition: 'all 0.2s',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    whiteSpace: 'nowrap'
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {

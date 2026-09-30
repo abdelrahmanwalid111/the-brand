@@ -52,8 +52,8 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '16px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(145px, 28vw, 240px), 1fr))',
+            gap: 'clamp(10px, 2vw, 16px)'
           }}
         >
           {categoriesWithImages.map((cat) => {
@@ -64,7 +64,7 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
                 onClick={() => onSelectCategory(cat.id)}
                 style={{
                   position: 'relative',
-                  height: '320px',
+                  height: 'clamp(200px, 30vw, 320px)',
                   borderRadius: '16px',
                   overflow: 'hidden',
                   cursor: 'pointer',
@@ -113,17 +113,17 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    padding: '20px',
+                    padding: 'clamp(12px, 3vw, 20px)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-end',
                     zIndex: 2
                   }}
                 >
-                  <span className="sticker-dark" style={{ width: 'fit-content', marginBottom: '6px' }}>
+                  <span className="sticker-dark" style={{ width: 'fit-content', marginBottom: '6px', fontSize: '0.62rem' }}>
                     {cat.count} PIECES
                   </span>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', fontWeight: '900', color: '#ffffff', letterSpacing: '0.04em' }}>
+                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(0.95rem, 2vw, 1.2rem)', fontWeight: '900', color: '#ffffff', letterSpacing: '0.04em' }}>
                     {cat.name}
                   </div>
                 </div>

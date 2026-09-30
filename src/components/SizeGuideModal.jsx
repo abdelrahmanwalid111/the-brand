@@ -28,7 +28,7 @@ export default function SizeGuideModal() {
   ];
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 130, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 130, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(8px, 2.5vw, 16px)' }}>
       <div
         onClick={() => setIsSizeGuideOpen(false)}
         style={{
@@ -40,6 +40,7 @@ export default function SizeGuideModal() {
       />
 
       <div
+        className="responsive-modal"
         style={{
           position: 'relative',
           backgroundColor: '#08080a',
@@ -50,7 +51,7 @@ export default function SizeGuideModal() {
           maxHeight: '90vh',
           overflowY: 'auto',
           zIndex: 140,
-          padding: '32px',
+          padding: 'clamp(20px, 3.5vw, 32px) clamp(14px, 3vw, 28px)',
           boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255,211,18,0.25)'
         }}
       >

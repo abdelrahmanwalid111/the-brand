@@ -414,8 +414,8 @@ img {
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(16px, 4vw, 44px);
-  padding-right: clamp(16px, 4vw, 44px);
+  padding-left: clamp(14px, 3.5vw, 44px);
+  padding-right: clamp(14px, 3.5vw, 44px);
 }
 
 /* Product Grids */
@@ -439,33 +439,84 @@ img {
   .grid-cols-product-4,
   .grid-cols-product-3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .grid-cols-product-2,
+  .grid-cols-product-3,
+  .grid-cols-product-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
   .grid-cols-product-2,
   .grid-cols-product-3,
   .grid-cols-product-4 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 16px;
+    gap: 14px;
   }
 }
 
-/* Nav Shell Responsive Width: 100% at top, 50% when scrolled down */
+/* Nav Shell Responsive Width */
 .nav-shell {
   width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-shell.scrolled {
-  width: 50%;
+  width: min(880px, 58%);
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1100px) {
   .nav-shell.scrolled {
-    width: min(94%, 560px);
+    width: min(94%, 760px);
   }
+}
+
+@media (max-width: 768px) {
+  .nav-shell,
+  .nav-shell.scrolled {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Responsive display helper classes */
+.mobile-only {
+  display: none !important;
+}
+.desktop-only {
+  display: flex !important;
+}
+
+@media (max-width: 900px) {
+  .mobile-only {
+    display: flex !important;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+/* Smooth Category Tabs Scrollbar */
+.category-tabs-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+.category-tabs-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 /* Radian Scroll Down Indicator Glide Animation */
@@ -849,6 +900,62 @@ img {
 .title-red-line-center.animate-drawn {
   animation: drawRedLineCenter 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards;
 }
+
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVENESS OVERRIDES
+   ========================================================================== */
+
+/* Mobile viewports (phones <= 768px) */
+@media (max-width: 768px) {
+  /* Prevent any horizontal page overflow */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Compact header on mobile */
+  header {
+    padding: 0 !important;
+  }
+
+  .nav-shell {
+    width: 100% !important;
+  }
+
+  /* Section padding on mobile */
+  section {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+
+  /* Floating drawer full width on mobile */
+  .responsive-drawer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Modals full width on mobile */
+  .responsive-modal {
+    padding: 20px 16px !important;
+    border-radius: 16px !important;
+    max-height: 94vh !important;
+  }
+
+  /* Hide desktop-only layout switchers */
+  .desktop-layout-switcher {
+    display: none !important;
+  }
+}
+
+/* Extra small mobile (<= 420px) */
+@media (max-width: 420px) {
+  .store-container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+
 
 
 

@@ -18,7 +18,7 @@ export default function Footer({ onNavigateSection }) {
     <footer id="contact-section" style={{ backgroundColor: '#010000', borderTop: '2px solid #ffd312', paddingTop: '80px', paddingBottom: '40px', color: '#dcdce6' }}>
       <div className="store-container">
         {/* Top: Brand Heading & Journal Capture */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', marginBottom: '64px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '56px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 'clamp(28px, 4vw, 48px)', marginBottom: '48px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '40px' }}>
           <div>
             <div style={{ marginBottom: '16px' }}>
               <AnimatedLogo size="lg" showText={true} />
@@ -37,7 +37,7 @@ export default function Footer({ onNavigateSection }) {
             <p style={{ fontSize: '0.82rem', color: '#8c8c9e', marginBottom: '16px' }}>
               Secret pre-order batch alerts, private salon invites, and backstage access delivered to your inbox.
             </p>
-            <form onSubmit={handleJournalSubmit} style={{ display: 'flex', gap: '8px' }}>
+            <form onSubmit={handleJournalSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <input
                 type="email"
                 required
@@ -245,7 +245,7 @@ export default function Footer({ onNavigateSection }) {
           </div>
 
           {/* Cash Payment Badges */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.72rem', fontWeight: '900' }}>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px', fontSize: '0.72rem', fontWeight: '900' }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', padding: '4px 10px', borderRadius: '4px', backgroundColor: '#08080a', border: '1.5px solid #ffd312', color: '#ffd312' }}>
               100% CASH ON DELIVERY
             </span>

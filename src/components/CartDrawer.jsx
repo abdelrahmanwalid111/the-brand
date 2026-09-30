@@ -66,6 +66,7 @@ export default function CartDrawer() {
 
       {/* Slide-out Drawer */}
       <div
+        className="responsive-drawer"
         style={{
           position: 'relative',
           width: '100%',
@@ -80,7 +81,7 @@ export default function CartDrawer() {
         }}
       >
         {/* Header */}
-        <div style={{ padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: 'clamp(14px, 3vw, 24px)', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <ShoppingBag size={20} style={{ color: '#ffd312' }} />
             <h3 style={{ fontSize: '1.05rem', fontWeight: '900', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#ffffff' }}>
@@ -356,7 +357,7 @@ export default function CartDrawer() {
             <button
               onClick={handleProceedCheckout}
               className="btn-primary"
-              style={{ width: '100%', padding: '16px', fontSize: '0.92rem' }}
+              style={{ width: '100%', padding: 'clamp(13px, 3vw, 16px)', fontSize: 'clamp(0.82rem, 2vw, 0.92rem)' }}
             >
               <span>RESERVE PRE-ORDER (CASH ON DELIVERY)</span>
               <ArrowRight size={18} />

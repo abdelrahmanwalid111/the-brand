@@ -47,7 +47,7 @@ export default function QuickViewModal() {
   };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 115, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 115, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(8px, 2.5vw, 16px)' }}>
       <div
         onClick={closeQuickView}
         style={{
@@ -59,6 +59,7 @@ export default function QuickViewModal() {
       />
 
       <div
+        className="responsive-modal"
         style={{
           position: 'relative',
           backgroundColor: '#08080a',
@@ -71,7 +72,7 @@ export default function QuickViewModal() {
           overflowY: 'auto',
           zIndex: 120,
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))'
         }}
       >
         <button
@@ -253,7 +254,7 @@ export default function QuickViewModal() {
 
           {/* Action Row */}
           <div>
-            <div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#010000', borderRadius: '9999px', padding: '2px 8px', border: '1.5px solid #ffd312' }}>
                 <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ padding: '6px', color: '#ffd312', background: 'none', border: 'none', cursor: 'pointer' }}>
                   <Minus size={12} />
@@ -269,9 +270,9 @@ export default function QuickViewModal() {
               <button
                 onClick={handleAddToCart}
                 className="btn-primary"
-                style={{ flex: 1, padding: '14px', fontSize: '0.85rem' }}
+                style={{ flex: '1 1 180px', padding: '12px 16px', fontSize: 'clamp(0.78rem, 1.8vw, 0.85rem)' }}
               >
-                {addedSuccess ? 'PRE-ORDER RESERVED' : `RESERVE PRE-ORDER • ${formatPrice(product.price * quantity)} (COD)`}
+                {addedSuccess ? 'PRE-ORDER RESERVED' : `RESERVE • ${formatPrice(product.price * quantity)} (COD)`}
               </button>
 
               <button

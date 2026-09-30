@@ -64,9 +64,9 @@ export default function CapsuleBundleBuilder() {
         </div>
 
         {/* 3 Steps Selectors Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: 'clamp(14px, 2.5vw, 24px)', marginBottom: '40px' }}>
           {/* Step 1: Hoodies */}
-          <div style={{ backgroundColor: '#010000', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '18px', padding: '20px' }}>
+          <div style={{ backgroundColor: '#010000', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '18px', padding: 'clamp(14px, 2.5vw, 20px)' }}>
             <div style={{ fontSize: '0.72rem', fontWeight: '900', letterSpacing: '0.1em', color: '#ffd312', textTransform: 'uppercase', marginBottom: '12px' }}>
               STEP 01 • CHOOSE HEAVYWEIGHT HOODIE
             </div>
@@ -107,7 +107,7 @@ export default function CapsuleBundleBuilder() {
           </div>
 
           {/* Step 2: Sweatshirts */}
-          <div style={{ backgroundColor: '#010000', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '18px', padding: '20px' }}>
+          <div style={{ backgroundColor: '#010000', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '18px', padding: 'clamp(14px, 2.5vw, 20px)' }}>
             <div style={{ fontSize: '0.72rem', fontWeight: '900', letterSpacing: '0.1em', color: '#ffd312', textTransform: 'uppercase', marginBottom: '12px' }}>
               STEP 02 • CHOOSE CREWNECK SWEATSHIRT
             </div>
@@ -148,7 +148,7 @@ export default function CapsuleBundleBuilder() {
           </div>
 
           {/* Step 3: Tops */}
-          <div style={{ backgroundColor: '#010000', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '18px', padding: '20px' }}>
+          <div style={{ backgroundColor: '#010000', border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: '18px', padding: 'clamp(14px, 2.5vw, 20px)' }}>
             <div style={{ fontSize: '0.72rem', fontWeight: '900', letterSpacing: '0.1em', color: '#ffd312', textTransform: 'uppercase', marginBottom: '12px' }}>
               STEP 03 • CHOOSE SIGNATURE TOP
             </div>
@@ -195,17 +195,17 @@ export default function CapsuleBundleBuilder() {
             backgroundColor: '#010000',
             border: '2px solid #ffd312',
             boxShadow: '4px 4px 0px #ffd312, 0 20px 50px rgba(0,0,0,0.9)',
-            padding: '28px clamp(20px, 4vw, 36px)',
+            padding: '24px clamp(16px, 3.5vw, 36px)',
             borderRadius: '20px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '24px'
+            gap: '20px'
           }}
         >
           {/* Summary */}
-          <div>
+          <div style={{ flex: '1 1 240px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
               <span style={{ fontSize: '0.74rem', fontWeight: '900', letterSpacing: '0.08em', color: '#ffd312', textTransform: 'uppercase' }}>
                 TOTAL PRE-ORDER INVOICE:
@@ -214,18 +214,18 @@ export default function CapsuleBundleBuilder() {
                 SAVE 20%
               </span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px' }}>
-              <span style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', fontWeight: '900', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '10px' }}>
+              <span style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: '900', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(finalBundlePrice)}
               </span>
-              <span style={{ fontSize: '1.1rem', color: '#8c8c9e', textDecoration: 'line-through', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: '1rem', color: '#8c8c9e', textDecoration: 'line-through', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(totalRawPrice)}
               </span>
-              <span style={{ fontSize: '0.8rem', color: '#ffd312', fontWeight: '800' }}>
+              <span style={{ fontSize: '0.78rem', color: '#ffd312', fontWeight: '800' }}>
                 (Save {formatPrice(bundleDiscount)})
               </span>
             </div>
-            <div style={{ fontSize: '0.74rem', color: '#8c8c9e', marginTop: '4px' }}>
+            <div style={{ fontSize: '0.72rem', color: '#8c8c9e', marginTop: '4px' }}>
               100% Cash On Delivery • 0 EGP due today • Includes free express courier
             </div>
           </div>
@@ -235,12 +235,14 @@ export default function CapsuleBundleBuilder() {
             onClick={handleAddBundleToBag}
             className="btn-primary"
             style={{
-              padding: '18px 36px',
-              fontSize: '0.95rem',
-              letterSpacing: '0.08em',
+              padding: '14px 28px',
+              fontSize: 'clamp(0.82rem, 1.8vw, 0.95rem)',
+              letterSpacing: '0.06em',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '12px'
+              justifyContent: 'center',
+              gap: '10px',
+              flex: '1 1 220px'
             }}
           >
             <span>RESERVE 3-PIECE DRIP (-20%)</span>

@@ -3,16 +3,17 @@ import { ArrowRight } from 'lucide-react';
 
 export default function EditorialStorySection({ onExploreStory }) {
   return (
-    <section id="editorial-section" style={{ padding: '100px 0', backgroundColor: '#010000' }}>
+    <section id="editorial-section" style={{ padding: 'clamp(50px, 8vw, 100px) 0', backgroundColor: '#010000' }}>
       <div className="store-container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '60px', alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(36px, 5vw, 60px)', alignItems: 'center' }}>
           {/* Left: Artisanal Craftsmanship Image */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', marginBottom: '28px' }}>
             <div
               style={{
                 borderRadius: '24px',
                 overflow: 'hidden',
                 aspectRatio: '16/10',
+                minHeight: '220px',
                 border: '2px solid #ffd312',
                 boxShadow: '4px 4px 0px #ffd312, 0 20px 50px rgba(0,0,0,0.9)'
               }}
@@ -28,22 +29,23 @@ export default function EditorialStorySection({ onExploreStory }) {
             <div
               style={{
                 position: 'absolute',
-                bottom: '-24px',
-                left: '20px',
-                right: '20px',
-                padding: '20px 24px',
+                bottom: '-20px',
+                left: 'clamp(10px, 3vw, 20px)',
+                right: 'clamp(10px, 3vw, 20px)',
+                padding: 'clamp(14px, 3vw, 24px)',
                 borderRadius: '16px',
                 backgroundColor: 'rgba(8, 8, 10, 0.96)',
                 backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
                 border: '2px solid #ffd312',
                 boxShadow: '3px 3px 0px #dc143c'
               }}
             >
-              <p style={{ fontFamily: 'var(--font-heading)', fontSize: '1.05rem', color: '#ffffff', lineHeight: 1.4, marginBottom: '8px', fontWeight: '800' }}>
+              <p style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(0.85rem, 2vw, 1.05rem)', color: '#ffffff', lineHeight: 1.4, marginBottom: '8px', fontWeight: '800' }}>
                 "We do not build garments for a single season. We sculpt contemporary armor that hits with undeniable presence."
               </p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: '#ffd312', fontWeight: '900', letterSpacing: '0.08em' }}>
-                <span>MATTEO CELLINI • MASTER LEATHER ARTISAN</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '4px', fontSize: '0.68rem', color: '#ffd312', fontWeight: '900', letterSpacing: '0.06em' }}>
+                <span>MATTEO CELLINI • MASTER ARTISAN</span>
                 <span>FLORENCE, ITALY</span>
               </div>
             </div>

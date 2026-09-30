@@ -130,7 +130,7 @@ export default function ProductPage({ product: propProduct }) {
         </div>
 
         {/* 2-Column Product Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '56px', alignItems: 'start', marginBottom: '80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 'clamp(24px, 4vw, 56px)', alignItems: 'start', marginBottom: '80px' }}>
           {/* Left Column: High-Res Editorial Gallery */}
           <div>
             {/* Main Stage Image */}
@@ -222,17 +222,18 @@ export default function ProductPage({ product: propProduct }) {
               style={{
                 display: 'flex',
                 alignItems: 'baseline',
-                gap: '14px',
+                flexWrap: 'wrap',
+                gap: '12px',
                 marginBottom: '24px',
                 paddingBottom: '20px',
                 borderBottom: '1px solid rgba(255,255,255,0.12)'
               }}
             >
-              <span style={{ fontSize: '2.2rem', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: 'clamp(1.8rem, 3.8vw, 2.2rem)', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(product.price)}
               </span>
               {product.compareAtPrice && (
-                <span style={{ fontSize: '1.2rem', color: '#8c8c9e', textDecoration: 'line-through' }}>
+                <span style={{ fontSize: '1.1rem', color: '#8c8c9e', textDecoration: 'line-through' }}>
                   {formatPrice(product.compareAtPrice)}
                 </span>
               )}
@@ -241,9 +242,9 @@ export default function ProductPage({ product: propProduct }) {
                   backgroundColor: '#08080a',
                   border: '1.5px solid #ffd312',
                   color: '#ffd312',
-                  padding: '4px 12px',
+                  padding: '4px 10px',
                   borderRadius: '9999px',
-                  fontSize: '0.72rem',
+                  fontSize: '0.68rem',
                   fontWeight: '900',
                   letterSpacing: '0.04em'
                 }}
@@ -341,7 +342,7 @@ export default function ProductPage({ product: propProduct }) {
 
             {/* Quantity Stepper & Dual Buy Action Buttons */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
-              <div style={{ display: 'flex', gap: '12px' }}>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                 {/* Stepper */}
                 <div
                   style={{
@@ -350,7 +351,7 @@ export default function ProductPage({ product: propProduct }) {
                     backgroundColor: '#08080a',
                     border: '2px solid #ffd312',
                     borderRadius: '9999px',
-                    padding: '4px 12px'
+                    padding: '4px 10px'
                   }}
                 >
                   <button
@@ -359,7 +360,7 @@ export default function ProductPage({ product: propProduct }) {
                   >
                     <Minus size={14} />
                   </button>
-                  <span style={{ minWidth: '36px', textAlign: 'center', fontWeight: '900', fontSize: '0.95rem', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ minWidth: '32px', textAlign: 'center', fontWeight: '900', fontSize: '0.9rem', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
                     {quantity}
                   </span>
                   <button
@@ -375,12 +376,12 @@ export default function ProductPage({ product: propProduct }) {
                   onClick={handleAddToCart}
                   disabled={isAdding}
                   className="btn-primary"
-                  style={{ flex: 1, padding: '16px', fontSize: '0.9rem' }}
+                  style={{ flex: '1 1 200px', padding: '14px 18px', fontSize: 'clamp(0.78rem, 1.8vw, 0.9rem)' }}
                 >
                   {isAdding ? (
                     <span>RESERVING ALLOCATION...</span>
                   ) : (
-                    <span>RESERVE PRE-ORDER • ${formatPrice(product.price * quantity)} (COD)</span>
+                    <span>RESERVE • {formatPrice(product.price * quantity)} (COD)</span>
                   )}
                 </button>
 
@@ -388,7 +389,8 @@ export default function ProductPage({ product: propProduct }) {
                 <button
                   onClick={() => toggleWishlist(product.id)}
                   style={{
-                    width: '54px',
+                    width: '48px',
+                    height: '48px',
                     borderRadius: '50%',
                     border: '2px solid rgba(255,255,255,0.2)',
                     display: 'flex',
@@ -397,7 +399,8 @@ export default function ProductPage({ product: propProduct }) {
                     color: isSaved ? '#dc143c' : '#ffffff',
                     backgroundColor: '#08080a',
                     cursor: 'pointer',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.2s',
+                    flexShrink: 0
                   }}
                   title="Save to Wishlist"
                 >
@@ -409,9 +412,9 @@ export default function ProductPage({ product: propProduct }) {
               <button
                 onClick={handleInstantPreOrder}
                 className="btn-crimson"
-                style={{ width: '100%', padding: '16px', fontSize: '0.92rem' }}
+                style={{ width: '100%', padding: '14px 18px', fontSize: 'clamp(0.76rem, 1.8vw, 0.88rem)', textAlign: 'center', justifyContent: 'center' }}
               >
-                <span>INSTANT 1-CLICK PRE-ORDER MANIFEST (0 EGP DUE TODAY)</span>
+                <span>INSTANT 1-CLICK PRE-ORDER (0 EGP DUE TODAY)</span>
                 <ArrowRight size={16} />
               </button>
             </div>
