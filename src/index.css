@@ -1,0 +1,855 @@
+/* ==========================================================================
+   RADIAN /// LAB — HIGH-VOLTAGE GEN-Z & CYBER STREETWEAR DESIGN SYSTEM
+   Theme Colors:
+   - Electric Cyber Yellow: #ffd312
+   - Pure Pitch Black: #010000
+   - Crisp White: #ffffff
+   - Hot Crimson Red: #dc143c
+   ========================================================================== */
+
+:root {
+  /* Default: CYBER DRIP (Pitch Black + Electric Yellow + Crimson) */
+  --bg-primary: #010000;
+  --bg-secondary: #08080a;
+  --bg-tertiary: #101014;
+  --card-bg: #0b0b0e;
+  --card-hover-bg: #141419;
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-border-hover: #ffd312;
+  
+  --fg-primary: #ffffff;
+  --fg-secondary: #dcdce6;
+  --fg-muted: #8c8c9e;
+  
+  --color-yellow: #ffd312;
+  --color-crimson: #dc143c;
+  --color-black: #010000;
+  --color-white: #ffffff;
+
+  --accent: #ffd312;
+  --accent-hover: #ffe047;
+  --accent-contrast: #010000;
+  --accent-rgb: 255, 211, 18;
+
+  --crimson: #dc143c;
+  --crimson-hover: #ff2a55;
+
+  --badge-bg: rgba(255, 211, 18, 0.12);
+  --badge-fg: #ffd312;
+  --badge-border: #ffd312;
+
+  --badge-crimson-bg: rgba(220, 20, 60, 0.15);
+  --badge-crimson-fg: #ff3b62;
+  --badge-crimson-border: #dc143c;
+
+  --pill-bg: rgba(8, 8, 10, 0.92);
+  --pill-border: rgba(255, 255, 255, 0.16);
+
+  --input-bg: #09090c;
+  --input-border: rgba(255, 255, 255, 0.18);
+  
+  --shadow-sm: 3px 3px 0px #ffd312;
+  --shadow-crimson: 3px 3px 0px #dc143c;
+  --shadow-white: 3px 3px 0px #ffffff;
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.9);
+  --shadow-glow-yellow: 0 0 25px rgba(255, 211, 18, 0.45);
+  --shadow-glow-crimson: 0 0 25px rgba(220, 20, 60, 0.45);
+
+  --font-heading: 'Syne', 'Space Grotesk', -apple-system, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+}
+
+/* Preset: CRIMSON HYPERDROP */
+body.theme-crimson {
+  --bg-primary: #050102;
+  --bg-secondary: #0d0407;
+  --bg-tertiary: #17070c;
+  --card-bg: #0f0508;
+  --card-hover-bg: #1a0a10;
+  --card-border: rgba(220, 20, 60, 0.25);
+  --card-border-hover: #dc143c;
+
+  --accent: #dc143c;
+  --accent-hover: #ff2a55;
+  --accent-contrast: #ffffff;
+
+  --badge-bg: rgba(220, 20, 60, 0.2);
+  --badge-fg: #ff3b62;
+  --badge-border: #dc143c;
+
+  --shadow-sm: 3px 3px 0px #dc143c;
+}
+
+/* Preset: RAW VOLTAGE (High Contrast Black & White with Yellow Flash) */
+body.theme-raw {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #141414;
+  --card-bg: #0a0a0a;
+  --card-hover-bg: #141414;
+  --card-border: #ffffff;
+  --card-border-hover: #ffd312;
+
+  --accent: #ffffff;
+  --accent-hover: #ffd312;
+  --accent-contrast: #000000;
+
+  --badge-bg: #ffffff;
+  --badge-fg: #000000;
+  --badge-border: #ffffff;
+
+  --shadow-sm: 4px 4px 0px #ffffff;
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--fg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Custom Gen-Z Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #010000;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffd312;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #dc143c;
+}
+
+/* Gen Z Neo-Brutalist Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #ffd312;
+  color: #010000;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 26px;
+  border-radius: 9999px;
+  border: 2px solid #010000;
+  box-shadow: 3px 3px 0px #ffffff;
+  transition: all var(--transition-fast);
+}
+.btn-primary:hover {
+  background-color: #ffffff;
+  color: #010000;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #dc143c;
+}
+
+.btn-crimson {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #dc143c;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 26px;
+  border-radius: 9999px;
+  border: 2px solid #ffffff;
+  box-shadow: 3px 3px 0px #ffd312;
+  transition: all var(--transition-fast);
+}
+.btn-crimson:hover {
+  background-color: #ff2a55;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px #ffd312;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 13px 24px;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
+}
+.btn-secondary:hover {
+  border-color: #ffd312;
+  color: #ffd312;
+  background-color: rgba(255, 211, 18, 0.1);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0px #ffd312;
+}
+
+/* Sticker Badges */
+.sticker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #ffd312;
+  color: #010000;
+  border: 1px solid #010000;
+  box-shadow: 2px 2px 0px #010000;
+}
+
+.sticker-crimson {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #dc143c;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  box-shadow: 2px 2px 0px #ffd312;
+}
+
+.sticker-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(8, 8, 10, 0.85);
+  color: #ffd312;
+  border: 1px solid #ffd312;
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.sticker-cash {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #010000;
+  color: #ffd312;
+  border: 1.5px solid #ffd312;
+  box-shadow: 2px 2px 0px #dc143c;
+}
+
+/* Marquee Infinite Tape */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Radar Pulse Pins */
+@keyframes neonPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 211, 18, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 211, 18, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 211, 18, 0);
+  }
+}
+
+.hotspot-dot {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffd312;
+  border: 3px solid #010000;
+  cursor: pointer;
+  animation: neonPulse 1.8s infinite;
+  transition: transform var(--transition-fast);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #010000;
+  font-weight: 900;
+}
+.hotspot-dot:hover {
+  transform: scale(1.4);
+  background: #dc143c;
+  color: #ffffff;
+}
+
+/* Glass Pills & Modals */
+.glass-pill {
+  background: rgba(10, 10, 14, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.glass-modal {
+  background: #08080a;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+}
+
+/* Toast */
+@keyframes slideDownToast {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.toast-anim {
+  animation: slideDownToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Container */
+.store-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 44px);
+  padding-right: clamp(16px, 4vw, 44px);
+}
+
+/* Product Grids */
+.grid-cols-product-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.grid-cols-product-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.grid-cols-product-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .grid-cols-product-4,
+  .grid-cols-product-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-cols-product-2,
+  .grid-cols-product-3,
+  .grid-cols-product-4 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Nav Shell Responsive Width: 100% at top, 50% when scrolled down */
+.nav-shell {
+  width: 100%;
+  margin: 0 auto;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-shell.scrolled {
+  width: 50%;
+}
+
+@media (max-width: 960px) {
+  .nav-shell.scrolled {
+    width: min(94%, 560px);
+  }
+}
+
+/* Radian Scroll Down Indicator Glide Animation */
+@keyframes scrollLineGlide {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(180%);
+    opacity: 0;
+  }
+}
+
+.animate-scroll-line {
+  animation: scrollLineGlide 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* Garment Radar Sonar Pulse */
+@keyframes radarSonar {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+    box-shadow: 0 0 0 0 rgba(255, 211, 18, 0.85);
+  }
+  70% {
+    transform: scale(1.1);
+    opacity: 0.4;
+    box-shadow: 0 0 0 16px rgba(255, 211, 18, 0);
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.9;
+    box-shadow: 0 0 0 0 rgba(255, 211, 18, 0);
+  }
+}
+
+.radar-sonar-pin {
+  animation: radarSonar 2s ease-in-out infinite;
+}
+
+@keyframes hotspotPopup {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.hotspot-card-enter {
+  animation: hotspotPopup 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   AUTHENTIC LIQUID BLOOD EFFECT (ORGANIC VISCOUS DRIP & GLOSSY SHEEN)
+   ========================================================================== */
+
+/* Shimmering specular liquid glint sweeping across wet blood surface */
+@keyframes bloodSheenGlint {
+  0% {
+    background-position: -200% 0;
+  }
+  35% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Viscous blood density & natural drop-shadow breathing */
+@keyframes bloodViscosity {
+  0%, 100% {
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.9)) drop-shadow(0 3px 8px rgba(70, 0, 10, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.95)) drop-shadow(0 5px 12px rgba(100, 0, 15, 0.5));
+  }
+}
+
+/* Fluid tear drip physics: natural gravity stretch -> teardrop -> recoil */
+@keyframes bloodTearPhysics1 {
+  0% {
+    transform: translateY(0) scale(0.85, 0.85);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(2px) scale(1, 1);
+    opacity: 0.9;
+  }
+  55% {
+    transform: translateY(6px) scale(0.9, 1.4);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(16px) scale(0.7, 2.2);
+    opacity: 0.95;
+  }
+  88% {
+    transform: translateY(24px) scale(0.5, 2.6);
+    opacity: 0.4;
+  }
+  92% {
+    transform: translateY(28px) scale(0.9, 0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(0.85, 0.85);
+    opacity: 0;
+  }
+}
+
+@keyframes bloodTearPhysics2 {
+  0%, 35% {
+    transform: translateY(0) scale(0.85, 0.85);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(2px) scale(1, 1);
+    opacity: 0.85;
+  }
+  75% {
+    transform: translateY(5px) scale(0.9, 1.3);
+    opacity: 0.95;
+  }
+  90% {
+    transform: translateY(14px) scale(0.7, 2);
+    opacity: 0.85;
+  }
+  98% {
+    transform: translateY(22px) scale(0.5, 2.2);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(0) scale(0.85, 0.85);
+    opacity: 0;
+  }
+}
+
+/* Core Liquid Blood Typography */
+.blood-fluid-text,
+.blood-text {
+  display: inline-block;
+  font-weight: 900;
+  position: relative;
+  /* Rich deep arterial blood with specular glossy glint */
+  background: linear-gradient(
+    115deg,
+    #5c020d 0%,
+    #8f0417 20%,
+    #bd0a26 38%,
+    #ff6b84 45%, /* specular light glint */
+    #ffffff 48%, /* sharp wet reflection */
+    #ff6b84 51%,
+    #b30822 58%,
+    #7a0212 75%,
+    #4a010a 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #bd0a26;
+  text-shadow:
+    0 1px 0 rgba(255, 120, 140, 0.25),
+    0 2px 2px rgba(40, 0, 5, 0.9),
+    0 4px 8px rgba(0, 0, 0, 0.95);
+  animation: bloodSheenGlint 5s ease-in-out infinite, bloodViscosity 4s ease-in-out infinite;
+  letter-spacing: inherit;
+  white-space: nowrap;
+}
+
+/* Wrapper container for text with SVG organic drips */
+.blood-text-wrapper {
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  line-height: inherit;
+}
+
+.blood-drip-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.blood-drip-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.95));
+}
+
+.blood-falling-tear {
+  position: absolute;
+  bottom: 0;
+  left: 62.5%;
+  width: 4px;
+  height: 6px;
+  background: radial-gradient(circle at 35% 30%, #ff4d6d 0%, #b80018 60%, #4a0008 100%);
+  border-radius: 50% 50% 60% 60% / 70% 70% 40% 40%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  animation: bloodTearPhysics1 4.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
+  pointer-events: none;
+}
+
+.blood-falling-tear-second {
+  position: absolute;
+  bottom: 3px;
+  left: 33.5%;
+  width: 3px;
+  height: 5px;
+  background: radial-gradient(circle at 35% 30%, #ff4d6d 0%, #a00318 60%, #420008 100%);
+  border-radius: 50% 50% 60% 60% / 70% 70% 40% 40%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  animation: bloodTearPhysics2 4.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
+  pointer-events: none;
+}
+
+/* Standalone / Fallback Class with Pure CSS organic stalactites */
+.blood-text-drip {
+  position: relative;
+  display: inline-block;
+  font-weight: 900;
+  background: linear-gradient(
+    115deg,
+    #5c020d 0%,
+    #8f0417 20%,
+    #bd0a26 38%,
+    #ff6b84 45%,
+    #ffffff 48%,
+    #ff6b84 51%,
+    #b30822 58%,
+    #7a0212 75%,
+    #4a010a 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #bd0a26;
+  text-shadow:
+    0 1px 0 rgba(255, 120, 140, 0.25),
+    0 2px 2px rgba(40, 0, 5, 0.9),
+    0 4px 8px rgba(0, 0, 0, 0.95);
+  animation: bloodSheenGlint 5s ease-in-out infinite, bloodViscosity 4s ease-in-out infinite;
+  letter-spacing: inherit;
+  white-space: nowrap;
+}
+
+.blood-text-drip::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 18%;
+  width: 4px;
+  height: 9px;
+  background: linear-gradient(180deg, #8f0417 0%, #b80018 50%, #4a0008 100%);
+  border-radius: 0 0 50% 50%;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.9));
+  animation: bloodTearPhysics1 4.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
+  pointer-events: none;
+}
+
+.blood-text-drip::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 24%;
+  width: 3px;
+  height: 6px;
+  background: linear-gradient(180deg, #8f0417 0%, #b80018 60%, #4a0008 100%);
+  border-radius: 0 0 50% 50%;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+  animation: bloodTearPhysics2 4.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite;
+  pointer-events: none;
+}
+
+/* Refined Deep Blood Badge */
+.blood-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(60, 2, 8, 0.92) 0%, rgba(20, 0, 3, 0.98) 100%);
+  border: 1.5px solid #8f0417;
+  color: #ff4d6d;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 120, 140, 0.2);
+  padding: 3px 12px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   ANIMATED RED TITLE ACCENT LINE (DRAWS ONCE ON PAGE LOAD / VIEW)
+   ========================================================================== */
+
+@keyframes drawRedLineLeft {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(220, 20, 60, 0);
+  }
+  20% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 23, 68, 0.9), 0 0 3px #ff1744;
+  }
+  60% {
+    box-shadow: 0 0 14px rgba(255, 23, 68, 0.8), 0 0 4px #ff1744;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(220, 20, 60, 0.45);
+  }
+}
+
+@keyframes drawRedLineCenter {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(220, 20, 60, 0);
+  }
+  20% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 23, 68, 0.9), 0 0 3px #ff1744;
+  }
+  60% {
+    box-shadow: 0 0 14px rgba(255, 23, 68, 0.8), 0 0 4px #ff1744;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(220, 20, 60, 0.45);
+  }
+}
+
+.title-red-line {
+  display: block;
+  width: 90px;
+  height: 2.5px;
+  background: linear-gradient(90deg, #dc143c 0%, #ff1744 60%, #ff4d6d 100%);
+  border-radius: 9999px;
+  margin-top: 10px;
+  margin-bottom: 14px;
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.title-red-line.animate-drawn {
+  animation: drawRedLineLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards;
+}
+
+.title-red-line-center {
+  width: 110px;
+  margin-left: auto;
+  margin-right: auto;
+  transform-origin: center;
+  background: linear-gradient(90deg, transparent 0%, #dc143c 20%, #ff1744 50%, #dc143c 80%, transparent 100%);
+}
+
+.title-red-line-center.animate-drawn {
+  animation: drawRedLineCenter 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards;
+}
+
+
+
+
