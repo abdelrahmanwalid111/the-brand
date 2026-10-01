@@ -374,6 +374,34 @@ export default function ProductCard({ product }) {
               </button>
             </div>
           </div>
+
+          {/* Mobile-Friendly Pre-Order Tap Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              openProductPage(product);
+            }}
+            className="mobile-only"
+            style={{
+              marginTop: '10px',
+              width: '100%',
+              padding: '8px 12px',
+              backgroundColor: '#ffd312',
+              color: '#010000',
+              fontSize: '0.72rem',
+              fontWeight: '900',
+              borderRadius: '6px',
+              border: 'none',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              cursor: 'pointer'
+            }}
+          >
+            <span>PRE-ORDER (COD)</span>
+          </button>
         </div>
       </div>
     </div>

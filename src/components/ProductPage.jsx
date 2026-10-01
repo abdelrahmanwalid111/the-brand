@@ -130,7 +130,7 @@ export default function ProductPage({ product: propProduct }) {
         </div>
 
         {/* 2-Column Product Layout */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 'clamp(24px, 4vw, 56px)', alignItems: 'start', marginBottom: '80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 'clamp(20px, 4vw, 56px)', alignItems: 'start', marginBottom: '80px' }}>
           {/* Left Column: High-Res Editorial Gallery */}
           <div>
             {/* Main Stage Image */}
@@ -156,11 +156,10 @@ export default function ProductPage({ product: propProduct }) {
                   transition: 'transform 0.4s ease'
                 }}
               />
-
             </div>
 
             {/* Thumbnail Strip */}
-            <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' }}>
+            <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '8px', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
               {product.images && product.images.map((img, idx) => (
                 <button
                   key={idx}
@@ -639,7 +638,7 @@ export default function ProductPage({ product: propProduct }) {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
+          <div className="grid-cols-product-3">
             {relatedProducts.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

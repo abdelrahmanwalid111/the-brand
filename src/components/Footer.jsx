@@ -68,7 +68,7 @@ export default function Footer({ onNavigateSection }) {
         </div>
 
         {/* Navigation & Social Links */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '48px', marginBottom: '64px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: 'clamp(24px, 4vw, 48px)', marginBottom: '48px' }}>
           {/* Client Services */}
           <div>
             <h5 style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', color: '#ffd312', textTransform: 'uppercase', marginBottom: '18px' }}>

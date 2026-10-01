@@ -106,13 +106,7 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
         </div>
 
         {/* 4 Category Grid Cards from Figma */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(200px, 22vw, 280px), 1fr))',
-            gap: 'clamp(12px, 2vw, 20px)'
-          }}
-        >
+        <div className="category-rails-grid">
           {categoriesToDisplay.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -121,7 +115,7 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
                 onClick={() => onSelectCategory(cat.id)}
                 style={{
                   position: 'relative',
-                  height: 'clamp(260px, 32vw, 360px)',
+                  height: 'clamp(210px, 28vw, 360px)',
                   borderRadius: '16px',
                   overflow: 'hidden',
                   cursor: 'pointer',

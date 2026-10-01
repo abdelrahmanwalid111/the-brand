@@ -53,6 +53,11 @@ export default function HeroSection({ onShopClick }) {
     let ticking = false;
 
     const renderParallax = () => {
+      if (window.innerWidth <= 768) {
+        if (contentRef.current) contentRef.current.style.opacity = 1;
+        ticking = false;
+        return;
+      }
       const y = window.scrollY;
       if (y <= 1200) {
         const scale = 1.02 + Math.min(y * 0.0005, 0.18);

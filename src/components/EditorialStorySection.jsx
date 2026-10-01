@@ -14,7 +14,7 @@ export default function EditorialStorySection({ onExploreStory }) {
           }}
         >
           {/* Left: Atmospheric Cinematic Model Portrait from Figma */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', marginBottom: 'clamp(28px, 5vw, 0px)' }}>
             <div
               style={{
                 borderRadius: '20px',

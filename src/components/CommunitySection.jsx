@@ -189,6 +189,7 @@ export default function CommunitySection() {
 
           {/* Right: Vertical Red Divider & Social Links */}
           <div
+            className="community-social-links"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -197,7 +198,7 @@ export default function CommunitySection() {
               borderLeft: '2px solid rgba(220, 20, 60, 0.5)',
               paddingLeft: 'clamp(16px, 2.5vw, 28px)',
               height: '100%',
-              minHeight: '60px'
+              minHeight: '48px'
             }}
           >
             {/* Instagram */}

@@ -233,14 +233,16 @@ export default function Navbar({ onNavigateSection }) {
                   if (megaMenuOpen) {
                     setMegaMenuOpen(false);
                   } else {
-                    setMobileMenuOpen(true);
+                    setMobileMenuOpen(!mobileMenuOpen);
                   }
                 }}
                 className="mobile-burger-btn mobile-only"
-                aria-label={megaMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 style={{
                   color: '#ffffff',
-                  padding: '6px',
+                  padding: '8px',
+                  minWidth: '40px',
+                  minHeight: '40px',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
@@ -248,7 +250,7 @@ export default function Navbar({ onNavigateSection }) {
                   justifyContent: 'center'
                 }}
               >
-                {megaMenuOpen ? <X size={22} style={{ color: '#ffd312' }} /> : <Menu size={22} />}
+                {mobileMenuOpen || megaMenuOpen ? <X size={22} style={{ color: '#ffd312' }} /> : <Menu size={22} />}
               </button>
 
               <div className="desktop-links desktop-only" style={{ alignItems: 'center', gap: isScrolled ? '14px' : '22px' }}>
@@ -597,8 +599,8 @@ export default function Navbar({ onNavigateSection }) {
                 }}
                 aria-label="View pre-order bag"
               >
-                <ShoppingBag size={15} />
-                <span>BAG</span>
+                <ShoppingBag size={16} />
+                <span className="desktop-only" style={{ display: 'inline' }}>BAG</span>
                 {cartItemCount > 0 && (
                   <span
                     style={{
@@ -1095,49 +1097,53 @@ export default function Navbar({ onNavigateSection }) {
             }}
           />
           <div
+            className="mobile-drawer-anim"
             style={{
               position: 'fixed',
               top: 0,
               left: 0,
               bottom: 0,
-              width: '85%',
+              width: '88%',
               maxWidth: '360px',
               backgroundColor: '#050508',
               borderRight: '2px solid #ffd312',
-              padding: '28px 24px',
+              padding: '24px 20px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
               zIndex: 110,
-              boxShadow: '10px 0 40px rgba(0,0,0,0.9)'
+              boxShadow: '10px 0 40px rgba(0,0,0,0.95)',
+              overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch'
             }}
           >
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <AnimatedLogo size="sm" showText={true} />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  style={{ color: '#ffffff', background: 'none', border: 'none', padding: '6px', cursor: 'pointer' }}
+                  style={{ color: '#ffd312', background: 'none', border: 'none', padding: '8px', cursor: 'pointer' }}
+                  aria-label="Close navigation"
                 >
-                  <X size={24} />
+                  <X size={26} />
                 </button>
               </div>
 
               {/* Navigation Links */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <button
                   onClick={() => handleLinkClick('collection-section')}
-                  style={{ textAlign: 'left', color: '#ffffff', fontSize: '1.1rem', fontWeight: '900', letterSpacing: '0.04em', background: 'none', border: 'none', cursor: 'pointer' }}
+                  style={{ textAlign: 'left', color: '#ffffff', fontSize: '1.05rem', fontWeight: '900', letterSpacing: '0.04em', background: 'none', border: 'none', cursor: 'pointer', padding: '6px 0' }}
                 >
-                  SHOP
+                  SHOP ALL GRAILS
                 </button>
 
-                <div style={{ paddingLeft: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ paddingLeft: '12px', display: 'flex', flexDirection: 'column', gap: '8px', borderLeft: '2px solid rgba(255,211,18,0.3)' }}>
                   {CATEGORIES.filter((c) => c.id !== 'all').map((cat) => (
                     <button
                       key={cat.id}
                       onClick={() => handleLinkClick(`category-${cat.id}`)}
-                      style={{ textAlign: 'left', color: '#ffd312', fontSize: '0.85rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer' }}
+                      style={{ textAlign: 'left', color: '#ffd312', fontSize: '0.85rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer', padding: '4px 0' }}
                     >
                       • {cat.name}
                     </button>
@@ -1145,43 +1151,50 @@ export default function Navbar({ onNavigateSection }) {
                 </div>
 
                 <button
-                  onClick={() => handleLinkClick('collection-section')}
-                  style={{ textAlign: 'left', color: '#ffffff', fontSize: '1.1rem', fontWeight: '900', letterSpacing: '0.04em', background: 'none', border: 'none', cursor: 'pointer' }}
+                  onClick={() => handleLinkClick('wardrobe-section')}
+                  style={{ textAlign: 'left', color: '#ffffff', fontSize: '1.05rem', fontWeight: '900', letterSpacing: '0.04em', background: 'none', border: 'none', cursor: 'pointer', padding: '6px 0' }}
                 >
-                  COLLECTION
+                  THE WARDROBE
                 </button>
 
-                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <div style={{ fontSize: '0.72rem', fontWeight: '900', color: '#ffd312', letterSpacing: '0.1em' }}>MORE</div>
+                <button
+                  onClick={() => handleLinkClick('lookbook-section')}
+                  style={{ textAlign: 'left', color: '#dc143c', fontSize: '1.05rem', fontWeight: '900', letterSpacing: '0.04em', background: 'none', border: 'none', cursor: 'pointer', padding: '6px 0' }}
+                >
+                  RUNWAY RADAR LOOKBOOK
+                </button>
+
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div style={{ fontSize: '0.68rem', fontWeight: '900', color: '#ffd312', letterSpacing: '0.12em' }}>EXPLORE &amp; ASSISTANCE</div>
                   <button
                     onClick={() => handleLinkClick('editorial-section')}
-                    style={{ textAlign: 'left', color: '#dcdce6', fontSize: '0.95rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer' }}
+                    style={{ textAlign: 'left', color: '#dcdce6', fontSize: '0.9rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer', padding: '4px 0' }}
                   >
-                    About
+                    About The Sygil Story
                   </button>
                   <button
                     onClick={() => handleLinkClick('faq-section')}
-                    style={{ textAlign: 'left', color: '#dcdce6', fontSize: '0.95rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer' }}
+                    style={{ textAlign: 'left', color: '#dcdce6', fontSize: '0.9rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer', padding: '4px 0' }}
                   >
-                    FAQ
+                    FAQ &amp; Cash On Delivery
                   </button>
                   <button
                     onClick={() => handleLinkClick('contact-section')}
-                    style={{ textAlign: 'left', color: '#dcdce6', fontSize: '0.95rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer' }}
+                    style={{ textAlign: 'left', color: '#dcdce6', fontSize: '0.9rem', fontWeight: '800', background: 'none', border: 'none', cursor: 'pointer', padding: '4px 0' }}
                   >
-                    Contact
+                    Client Concierge / Contact
                   </button>
                 </div>
               </div>
             </div>
 
             {/* Mobile Footer */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
-              <div style={{ fontSize: '0.74rem', color: '#8c8c9e', marginBottom: '8px' }}>
-                PAY CASH ON ARRIVAL • 100% COD
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px' }}>
+              <div style={{ fontSize: '0.72rem', color: '#ffd312', fontWeight: '900', marginBottom: '4px' }}>
+                PAY CASH ON DOORSTEP ARRIVAL
               </div>
-              <div style={{ fontSize: '0.78rem', color: '#ffd312', fontWeight: '900' }}>
-                SΨGIL ARCHIVE • VOLUME IX
+              <div style={{ fontSize: '0.68rem', color: '#8c8c9e' }}>
+                0 EGP Due Online • Inspect Sealed Box
               </div>
             </div>
           </div>
