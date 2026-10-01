@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useStore } from '../context/StoreContext';
-import { Search, Heart, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
+import { Search, Heart, ShoppingBag, Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { CATEGORIES } from '../data/storeData';
 import AnimatedLogo from './AnimatedLogo';
 
@@ -15,8 +15,31 @@ export default function Navbar({ onNavigateSection }) {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [shopMegaOpen, setShopMegaOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+  
+  // Radian-style Mega Menu States
+  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [activeMegaTab, setActiveMegaTab] = useState('shop'); // 'shop' | 'material' | 'collection'
+  const [inspirationIndex, setInspirationIndex] = useState(0);
+  const [navTopOffset, setNavTopOffset] = useState(56);
+  const headerRef = useRef(null);
+  const closeTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    const updateNavOffset = () => {
+      if (headerRef.current) {
+        const rect = headerRef.current.getBoundingClientRect();
+        setNavTopOffset(Math.round(rect.bottom));
+      }
+    };
+    updateNavOffset();
+    window.addEventListener('resize', updateNavOffset);
+    window.addEventListener('scroll', updateNavOffset, { passive: true });
+    return () => {
+      window.removeEventListener('resize', updateNavOffset);
+      window.removeEventListener('scroll', updateNavOffset);
+    };
+  }, [isScrolled]);
 
   useEffect(() => {
     let ticking = false;
@@ -35,9 +58,37 @@ export default function Navbar({ onNavigateSection }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleOpenMega = (tab) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    if (headerRef.current) {
+      const rect = headerRef.current.getBoundingClientRect();
+      setNavTopOffset(Math.round(rect.bottom));
+    }
+    setActiveMegaTab(tab);
+    setMegaMenuOpen(true);
+    setMoreDropdownOpen(false);
+  };
+
+  const handleScheduleClose = () => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => {
+      setMegaMenuOpen(false);
+    }, 450);
+  };
+
+  const handleCancelClose = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
+
   const handleLinkClick = (sectionId) => {
     setMobileMenuOpen(false);
-    setShopMegaOpen(false);
+    setMegaMenuOpen(false);
     setMoreDropdownOpen(false);
     if (onNavigateSection) {
       onNavigateSection(sectionId);
@@ -49,15 +100,94 @@ export default function Navbar({ onNavigateSection }) {
     }
   };
 
+  // Radian Lookbook Inspiration Cards
+  const INSPIRATION_PIECES = [
+    {
+      title: 'DARK RITUAL 650GSM',
+      category: 'HOODIES',
+      image: '/assets/sygil_hoodie_darkritual.jpg',
+      tag: 'BATCH 01 RUNWAY',
+      target: 'category-hoodies'
+    },
+    {
+      title: 'LAMBSKIN MOTO TOP',
+      category: 'JACKETS',
+      image: '/assets/sygil_jacket_moto.jpg',
+      tag: 'MATTE ITALIAN LEATHER',
+      target: 'category-jackets'
+    },
+    {
+      title: 'SACRED GEOMETRY TEE',
+      category: 'T-SHIRTS',
+      image: '/assets/sygil_tshirt_sigil.jpg',
+      tag: 'SILVER STAR MANDALA',
+      target: 'category-t-shirts'
+    },
+    {
+      title: 'TACTICAL WIDE-LEG',
+      category: 'PANTS',
+      image: '/assets/sygil_pants_cargo.jpg',
+      tag: 'ACID WASHED DENIM',
+      target: 'category-pants'
+    }
+  ];
+
+  // Radian Multi-Column Shop Categories
+  const SHOP_COLUMNS = [
+    {
+      title: 'HOODIES & FLEECE',
+      catId: 'hoodies',
+      items: [
+        { name: 'Dark Ritual 650GSM Hoodie', isNew: true },
+        { name: 'Sumerian Sleeve Rune Hoodie' },
+        { name: 'Occult Double-Ply Heavy Fleece' },
+        { name: 'Acid-Wash Box Cut Pullover' }
+      ]
+    },
+    {
+      title: 'T-SHIRTS & TOPS',
+      catId: 't-shirts',
+      items: [
+        { name: 'Sacred Geometry Box-Cut Tee', isNew: true },
+        { name: 'Occult Sumerian Mandala Tee' },
+        { name: 'Raw Cut Drop-Shoulder Top' },
+        { name: 'Mandarin Stand-Collar Layer' }
+      ]
+    },
+    {
+      title: 'JACKETS & LEATHER',
+      catId: 'jackets',
+      items: [
+        { name: 'Lambskin Moto Top Jacket', isNew: true },
+        { name: 'Cuneiform Denim Outerwear' },
+        { name: 'Atelier Bonded Trench Coat' },
+        { name: 'Cropped Industrial Moto' }
+      ]
+    },
+    {
+      title: 'PANTS & CARGOS',
+      catId: 'pants',
+      items: [
+        { name: 'Distressed Wide-Leg Cargo Pants', isNew: true },
+        { name: 'Occult Tactical Buckled Trousers' },
+        { name: 'Runic Heavy Fleece Sweatpants' },
+        { name: 'Raw Edged Sumerian Track Pants' }
+      ]
+    }
+  ];
+
   return (
     <>
       <header
+        ref={headerRef}
+        onMouseEnter={handleCancelClose}
+        onMouseLeave={handleScheduleClose}
         style={{
           position: 'sticky',
           top: 0,
           left: 0,
           width: '100%',
-          zIndex: 40,
+          zIndex: 50,
           display: 'flex',
           justifyContent: 'center',
           pointerEvents: 'none',
@@ -67,12 +197,14 @@ export default function Navbar({ onNavigateSection }) {
       >
         <div
           className={`nav-shell ${isScrolled ? 'scrolled' : ''}`}
+          onMouseEnter={handleCancelClose}
           style={{
             margin: '0 auto',
             pointerEvents: 'auto'
           }}
         >
           <nav
+            onMouseEnter={handleCancelClose}
             className={isScrolled ? 'glass-pill' : ''}
             style={{
               display: 'flex',
@@ -97,9 +229,15 @@ export default function Navbar({ onNavigateSection }) {
             {/* Left Nav Links */}
             <div style={{ display: 'flex', alignItems: 'center', gap: isScrolled ? '10px' : '16px' }}>
               <button
-                onClick={() => setMobileMenuOpen(true)}
+                onClick={() => {
+                  if (megaMenuOpen) {
+                    setMegaMenuOpen(false);
+                  } else {
+                    setMobileMenuOpen(true);
+                  }
+                }}
                 className="mobile-burger-btn mobile-only"
-                aria-label="Open menu"
+                aria-label={megaMenuOpen ? 'Close menu' : 'Open menu'}
                 style={{
                   color: '#ffffff',
                   padding: '6px',
@@ -110,15 +248,15 @@ export default function Navbar({ onNavigateSection }) {
                   justifyContent: 'center'
                 }}
               >
-                <Menu size={22} />
+                {megaMenuOpen ? <X size={22} style={{ color: '#ffd312' }} /> : <Menu size={22} />}
               </button>
 
-              <div className="desktop-links desktop-only" style={{ alignItems: 'center', gap: isScrolled ? '14px' : '18px' }}>
-                {/* Pre-Order Drops Mega Menu */}
+              <div className="desktop-links desktop-only" style={{ alignItems: 'center', gap: isScrolled ? '14px' : '22px' }}>
+                {/* SHOP Link (Radian Dropdown Trigger) */}
                 <div
+                  onMouseEnter={() => handleOpenMega('shop')}
+                  onMouseLeave={handleScheduleClose}
                   style={{ position: 'relative' }}
-                  onMouseEnter={() => setShopMegaOpen(true)}
-                  onMouseLeave={() => setShopMegaOpen(false)}
                 >
                   <button
                     onClick={() => handleLinkClick('collection-section')}
@@ -126,123 +264,82 @@ export default function Navbar({ onNavigateSection }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
-                      color: '#ffffff',
+                      color: megaMenuOpen && activeMegaTab === 'shop' ? '#ffd312' : '#ffffff',
                       fontSize: isScrolled ? '0.75rem' : '0.8rem',
                       fontWeight: '800',
                       letterSpacing: '0.06em',
                       textTransform: 'uppercase',
                       padding: '4px 0',
-                      transition: 'color 0.2s',
+                      borderBottom: megaMenuOpen && activeMegaTab === 'shop' ? '2px solid #ffd312' : '2px solid transparent',
+                      transition: 'color 0.2s, border-bottom 0.2s',
                       background: 'none',
-                      border: 'none',
+                      borderTop: 'none',
+                      borderLeft: 'none',
+                      borderRight: 'none',
                       cursor: 'pointer'
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
+                    onMouseLeave={(e) => {
+                      if (!megaMenuOpen || activeMegaTab !== 'shop') e.currentTarget.style.color = '#ffffff';
+                    }}
                   >
                     <span>SHOP</span>
-                    <ChevronDown size={14} style={{ transform: shopMegaOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-                  </button>
-
-                  {/* Mega Menu Dropdown */}
-                  {shopMegaOpen && (
-                    <div
+                    <ChevronDown
+                      size={14}
                       style={{
-                        position: 'absolute',
-                        top: '100%',
-                        left: '-20px',
-                        paddingTop: '16px',
-                        width: '450px',
-                        zIndex: 60
+                        transform: megaMenuOpen && activeMegaTab === 'shop' ? 'rotate(180deg)' : 'none',
+                        transition: 'transform 0.25s ease'
                       }}
-                    >
-                      <div
-                        className="glass-modal"
-                        style={{
-                          padding: '22px',
-                          borderRadius: '16px',
-                          border: '2px solid #ffd312',
-                          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 25px rgba(255,211,18,0.2)'
-                        }}
-                      >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '8px' }}>
-                          <span style={{ fontSize: '0.74rem', fontWeight: '900', letterSpacing: '0.1em', color: '#ffd312' }}>BATCH 01 ALLOCATION</span>
-                          <span className="sticker-crimson" style={{ fontSize: '0.62rem' }}>CASH ON DELIVERY ONLY</span>
-                        </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                          {CATEGORIES.map((cat) => (
-                            <button
-                              key={cat.id}
-                              onClick={() => handleLinkClick(`category-${cat.id}`)}
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '10px',
-                                padding: '8px 10px',
-                                borderRadius: '8px',
-                                background: 'rgba(255, 255, 255, 0.04)',
-                                border: '1px solid rgba(255,255,255,0.08)',
-                                textAlign: 'left',
-                                transition: 'all 0.2s',
-                                cursor: 'pointer'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.background = 'rgba(255, 211, 18, 0.15)';
-                                e.currentTarget.style.borderColor = '#ffd312';
-                                e.currentTarget.style.transform = 'translateX(4px)';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-                                e.currentTarget.style.transform = 'translateX(0)';
-                              }}
-                            >
-                              {cat.image && (
-                                <img
-                                  src={cat.image}
-                                  alt=""
-                                  style={{ width: '36px', height: '44px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ffd312' }}
-                                />
-                              )}
-                              <div>
-                                <div style={{ fontSize: '0.76rem', fontWeight: '900', color: '#ffffff' }}>
-                                  {cat.name}
-                                </div>
-                                <div style={{ fontSize: '0.66rem', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
-                                  {cat.count} Grails
-                                </div>
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                    />
+                  </button>
                 </div>
 
-                <button
-                  onClick={() => handleLinkClick('collection-section')}
-                  style={{
-                    color: '#ffffff',
-                    fontSize: isScrolled ? '0.75rem' : '0.8rem',
-                    fontWeight: '800',
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    transition: 'color 0.2s',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
+                {/* COLLECTION Link (Radian Dropdown Trigger) */}
+                <div
+                  onMouseEnter={() => handleOpenMega('collection')}
+                  onMouseLeave={handleScheduleClose}
+                  style={{ position: 'relative' }}
                 >
-                  COLLECTION
-                </button>
+                  <button
+                    onClick={() => handleLinkClick('collection-section')}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      color: megaMenuOpen && activeMegaTab === 'collection' ? '#ffd312' : '#ffffff',
+                      fontSize: isScrolled ? '0.75rem' : '0.8rem',
+                      fontWeight: '800',
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      padding: '4px 0',
+                      borderBottom: megaMenuOpen && activeMegaTab === 'collection' ? '2px solid #ffd312' : '2px solid transparent',
+                      transition: 'color 0.2s, border-bottom 0.2s',
+                      background: 'none',
+                      borderTop: 'none',
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
+                    onMouseLeave={(e) => {
+                      if (!megaMenuOpen || activeMegaTab !== 'collection') e.currentTarget.style.color = '#ffffff';
+                    }}
+                  >
+                    <span>COLLECTION</span>
+                    <ChevronDown
+                      size={14}
+                      style={{
+                        transform: megaMenuOpen && activeMegaTab === 'collection' ? 'rotate(180deg)' : 'none',
+                        transition: 'transform 0.25s ease'
+                      }}
+                    />
+                  </button>
+                </div>
 
                 {/* More Dropdown Menu (About, FAQ, Contact) */}
                 <div
                   style={{ position: 'relative' }}
-                  onMouseEnter={() => setMoreDropdownOpen(true)}
+                  onMouseEnter={() => { setMoreDropdownOpen(true); setMegaMenuOpen(false); }}
                   onMouseLeave={() => setMoreDropdownOpen(false)}
                 >
                   <button
@@ -251,7 +348,7 @@ export default function Navbar({ onNavigateSection }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
-                      color: '#ffffff',
+                      color: moreDropdownOpen ? '#ffd312' : '#ffffff',
                       fontSize: isScrolled ? '0.75rem' : '0.8rem',
                       fontWeight: '800',
                       letterSpacing: '0.06em',
@@ -263,7 +360,9 @@ export default function Navbar({ onNavigateSection }) {
                       cursor: 'pointer'
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
+                    onMouseLeave={(e) => {
+                      if (!moreDropdownOpen) e.currentTarget.style.color = '#ffffff';
+                    }}
                   >
                     <span>MORE</span>
                     <ChevronDown size={14} style={{ transform: moreDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
@@ -520,6 +619,467 @@ export default function Navbar({ onNavigateSection }) {
           </nav>
         </div>
       </header>
+
+      {/* =========================================================================
+          RADIAN-STYLE EXPANSIVE MEGA MENU OVERLAY (SLIDE-DOWN CURTAIN ANIMATION)
+          ========================================================================= */}
+      {megaMenuOpen && (
+        <div
+          onMouseEnter={handleCancelClose}
+          onMouseLeave={handleScheduleClose}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 48,
+            pointerEvents: 'auto'
+          }}
+        >
+          {/* Dimmed Frosted Backdrop */}
+          <div
+            className="radian-backdrop-fade"
+            onClick={() => setMegaMenuOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.72)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              zIndex: 1
+            }}
+          />
+
+          {/* Sliding Panel with Radian animation */}
+          <div
+            className="radian-mega-overlay"
+            onMouseEnter={handleCancelClose}
+            onMouseLeave={handleScheduleClose}
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              marginTop: `${navTopOffset}px`,
+              backgroundColor: 'rgba(3, 3, 5, 0.98)',
+              borderBottom: '2px solid #ffd312',
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.98), 0 0 35px rgba(255, 211, 18, 0.25)',
+              maxHeight: `calc(100vh - ${navTopOffset}px)`,
+              overflowY: 'auto'
+            }}
+          >
+            <div
+              style={{
+                maxWidth: '1440px',
+                margin: '0 auto',
+                padding: '36px clamp(20px, 3.8vw, 64px)',
+                display: 'grid',
+                gridTemplateColumns: 'minmax(280px, 32%) 1fr',
+                gap: 'clamp(28px, 4vw, 56px)'
+              }}
+            >
+              {/* Left Column: High-Impact Typography & Inspiration Carousel */}
+              <div
+                style={{
+                  borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+                  paddingRight: 'clamp(20px, 3vw, 44px)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <div>
+                  {/* Primary Navigation Headings */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
+                    <button
+                      onClick={() => handleLinkClick('collection-section')}
+                      onMouseEnter={() => setActiveMegaTab('shop')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        background: 'none',
+                        border: 'none',
+                        textAlign: 'left',
+                        cursor: 'pointer',
+                        padding: '4px 0'
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 'clamp(1.5rem, 2.2vw, 2rem)',
+                          fontWeight: '900',
+                          letterSpacing: '0.02em',
+                          textTransform: 'uppercase',
+                          fontFamily: 'var(--font-heading)',
+                          color: activeMegaTab === 'shop' ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                          borderBottom: activeMegaTab === 'shop' ? '2.5px solid #ffd312' : 'none',
+                          paddingBottom: '2px',
+                          transition: 'all 0.2s'
+                        }}
+                      >
+                        SHOP
+                      </span>
+                      <span style={{ color: activeMegaTab === 'shop' ? '#ffd312' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
+                        ›
+                      </span>
+                    </button>
+
+                    <button
+                      onClick={() => handleLinkClick('collection-section')}
+                      onMouseEnter={() => setActiveMegaTab('material')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        background: 'none',
+                        border: 'none',
+                        textAlign: 'left',
+                        cursor: 'pointer',
+                        padding: '4px 0'
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 'clamp(1.5rem, 2.2vw, 2rem)',
+                          fontWeight: '900',
+                          letterSpacing: '0.02em',
+                          textTransform: 'uppercase',
+                          fontFamily: 'var(--font-heading)',
+                          color: activeMegaTab === 'material' ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                          borderBottom: activeMegaTab === 'material' ? '2.5px solid #ffd312' : 'none',
+                          paddingBottom: '2px',
+                          transition: 'all 0.2s'
+                        }}
+                      >
+                        MATERIAL
+                      </span>
+                      <span style={{ color: activeMegaTab === 'material' ? '#ffd312' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
+                        ›
+                      </span>
+                    </button>
+
+                    <button
+                      onClick={() => handleLinkClick('collection-section')}
+                      onMouseEnter={() => setActiveMegaTab('collection')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        background: 'none',
+                        border: 'none',
+                        textAlign: 'left',
+                        cursor: 'pointer',
+                        padding: '4px 0'
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 'clamp(1.5rem, 2.2vw, 2rem)',
+                          fontWeight: '900',
+                          letterSpacing: '0.02em',
+                          textTransform: 'uppercase',
+                          fontFamily: 'var(--font-heading)',
+                          color: activeMegaTab === 'collection' ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                          borderBottom: activeMegaTab === 'collection' ? '2.5px solid #ffd312' : 'none',
+                          paddingBottom: '2px',
+                          transition: 'all 0.2s'
+                        }}
+                      >
+                        ALL COLLECTIONS
+                      </span>
+                      <span style={{ color: activeMegaTab === 'collection' ? '#ffd312' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
+                        ›
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* Find Your Inspiration Carousel matching Radian */}
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                      <span style={{ fontSize: '0.72rem', fontWeight: '900', letterSpacing: '0.12em', color: '#8c8c9e', textTransform: 'uppercase' }}>
+                        FIND YOUR INSPIRATION
+                      </span>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <button
+                          onClick={() => setInspirationIndex((prev) => (prev > 0 ? prev - 1 : INSPIRATION_PIECES.length - 2))}
+                          style={{
+                            width: '26px',
+                            height: '26px',
+                            borderRadius: '50%',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            color: '#ffffff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#ffd312'; e.currentTarget.style.color = '#ffd312'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = '#ffffff'; }}
+                        >
+                          ‹
+                        </button>
+                        <button
+                          onClick={() => setInspirationIndex((prev) => (prev + 1) % (INSPIRATION_PIECES.length - 1))}
+                          style={{
+                            width: '26px',
+                            height: '26px',
+                            borderRadius: '50%',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            color: '#ffffff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#ffd312'; e.currentTarget.style.color = '#ffd312'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = '#ffffff'; }}
+                        >
+                          ›
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Lookbook cards row */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                      {INSPIRATION_PIECES.slice(inspirationIndex, inspirationIndex + 2).map((item, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => handleLinkClick(item.target)}
+                          style={{
+                            borderRadius: '14px',
+                            overflow: 'hidden',
+                            backgroundColor: '#08080a',
+                            border: '1px solid rgba(255,255,255,0.14)',
+                            cursor: 'pointer',
+                            position: 'relative',
+                            aspectRatio: '3/4',
+                            transition: 'all 0.3s ease'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = '#ffd312';
+                            e.currentTarget.style.boxShadow = '0 8px 25px rgba(255,211,18,0.25)';
+                            const img = e.currentTarget.querySelector('img');
+                            if (img) img.style.transform = 'scale(1.08)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)';
+                            e.currentTarget.style.boxShadow = 'none';
+                            const img = e.currentTarget.querySelector('img');
+                            if (img) img.style.transform = 'scale(1)';
+                          }}
+                        >
+                          <img
+                            src={item.image}
+                            alt=""
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
+                          />
+                          <div
+                            style={{
+                              position: 'absolute',
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              padding: '10px 12px',
+                              background: 'linear-gradient(to top, rgba(0,0,0,0.95), transparent)'
+                            }}
+                          >
+                            <div style={{ fontSize: '0.62rem', color: '#ffd312', fontWeight: '900', letterSpacing: '0.08em' }}>{item.tag}</div>
+                            <div style={{ fontSize: '0.74rem', color: '#ffffff', fontWeight: '900' }}>{item.title}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Left Bottom Auxiliary Information */}
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px', marginTop: '24px', display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#8c8c9e' }}>
+                  <div>
+                    <div style={{ fontWeight: '800', color: '#ffffff', marginBottom: '2px' }}>Customer Care</div>
+                    <div onClick={() => handleLinkClick('faq-section')} style={{ cursor: 'pointer', color: '#ffd312' }}>100% Cash On Delivery</div>
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: '800', color: '#ffffff', marginBottom: '2px' }}>Atelier</div>
+                    <div onClick={() => handleLinkClick('editorial-section')} style={{ cursor: 'pointer', color: '#dcdce6' }}>Florence × Cairo</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Section: Multi-Column Detailed Breakdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                {activeMegaTab === 'shop' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'clamp(16px, 2.5vw, 32px)' }}>
+                    {SHOP_COLUMNS.map((col, idx) => (
+                      <div key={idx} className="radian-stagger-item" style={{ animationDelay: `${idx * 0.05}s` }}>
+                        <div
+                          onClick={() => handleLinkClick(`category-${col.catId}`)}
+                          style={{
+                            fontSize: '0.74rem',
+                            fontWeight: '900',
+                            letterSpacing: '0.12em',
+                            color: '#ffd312',
+                            textTransform: 'uppercase',
+                            marginBottom: '16px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                          }}
+                        >
+                          <span>{col.title}</span>
+                          <span style={{ fontSize: '0.7rem' }}>→</span>
+                        </div>
+
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '11px' }}>
+                          {col.items.map((item, itemIdx) => (
+                            <li key={itemIdx}>
+                              <button
+                                onClick={() => handleLinkClick(`category-${col.catId}`)}
+                                style={{
+                                  background: 'none',
+                                  border: 'none',
+                                  color: '#dcdce6',
+                                  fontSize: '0.78rem',
+                                  fontWeight: '600',
+                                  lineHeight: 1.35,
+                                  cursor: 'pointer',
+                                  textAlign: 'left',
+                                  padding: 0,
+                                  transition: 'all 0.18s ease',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '6px'
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.color = '#ffffff';
+                                  e.currentTarget.style.transform = 'translateX(4px)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.color = '#dcdce6';
+                                  e.currentTarget.style.transform = 'translateX(0)';
+                                }}
+                              >
+                                <span>{item.name}</span>
+                                {item.isNew && (
+                                  <span style={{ fontSize: '0.58rem', fontWeight: '900', backgroundColor: '#dc143c', color: '#ffffff', padding: '1px 5px', borderRadius: '3px' }}>
+                                    HOT
+                                  </span>
+                                )}
+                                {item.isBundle && (
+                                  <span style={{ fontSize: '0.58rem', fontWeight: '900', backgroundColor: '#ffd312', color: '#010000', padding: '1px 5px', borderRadius: '3px' }}>
+                                    -20%
+                                  </span>
+                                )}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeMegaTab === 'material' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+                    {[
+                      { title: '650GSM ITALIAN FLEECE', subtitle: 'Biella combed loopback cotton, heavy enzyme acid-wash with zero pilling guarantee.', tag: 'HEAVYWEIGHT' },
+                      { title: 'MATTE FLORENTINE LAMBSKIN', subtitle: 'Hand-graded full-grain leather, supple hand-feel with asymmetric Excella hardware.', tag: '100% LEATHER' },
+                      { title: 'SUMERIAN RAW SELVEDGE DENIM', subtitle: 'Rigid architectural structure with cuneiform laser embroidery on seams.', tag: 'DENIM CRAFT' },
+                      { title: 'VIRGIN CASHMERE RIBBING', subtitle: '3-inch high-tension cuffs and contoured collar that never stretches out.', tag: 'KNITWEAR' }
+                    ].map((mat, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => handleLinkClick('collection-section')}
+                        style={{
+                          padding: '18px',
+                          borderRadius: '12px',
+                          backgroundColor: 'rgba(255,255,255,0.03)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#ffd312'; e.currentTarget.style.backgroundColor = 'rgba(255,211,18,0.05)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'; }}
+                      >
+                        <span style={{ fontSize: '0.62rem', fontWeight: '900', color: '#ffd312', letterSpacing: '0.08em' }}>{mat.tag}</span>
+                        <div style={{ fontSize: '0.88rem', fontWeight: '900', color: '#ffffff', margin: '4px 0 6px' }}>{mat.title}</div>
+                        <p style={{ fontSize: '0.74rem', color: '#8c8c9e', lineHeight: 1.5, margin: 0 }}>{mat.subtitle}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeMegaTab === 'collection' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+                    {[
+                      { title: 'VOLUME IX (AUTUMN WINTER 2026)', count: '8 Signature Grails', desc: 'The flagship runway edition. Sumerian occult geometries meet cyberpunk brutalism.', tag: 'NOW LIVE' },
+                      { title: 'THE RITUAL WARDROBE', count: '66 Pieces Allocated', desc: 'Strict allocation run. Hand-numbered certificate with doorstep courier handover.', tag: 'LIMITED EDITION' },
+                      { title: 'CYBERPUNK RUNWAY DROP', count: 'Strict 50 Allocations', desc: 'Limited edition industrial silhouettes crafted with matte hardware and raw selvedge textures.', tag: 'RUNWAY' },
+                      { title: 'ATELIER PERMANENT ARCHIVE', count: 'Core Occult Essentials', desc: 'Signature heavyweight blank tees, rib knitwear, and modular combat cargo trousers.', tag: 'FOUNDATION' }
+                    ].map((col, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => handleLinkClick('collection-section')}
+                        style={{
+                          padding: '18px',
+                          borderRadius: '12px',
+                          backgroundColor: 'rgba(255,255,255,0.03)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#ffd312'; e.currentTarget.style.backgroundColor = 'rgba(255,211,18,0.05)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'; }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                          <span style={{ fontSize: '0.62rem', fontWeight: '900', color: '#dc143c', letterSpacing: '0.08em' }}>{col.tag}</span>
+                          <span style={{ fontSize: '0.68rem', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>{col.count}</span>
+                        </div>
+                        <div style={{ fontSize: '0.9rem', fontWeight: '900', color: '#ffffff', marginBottom: '6px' }}>{col.title}</div>
+                        <p style={{ fontSize: '0.74rem', color: '#8c8c9e', lineHeight: 1.5, margin: 0 }}>{col.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Right Bottom Privilege Banner */}
+                <div
+                  style={{
+                    marginTop: '28px',
+                    padding: '12px 18px',
+                    borderRadius: '8px',
+                    backgroundColor: 'rgba(255, 211, 18, 0.05)',
+                    border: '1px solid rgba(255, 211, 18, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <div style={{ fontSize: '0.74rem', color: '#dcdce6' }}>
+                    <strong style={{ color: '#ffd312' }}>Zero Upfront Payment:</strong> 100% Cash On Delivery. Inspect your sealed package with the courier on doorstep handover.
+                  </div>
+                  <button
+                    onClick={() => handleLinkClick('collection-section')}
+                    style={{
+                      fontSize: '0.72rem',
+                      fontWeight: '900',
+                      letterSpacing: '0.06em',
+                      color: '#010000',
+                      backgroundColor: '#ffd312',
+                      padding: '6px 14px',
+                      borderRadius: '9999px',
+                      cursor: 'pointer',
+                      border: 'none',
+                      flexShrink: 0
+                    }}
+                  >
+                    EXPLORE ALL
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (

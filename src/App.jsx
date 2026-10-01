@@ -5,10 +5,9 @@ import HeroSection from './components/HeroSection';
 import MarqueeTicker from './components/MarqueeTicker';
 import CategoryRails from './components/CategoryRails';
 import ProductGrid from './components/ProductGrid';
-import FeaturedSpotlight from './components/FeaturedSpotlight';
 import ShopTheLookHotspots from './components/ShopTheLookHotspots';
-import CapsuleBundleBuilder from './components/CapsuleBundleBuilder';
 import EditorialStorySection from './components/EditorialStorySection';
+import CommunitySection from './components/CommunitySection';
 import PressWallAndReviews from './components/PressWallAndReviews';
 import BrandValuesMatrix from './components/BrandValuesMatrix';
 import Footer from './components/Footer';
@@ -104,25 +103,22 @@ function StoreMain() {
             }}
           />
 
-          {/* 6. Filterable & Sortable Signature Product Catalog */}
+          {/* 5. Signature Product Catalog ("More From The Ritual") */}
           <ProductGrid
             activeCategory={activeCategory}
             setActiveCategory={setActiveCategory}
           />
 
-          {/* 7. Hero Product Spotlight Showcase */}
-          <FeaturedSpotlight />
-
-          {/* 8. Interactive "Shop The Look" Radar Hotspots */}
+          {/* 6. Interactive Radar Hotspots */}
           <ShopTheLookHotspots />
 
-          {/* 9. Curate Your 3-Piece Capsule Builder (-20%) */}
-          <CapsuleBundleBuilder />
-
-          {/* 10. Florentine Atelier Editorial Story */}
+          {/* 7. The Sygil Story ("MORE THAN JUST CLOTHES") */}
           <EditorialStorySection
             onExploreStory={() => scrollToSection('collection-section')}
           />
+
+          {/* 10. Stay In The Loop (Figma Community Newsletter Strip) */}
+          <CommunitySection />
 
           {/* 11. Press Quotes & Editorial Accolades */}
           <PressWallAndReviews />

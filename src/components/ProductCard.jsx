@@ -337,7 +337,7 @@ export default function ProductCard({ product }) {
           {/* Price & Pre-order info */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '4px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-              <span style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.05rem)', fontWeight: '900', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: 'clamp(0.98rem, 1.8vw, 1.1rem)', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(product.price)}
               </span>
               {product.compareAtPrice && product.compareAtPrice > product.price && (
@@ -347,9 +347,32 @@ export default function ProductCard({ product }) {
               )}
             </div>
 
-            <span style={{ fontSize: '0.62rem', color: '#ffd312', fontWeight: '900', letterSpacing: '0.04em' }}>
-              100% COD
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '0.62rem', color: '#dc143c', fontWeight: '900', letterSpacing: '0.04em' }}>
+                0 EGP TODAY
+              </span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWishlist(product.id);
+                }}
+                aria-label="Wishlist toggle"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: isSaved ? '#dc143c' : 'rgba(255,255,255,0.5)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '2px',
+                  transition: 'color 0.2s, transform 0.2s'
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.2)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+              >
+                <Heart size={16} fill={isSaved ? '#dc143c' : 'none'} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

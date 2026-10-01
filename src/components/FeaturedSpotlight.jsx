@@ -125,49 +125,61 @@ export default function FeaturedSpotlight() {
 
           {/* Right: Buy Box & Product Narrative */}
           <div>
-            {/* Allocation & Stock Notice */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <div style={{ color: '#ffd312', fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                {product.categoryLabel || 'HERO COLLECTION'}
+            {/* Allocation & Stock Notice from Figma */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
+              <div style={{ color: '#dc143c', fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                DARK RITUAL COLLECTION
               </div>
-
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', color: '#dc143c', fontWeight: '900' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#dc143c', boxShadow: '0 0 10px #dc143c' }}></span>
+                <span>12 units remaining in Batch 01</span>
+              </div>
             </div>
 
-            {/* Title */}
+            {/* Title with Figma split: DARK (white) RITUAL (yellow) HOODIE (white) */}
             <h2
               onClick={() => openProductPage(product)}
               style={{
-                fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)',
-                lineHeight: 1.1,
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                lineHeight: 1.05,
                 fontWeight: '900',
                 color: '#ffffff',
                 marginBottom: '10px',
                 cursor: 'pointer',
-                transition: 'color 0.2s'
+                transition: 'color 0.2s',
+                textTransform: 'uppercase'
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
             >
-              {product.title}
+              <span>DARK </span>
+              <span style={{ color: '#ffd312' }}>RITUAL </span>
+              <span>HOODIE</span>
             </h2>
             <div className="title-red-line" />
 
             {/* Subtitle */}
-            <p style={{ fontSize: '0.9rem', color: '#dcdce6', marginBottom: '18px', lineHeight: 1.5 }}>
-              {product.subtitle}
+            <p style={{ fontSize: '0.92rem', color: '#dcdce6', marginBottom: '18px', lineHeight: 1.6 }}>
+              {product.description || product.subtitle}
             </p>
 
             {/* Price Row */}
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-              <span style={{ fontSize: '1.9rem', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '2.2rem', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(product.price)}
               </span>
-              {product.compareAtPrice && (
-                <span style={{ fontSize: '1.15rem', color: '#8c8c9e', textDecoration: 'line-through' }}>
-                  {formatPrice(product.compareAtPrice)}
-                </span>
-              )}
-              <span className="sticker-dark" style={{ border: '1px solid #ffd312', color: '#ffd312' }}>
+              <span
+                style={{
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
+                  fontSize: '0.72rem',
+                  fontWeight: '900',
+                  padding: '3px 10px',
+                  borderRadius: '4px',
+                  letterSpacing: '0.08em'
+                }}
+              >
+                LIMITED
+              </span>
+              <span style={{ fontSize: '0.76rem', color: '#8c8c9e', fontWeight: '800' }}>
                 0 EGP DUE TODAY • CASH ON DELIVERY
               </span>
             </div>
@@ -287,18 +299,70 @@ export default function FeaturedSpotlight() {
                 </button>
               </div>
 
-              {/* Add to Bag Button */}
+              {/* Solid Crimson CTA from Figma */}
               <button
                 onClick={handleAddToCart}
                 disabled={isAdding}
-                className="btn-primary"
-                style={{ flex: '1 1 200px', padding: '14px 18px', fontSize: 'clamp(0.78rem, 1.8vw, 0.9rem)' }}
+                style={{
+                  flex: '1 1 200px',
+                  padding: '14px 22px',
+                  fontSize: 'clamp(0.78rem, 1.8vw, 0.88rem)',
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
+                  fontWeight: '900',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  boxShadow: '0 0 20px rgba(220, 20, 60, 0.45)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ff2a55';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#dc143c';
+                  e.currentTarget.style.transform = 'none';
+                }}
               >
                 {isAdding ? (
                   <span>RESERVING PRE-ORDER...</span>
                 ) : (
-                  <span>RESERVE PRE-ORDER • COD</span>
+                  <span>PRE-ORDER NOW — {formatPrice(product.price * quantity)}</span>
                 )}
+              </button>
+
+              {/* View Lookbook CTA from Figma */}
+              <button
+                onClick={() => {
+                  const el = document.getElementById('lookbook-section') || document.getElementById('wardrobe-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                style={{
+                  padding: '14px 20px',
+                  fontSize: '0.78rem',
+                  backgroundColor: 'transparent',
+                  color: '#ffd312',
+                  fontWeight: '900',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  border: '1.5px solid #ffd312',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ffd312';
+                  e.currentTarget.style.color = '#010000';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = '#ffd312';
+                }}
+              >
+                <span>VIEW LOOKBOOK</span>
               </button>
             </div>
 

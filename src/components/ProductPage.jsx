@@ -170,8 +170,8 @@ export default function ProductPage({ product: propProduct }) {
                     height: '110px',
                     borderRadius: '10px',
                     overflow: 'hidden',
-                    border: `2px solid ${activeImageIndex === idx ? '#ffd312' : 'rgba(255,255,255,0.15)'}`,
-                    boxShadow: activeImageIndex === idx ? '0 0 15px rgba(255,211,18,0.5)' : 'none',
+                    border: `2px solid ${activeImageIndex === idx ? '#dc143c' : 'rgba(255,255,255,0.15)'}`,
+                    boxShadow: activeImageIndex === idx ? '0 0 16px rgba(220,20,60,0.6)' : 'none',
                     cursor: 'pointer',
                     opacity: activeImageIndex === idx ? 1 : 0.6,
                     transition: 'all 0.2s',
@@ -190,8 +190,8 @@ export default function ProductPage({ product: propProduct }) {
           <div>
             {/* Top Label & Batch Notice */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ fontSize: '0.76rem', fontWeight: '900', letterSpacing: '0.12em', color: '#ffd312', textTransform: 'uppercase' }}>
-                {product.categoryLabel || product.category}
+              <span style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.14em', color: '#dc143c', textTransform: 'uppercase' }}>
+                DARK RITUAL COLLECTION
               </span>
               <span style={{ fontSize: '0.74rem', color: '#8c8c9e', fontWeight: '800' }}>
                 BATCH ALLOCATION: 50–150 PIECES
@@ -229,7 +229,7 @@ export default function ProductPage({ product: propProduct }) {
                 borderBottom: '1px solid rgba(255,255,255,0.12)'
               }}
             >
-              <span style={{ fontSize: 'clamp(1.8rem, 3.8vw, 2.2rem)', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: 'clamp(1.8rem, 3.8vw, 2.4rem)', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(product.price)}
               </span>
               {product.compareAtPrice && (
@@ -237,6 +237,19 @@ export default function ProductPage({ product: propProduct }) {
                   {formatPrice(product.compareAtPrice)}
                 </span>
               )}
+              <span
+                style={{
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
+                  padding: '3px 12px',
+                  borderRadius: '9999px',
+                  fontSize: '0.7rem',
+                  fontWeight: '900',
+                  letterSpacing: '0.08em'
+                }}
+              >
+                LIMITED
+              </span>
               <span
                 style={{
                   backgroundColor: '#08080a',
@@ -375,13 +388,37 @@ export default function ProductPage({ product: propProduct }) {
                 <button
                   onClick={handleAddToCart}
                   disabled={isAdding}
-                  className="btn-primary"
-                  style={{ flex: '1 1 200px', padding: '14px 18px', fontSize: 'clamp(0.78rem, 1.8vw, 0.9rem)' }}
+                  style={{
+                    flex: '1 1 200px',
+                    padding: '14px 22px',
+                    fontSize: 'clamp(0.82rem, 1.8vw, 0.92rem)',
+                    backgroundColor: '#dc143c',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '9999px',
+                    fontWeight: '900',
+                    letterSpacing: '0.08em',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 20px rgba(220, 20, 60, 0.45)',
+                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#ff2a55';
+                    e.currentTarget.style.boxShadow = '0 6px 24px rgba(220, 20, 60, 0.65)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#dc143c';
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(220, 20, 60, 0.45)';
+                  }}
                 >
                   {isAdding ? (
                     <span>RESERVING ALLOCATION...</span>
                   ) : (
-                    <span>RESERVE • {formatPrice(product.price * quantity)} (COD)</span>
+                    <span>ADD TO CART • {formatPrice(product.price * quantity)} (COD)</span>
                   )}
                 </button>
 

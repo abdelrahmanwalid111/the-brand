@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Plus, Eye } from 'lucide-react';
+import { ArrowRight, Plus, Eye } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { PRODUCTS } from '../data/storeData';
-import BloodText from './BloodText';
 
 export default function HeroSection({ onShopClick }) {
   const { openQuickView, formatPrice } = useStore();
@@ -14,34 +13,37 @@ export default function HeroSection({ onShopClick }) {
   const contentRef = useRef(null);
   const scrollCueRef = useRef(null);
 
-  // Single signature editorial hero image
+  // Signature Figma Hero Data
   const heroData = {
-    title: 'SΨGIL',
-    subtitle: 'ATELIER PRE-ORDER ARCHIVE',
-    description: 'Ultra-structured matte Italian lambskins, 650gsm heavyweight hoodies, and French terry sweatshirts. Handcrafted upon pre-order in limited allocations. 0 EGP due today — pay cash upon delivery.',
-    image: '/assets/genz_hero_yellow.jpg',
+    eyebrow: 'NEW SEASON / AUTUMN WINTER 2026',
+    titleWhite: 'BUILT',
+    titleYellow: 'FOR',
+    titleRed: 'MORE',
+    tagline: 'Premium Streetwear For Those Who Move Different',
+    description: 'Handcrafted in strict 66-piece runway allocations in Florence. 0 EGP due today — inspect & pay cash upon doorstep delivery.',
+    image: '/assets/sygil_hero_cinematic.jpg',
     hotspots: [
       {
         id: 'hs-hero-1',
-        productId: 'rad-07',
-        title: 'SΨGIL LAMBSKIN BOX-CUT MOTO TOP',
-        shortLabel: 'LAMBSKIN MOTO TOP',
-        category: 'TOPS',
-        price: 4200,
-        x: 68,
-        y: 26,
-        image: '/assets/radian_cropped_jacket.jpg'
+        productId: 'rad-01',
+        title: 'DARK RITUAL 650GSM HOODIE',
+        shortLabel: 'DARK RITUAL HOODIE',
+        category: 'HOODIES',
+        price: 2600,
+        x: 35,
+        y: 45,
+        image: '/assets/sygil_hoodie_darkritual.jpg'
       },
       {
         id: 'hs-hero-2',
-        productId: 'rad-01',
-        title: '650GSM OCCULT HEAVYWEIGHT HOODIE',
-        shortLabel: 'HEAVYWEIGHT HOODIE',
-        category: 'HOODIES',
-        price: 3600,
-        x: 62,
-        y: 44,
-        image: '/assets/genz_hero_yellow.jpg'
+        productId: 'rad-06',
+        title: 'SACRED GEOMETRY BOX-CUT TEE',
+        shortLabel: 'SACRED GEOMETRY TEE',
+        category: 'T-SHIRTS',
+        price: 2600,
+        x: 68,
+        y: 46,
+        image: '/assets/sygil_tshirt_sigil.jpg'
       }
     ]
   };
@@ -103,16 +105,16 @@ export default function HeroSection({ onShopClick }) {
     <section
       style={{
         position: 'relative',
-        minHeight: 'clamp(560px, 92vh, 960px)',
+        minHeight: 'clamp(580px, 92vh, 960px)',
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'flex-end',
         color: '#ffffff',
         paddingTop: '80px',
-        paddingBottom: 'clamp(28px, 5vh, 60px)'
+        paddingBottom: 'clamp(32px, 6vh, 64px)'
       }}
     >
-      {/* 1. Single Editorial Hero Background with Radian Parallax Zoom */}
+      {/* 1. Cinematic Hero Background with Parallax Zoom */}
       <div
         ref={bgImageRef}
         style={{
@@ -124,12 +126,12 @@ export default function HeroSection({ onShopClick }) {
       >
         <img
           src={heroData.image}
-          alt={heroData.title}
+          alt="SΨGIL Dark Ritual Streetwear Collection"
           style={{
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            objectPosition: 'center 20%'
+            objectPosition: 'center 25%'
           }}
         />
         {/* Contrast Gradient for Text Legibility at the Bottom and Left */}
@@ -137,12 +139,25 @@ export default function HeroSection({ onShopClick }) {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(1,0,0,0.98) 0%, rgba(1,0,0,0.85) 38%, rgba(1,0,0,0.3) 70%, rgba(1,0,0,0.2) 100%), linear-gradient(to right, rgba(1,0,0,0.7) 0%, transparent 60%)'
+            background:
+              'linear-gradient(to top, rgba(1,0,0,0.98) 0%, rgba(1,0,0,0.85) 35%, rgba(1,0,0,0.3) 70%, rgba(1,0,0,0.15) 100%), linear-gradient(to right, rgba(1,0,0,0.85) 0%, rgba(1,0,0,0.45) 45%, transparent 75%)'
+          }}
+        />
+        {/* Crimson atmospheric bleed on the right edge (as seen in Figma) */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            width: '35%',
+            background: 'radial-gradient(circle at 90% 50%, rgba(220, 20, 60, 0.22) 0%, transparent 70%)',
+            pointerEvents: 'none'
           }}
         />
       </div>
 
-      {/* 2. Interactive Garment Radar Hotspot Pins (Z-Index 30, fully clickable) */}
+      {/* 2. Interactive Garment Radar Hotspot Pins */}
       <div
         ref={hotspotsContainerRef}
         style={{
@@ -218,6 +233,7 @@ export default function HeroSection({ onShopClick }) {
                     letterSpacing: '0.04em',
                     whiteSpace: 'nowrap',
                     cursor: 'pointer',
+                    display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
                     boxShadow: '0 4px 16px rgba(0,0,0,0.85)',
@@ -258,51 +274,40 @@ export default function HeroSection({ onShopClick }) {
                     border: '1.5px solid #ffd312',
                     boxShadow: '0 20px 50px rgba(0,0,0,0.95), 0 0 25px rgba(255,211,18,0.3)',
                     cursor: 'pointer',
-                    zIndex: 50
+                    zIndex: 50,
+                    backgroundColor: 'rgba(5, 5, 8, 0.96)'
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span className="sticker-badge" style={{ fontSize: '0.58rem', padding: '2px 6px' }}>
-                      {hs.category}
-                    </span>
-                    <span style={{ fontSize: '0.62rem', color: '#ffd312', fontWeight: '900' }}>
-                      CLICK TO INSPECT
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '10px' }}>
+                  <div
+                    style={{
+                      aspectRatio: '1',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      marginBottom: '8px',
+                      backgroundColor: '#010000',
+                      border: '1px solid rgba(255,255,255,0.1)'
+                    }}
+                  >
                     <img
                       src={hs.image}
                       alt={hs.title}
-                      style={{
-                        width: '50px',
-                        height: '60px',
-                        objectFit: 'cover',
-                        borderRadius: '6px',
-                        border: '1px solid rgba(255,255,255,0.2)'
-                      }}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div
-                        style={{
-                          fontSize: '0.74rem',
-                          fontWeight: '900',
-                          color: '#ffffff',
-                          lineHeight: 1.25,
-                          marginBottom: '4px'
-                        }}
-                      >
-                        {hs.title}
-                      </div>
-                      <div style={{ fontSize: '0.84rem', color: '#ffd312', fontWeight: '900', fontFamily: 'var(--font-mono)' }}>
-                        {formatPrice(hs.price)}
-                      </div>
-                    </div>
                   </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '8px' }}>
-                    <span style={{ fontSize: '0.62rem', color: '#ff3b62', fontWeight: '800' }}>
-                      0 EGP DUE TODAY • COD
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
+                    <span style={{ fontSize: '0.62rem', color: '#ffd312', fontWeight: '900', textTransform: 'uppercase' }}>
+                      {hs.category}
+                    </span>
+                    <span style={{ fontSize: '0.62rem', color: '#dc143c', fontWeight: '900' }}>
+                      0 EGP TODAY
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: '900', color: '#ffffff', lineHeight: 1.25, marginBottom: '6px' }}>
+                    {hs.title}
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.86rem', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
+                      {formatPrice(hs.price)}
                     </span>
                     <button
                       onClick={(e) => {
@@ -310,13 +315,12 @@ export default function HeroSection({ onShopClick }) {
                         handleHotspotClick(hs.productId);
                       }}
                       style={{
-                        fontSize: '0.66rem',
-                        fontWeight: '900',
-                        color: '#010000',
-                        backgroundColor: '#ffd312',
                         padding: '4px 10px',
-                        borderRadius: '9999px',
-                        border: 'none',
+                        backgroundColor: '#ffd312',
+                        color: '#010000',
+                        fontSize: '0.65rem',
+                        fontWeight: '900',
+                        borderRadius: '4px',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -324,7 +328,7 @@ export default function HeroSection({ onShopClick }) {
                       }}
                     >
                       <Eye size={11} />
-                      <span>PREVIEW</span>
+                      <span>VIEW</span>
                     </button>
                   </div>
                 </div>
@@ -334,7 +338,7 @@ export default function HeroSection({ onShopClick }) {
         })}
       </div>
 
-      {/* 3. Left-Aligned, Much Smaller & Refined Text Content */}
+      {/* 3. High-Voltage Figma Headline & Action Block */}
       <div
         ref={contentRef}
         className="store-container"
@@ -350,7 +354,7 @@ export default function HeroSection({ onShopClick }) {
       >
         <div
           style={{
-            maxWidth: '460px',
+            maxWidth: '560px',
             textAlign: 'left',
             display: 'flex',
             flexDirection: 'column',
@@ -358,69 +362,174 @@ export default function HeroSection({ onShopClick }) {
             pointerEvents: 'auto'
           }}
         >
-          {/* Compact Refined Syne Headline */}
-          <h1
+          {/* Eyebrow from Figma: NEW SEASON / AUTUMN WINTER 2026 */}
+          <div
             style={{
-              fontSize: 'clamp(1.8rem, 3.4vw, 2.6rem)',
-              lineHeight: 1.05,
-              fontWeight: '900',
-              letterSpacing: '0.02em',
-              marginBottom: '6px',
-              textTransform: 'uppercase'
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '10px'
             }}
           >
-            <BloodText drip={true}>{heroData.title}</BloodText>
             <span
               style={{
-                display: 'block',
-                fontSize: 'clamp(0.85rem, 1.3vw, 1.1rem)',
-                fontWeight: '800',
-                letterSpacing: '0.08em',
-                fontFamily: 'var(--font-heading)',
-                marginTop: '4px',
-                color: '#ffd312'
+                fontSize: 'clamp(0.68rem, 1.1vw, 0.78rem)',
+                fontWeight: '900',
+                letterSpacing: '0.14em',
+                color: 'rgba(255, 255, 255, 0.75)',
+                textTransform: 'uppercase'
               }}
             >
-              {heroData.subtitle}
+              {heroData.eyebrow}
+            </span>
+          </div>
+
+          {/* Figma Statement Headline: BUILT FOR MORE */}
+          <h1
+            style={{
+              margin: '0 0 12px 0',
+              textTransform: 'uppercase',
+              lineHeight: 0.92,
+              letterSpacing: '-0.02em',
+              fontWeight: '900'
+            }}
+          >
+            <span
+              style={{
+                fontSize: 'clamp(2rem, 4.4vw, 3.6rem)',
+                color: '#ffffff',
+                display: 'block'
+              }}
+            >
+              {heroData.titleWhite} <span style={{ color: '#ffd312' }}>{heroData.titleYellow}</span>
+            </span>
+            <span
+              style={{
+                fontSize: 'clamp(2.5rem, 5.4vw, 4.2rem)',
+                color: '#dc143c',
+                display: 'block',
+                letterSpacing: '0.04em'
+              }}
+            >
+              {heroData.titleRed}
             </span>
           </h1>
 
-          {/* Animated Red Accent Line */}
-          <div className="title-red-line" />
-
-          {/* Much Smaller Editorial Description */}
+          {/* Subtitle from Figma: Premium Streetwear For Those Who Move Different */}
           <p
             style={{
-              fontSize: 'clamp(0.78rem, 1vw, 0.88rem)',
+              fontSize: 'clamp(0.8rem, 1.1vw, 0.92rem)',
+              fontWeight: '800',
+              color: '#ffffff',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              marginBottom: '8px'
+            }}
+          >
+            {heroData.tagline}
+          </p>
+
+          {/* Atelier Pre-order Narrative */}
+          <p
+            style={{
+              fontSize: 'clamp(0.7rem, 0.85vw, 0.78rem)',
               lineHeight: 1.55,
-              color: 'rgba(255,255,255,0.85)',
-              maxWidth: '420px',
-              marginBottom: '20px',
+              color: 'rgba(255,255,255,0.72)',
+              maxWidth: '440px',
+              marginBottom: '24px',
               fontWeight: '400'
             }}
           >
             {heroData.description}
           </p>
 
-          {/* Compact Luxury Action Button */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+          {/* Dual CTAs from Figma: VIEW LOOKBOOK + SHOP NOW */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
             <button
-              onClick={onShopClick}
-              className="btn-primary"
+              onClick={() => {
+                const el = document.getElementById('lookbook-section') || document.getElementById('wardrobe-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
               style={{
-                padding: '10px 22px',
+                padding: '12px 28px',
+                backgroundColor: 'rgba(1, 1, 0, 0.7)',
+                color: '#ffd312',
+                border: '2px solid #ffd312',
+                borderRadius: '6px',
+                fontWeight: '900',
                 fontSize: '0.78rem',
-                letterSpacing: '0.06em'
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#ffd312';
+                e.currentTarget.style.color = '#010000';
+                e.currentTarget.style.boxShadow = '0 0 25px rgba(255,211,18,0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(1, 1, 0, 0.7)';
+                e.currentTarget.style.color = '#ffd312';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              <span>RESERVE PRE-ORDER</span>
-              <ArrowUpRight size={14} />
+              <span>VIEW LOOKBOOK</span>
+            </button>
+
+            <button
+              onClick={onShopClick}
+              style={{
+                padding: '10px 22px',
+                backgroundColor: 'rgba(10, 10, 14, 0.95)',
+                color: '#ffffff',
+                border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                borderRadius: '9999px',
+                fontWeight: '900',
+                fontSize: '0.78rem',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#dc143c';
+                e.currentTarget.style.transform = 'translateX(2px)';
+                e.currentTarget.style.boxShadow = '0 0 22px rgba(220, 20, 60, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+                e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <span>SHOP NOW</span>
+              <span
+                style={{
+                  width: '26px',
+                  height: '26px',
+                  borderRadius: '50%',
+                  backgroundColor: '#dc143c',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff'
+                }}
+              >
+                <ArrowRight size={14} strokeWidth={3} />
+              </span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* 4. Radian Scroll Down Indicator Cue (desktop only, centered at bottom) */}
+      {/* 4. Scroll Cue Indicator */}
       <div
         ref={scrollCueRef}
         className="desktop-only"
@@ -430,11 +539,11 @@ export default function HeroSection({ onShopClick }) {
         }}
         style={{
           position: 'absolute',
-          bottom: '28px',
+          bottom: '24px',
           left: '50%',
-          right: 'auto',
           transform: 'translateX(-50%)',
           zIndex: 15,
+          display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '5px',
@@ -445,7 +554,7 @@ export default function HeroSection({ onShopClick }) {
       >
         <span
           style={{
-            fontSize: '0.6rem',
+            fontSize: '0.62rem',
             fontWeight: '900',
             letterSpacing: '0.14em',
             fontFamily: 'var(--font-mono)',
@@ -453,12 +562,12 @@ export default function HeroSection({ onShopClick }) {
             textTransform: 'uppercase'
           }}
         >
-          SCROLL TO EXPLORE THE WARDROBE
+          SCROLL TO EXPLORE THE RITUAL
         </span>
         <div
           style={{
             width: '2px',
-            height: '30px',
+            height: '26px',
             backgroundColor: 'rgba(255, 255, 255, 0.2)',
             position: 'relative',
             overflow: 'hidden',
@@ -480,14 +589,14 @@ export default function HeroSection({ onShopClick }) {
         </div>
       </div>
 
-      {/* 5. Bottom Vignette Seamless Blend to 'The wardrobe' */}
+      {/* 5. Bottom Gradient Transition */}
       <div
         style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          height: '120px',
+          height: '110px',
           background: 'linear-gradient(to top, #010000 0%, rgba(1, 0, 0, 0.8) 45%, rgba(1, 0, 0, 0) 100%)',
           zIndex: 8,
           pointerEvents: 'none'

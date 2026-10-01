@@ -42,190 +42,157 @@ export const PRESETS = [
 
 export const CURRENCIES = {
   EGP: { symbol: 'EGP ', rate: 1, label: 'EGP (E£)', country: 'EG' },
-  USD: { symbol: '$', rate: 0.021, label: 'USD ($)', country: 'US' },
-  EUR: { symbol: '€', rate: 0.019, label: 'EUR (€)', country: 'EU' },
-  GBP: { symbol: '£', rate: 0.016, label: 'GBP (£)', country: 'GB' },
-  SAR: { symbol: 'SAR ', rate: 0.078, label: 'SAR (ر.س)', country: 'SA' },
-  AED: { symbol: 'AED ', rate: 0.076, label: 'AED (د.إ)', country: 'AE' }
+  USD: { symbol: '$', rate: 0.0727, label: 'USD ($)', country: 'US' },
+  EUR: { symbol: '€', rate: 0.067, label: 'EUR (€)', country: 'EU' },
+  GBP: { symbol: '£', rate: 0.058, label: 'GBP (£)', country: 'GB' },
+  SAR: { symbol: 'SAR ', rate: 0.27, label: 'SAR (ر.س)', country: 'SA' },
+  AED: { symbol: 'AED ', rate: 0.26, label: 'AED (د.إ)', country: 'AE' }
 };
 
 export const PRODUCTS = [
   // ==========================================
-  // TOPS (Featured & Hero Spotlights)
-  // ==========================================
-  {
-    id: 'rad-07',
-    title: 'SΨGIL LAMBSKIN BOX-CUT MOTO TOP',
-    subtitle: 'Matte Italian nappa, asymmetric Excella zip, structured ghost collar',
-    category: 'tops',
-    categoryLabel: 'TOPS',
-    price: 4200,
-    compareAtPrice: 4900,
-    isSale: true,
-    isFeatured: true,
-    isHeroSpotlight: true,
-    stockLeft: 3,
-    badge: 'HERO PRE-ORDER (BATCH 01)',
-    badgeType: 'yellow',
-    images: [
-      '/assets/radian_cropped_jacket.jpg',
-      '/assets/genz_hero_yellow.jpg',
-      '/assets/leather_tee.jpg'
-    ],
-    colors: [
-      { name: 'Obsidian Black', hex: '#010000', img: '/assets/radian_cropped_jacket.jpg' },
-      { name: 'Crimson Occult', hex: '#dc143c', img: '/assets/genz_hero_crimson.jpg' }
-    ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
-    description: 'The iconic matte Italian lambskin moto top that defines the SΨGIL occult runway. Cut with structured drop shoulders, asymmetric Excella two-way gunmetal zipper, and ghost-mannequin tailored paneling. Handcrafted upon pre-order.',
-    details: [
-      'Pre-order Batch 01 • Allocation limited to 50 pieces',
-      '100% Full-Grain Italian Lambskin with Matte Velvet Temper',
-      'Asymmetric two-way Excella front zipper closure',
-      'Breathable cupro silk lining with engraved gold SΨGIL label',
-      'Zero upfront payment required — Pay Cash on Delivery (EGP)'
-    ],
-    fit: 'Structured boxy fit. Fits true to European chest size.',
-    care: 'Specialist leather clean only. Store on wide wooden hanger.'
-  },
-  {
-    id: 'rad-08',
-    title: 'STAND-COLLAR TAILORED LEATHER SHIRT TOP',
-    subtitle: 'Full-grain Italian nappa with hidden placket and mandarin collar',
-    category: 'tops',
-    categoryLabel: 'TOPS',
-    price: 3800,
-    compareAtPrice: 4400,
-    isSale: false,
-    isFeatured: true,
-    isHeroSpotlight: false,
-    stockLeft: 4,
-    badge: 'BATCH 01 PRE-ORDER',
-    badgeType: 'yellow',
-    images: [
-      '/assets/radian_leather_top.jpg',
-      '/assets/radian_cropped_jacket.jpg',
-      '/assets/genz_hero_yellow.jpg'
-    ],
-    colors: [
-      { name: 'Pitch Black', hex: '#010000', img: '/assets/radian_leather_top.jpg' }
-    ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
-    description: 'Minimalist luxury leather button top sculpted with a clean mandarin stand collar and concealed magnetic front placket. Architectural curved hem and extended tailored cuffs.',
-    details: [
-      '100% Grade-A Italian Calfskin Nappa',
-      'Concealed front snap placket with stand collar',
-      'Curved sculptural hemline engineered for layering',
-      'Pre-order batch dispatch in 2 weeks',
-      '100% Cash on Delivery'
-    ],
-    fit: 'Clean tailored box silhouette.',
-    care: 'Specialist leather dry clean only.'
-  },
-  {
-    id: 'rad-09',
-    title: 'SCULPTED ARCHITECTURAL BUCKLE CORSET TOP',
-    subtitle: 'Heavy bonded twill with industrial hardware and structured boning',
-    category: 'tops',
-    categoryLabel: 'TOPS',
-    price: 3200,
-    compareAtPrice: 3700,
-    isSale: true,
-    isFeatured: false,
-    isHeroSpotlight: false,
-    stockLeft: 5,
-    badge: 'LIMITED ALLOCATION',
-    badgeType: 'crimson',
-    images: [
-      '/assets/radian_corset_top.jpg',
-      '/assets/radian_cropped_jacket.jpg'
-    ],
-    colors: [
-      { name: 'Matte Onyx', hex: '#0a0a0c', img: '/assets/radian_corset_top.jpg' }
-    ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
-    description: 'A striking crossover of brutalist tailoring and modern streetwear. Features front industrial buckle closures, square neckline, and internal flex boning for a dramatic silhouette.',
-    details: [
-      'Heavyweight 480gsm bonded cotton twill & lambskin trims',
-      'Custom gunmetal buckle hardware with SΨGIL laser engraving',
-      'Ergonomic internal boning for structured comfort',
-      'Zero card required • Pay cash in EGP on courier arrival'
-    ],
-    fit: 'Sculpted form-fitting cut with curved hem.',
-    care: 'Dry clean only.'
-  },
-  {
-    id: 'rad-10',
-    title: 'SΨGIL MATTE LAMBSKIN BOX-CUT TEE',
-    subtitle: 'Heavyweight Italian nappa drop-shoulder top with bonded seams',
-    category: 'tops',
-    categoryLabel: 'TOPS',
-    price: 3400,
-    compareAtPrice: 3900,
-    isSale: false,
-    isFeatured: true,
-    isHeroSpotlight: false,
-    stockLeft: 6,
-    badge: 'CORE GRAIL',
-    badgeType: 'yellow',
-    images: [
-      '/assets/leather_tee.jpg',
-      '/assets/genz_hero_yellow.jpg'
-    ],
-    colors: [
-      { name: 'Sygil Onyx', hex: '#010000', img: '/assets/leather_tee.jpg' },
-      { name: 'Crimson Occult', hex: '#dc143c', img: '/assets/genz_hero_crimson.jpg' }
-    ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
-    description: 'The benchmark luxury leather tee. Cut from ultra-supple Italian lambskin with laser-cut edges and relaxed drop shoulders. An essential year-round layering foundation.',
-    details: [
-      'Full-grain Italian lambskin nappa',
-      'Seamless laser-bonded sleeve cuffs and hem',
-      'Pure silk cupro breathable interior back lining',
-      'Pay Cash in EGP to courier upon inspection'
-    ],
-    fit: 'Relaxed oversized box fit. Take true EU size.',
-    care: 'Specialist leather cleaning.'
-  },
-
-  // ==========================================
-  // HOODIES
+  // FIGMA SHOWCASE PIECES (MORE FROM THE RITUAL)
   // ==========================================
   {
     id: 'rad-01',
-    title: 'SΨGIL 650GSM OCCULT HEAVYWEIGHT ZIP HOODIE',
-    subtitle: 'Ultra-dense loopback French terry with double hood & two-way zipper',
+    title: 'DARK RITUAL 650GSM HOODIE',
+    subtitle: 'Heavyweight acid-washed fleece with raised hieroglyphic cuneiform embossing & sleeve runes',
     category: 'hoodies',
     categoryLabel: 'HOODIES',
-    price: 3600,
-    compareAtPrice: 4200,
+    price: 2600,
+    compareAtPrice: 3200,
+    isSale: true,
+    isFeatured: true,
+    isHeroSpotlight: true,
+    stockLeft: 12,
+    badge: 'DARK RITUAL (66 PCS)',
+    badgeType: 'crimson',
+    images: [
+      '/assets/sygil_hoodie_darkritual.jpg',
+      '/assets/sygil_hero_cinematic.jpg',
+      '/assets/sygil_story_portrait.jpg'
+    ],
+    colors: [
+      { name: 'Pitch Black Acid Wash', hex: '#010000', img: '/assets/sygil_hoodie_darkritual.jpg' },
+      { name: 'Occult Crimson Glow', hex: '#dc143c', img: '/assets/genz_hero_crimson.jpg' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    description: 'Heavyweight acid-washed fleece. Raised Sumerian cuneiform embossing across the chest, and hot-pink SYGIL runes hand-screened on both sleeves. Numbered certificate of authenticity included with each piece. Only 66 made.',
+    details: [
+      'Acid-washed black fleece with 650gsm Italian combed loopback cotton',
+      'Raised hieroglyphic cuneiform embossing across chest & hood contour',
+      'Hot-pink and silver rune sigils hand-applied on both sleeves',
+      'Strict runway allocation • Limited to 66 hand-numbered pieces worldwide',
+      '100% Cash On Delivery • 0 EGP Due Today — Inspect with courier'
+    ],
+    fit: 'Signature oversized drop-shoulder box cut. True to size.',
+    care: 'Cold wash inside out, dry flat in shade. Do not tumble dry.'
+  },
+  {
+    id: 'rad-06',
+    title: 'SACRED GEOMETRY BOX-CUT T-SHIRT',
+    subtitle: 'Heavyweight 320gsm combed cotton with silver occult sacred geometry rune star mandala',
+    category: 't-shirts',
+    categoryLabel: 'T-SHIRTS',
+    price: 2600,
+    compareAtPrice: 3000,
+    isSale: false,
+    isFeatured: true,
+    isHeroSpotlight: false,
+    stockLeft: 18,
+    badge: 'DARK RITUAL BATCH',
+    badgeType: 'yellow',
+    images: [
+      '/assets/sygil_tshirt_sigil.jpg',
+      '/assets/sygil_hoodie_darkritual.jpg',
+      '/assets/sygil_hero_cinematic.jpg'
+    ],
+    colors: [
+      { name: 'Vintage Acid Black', hex: '#0a0a0c', img: '/assets/sygil_tshirt_sigil.jpg' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    description: 'Constructed from a bespoke 320gsm vintage acid-washed cotton. Centered with an intricate silver-metallic sacred geometry star mandala and tonal elder runes along sleeve cuffs.',
+    details: [
+      '320gsm high-density vintage wash combed cotton jersey',
+      'Discharge printed silver occult geometry mandala',
+      'Thick 1.25 inch bound collar rib with reinforced shoulder tape',
+      'Cash on Delivery pre-order • 0 EGP due at reservation',
+      'Handcrafted batch of 66 pieces'
+    ],
+    fit: 'Wide-box silhouette with extended elbow-length sleeves.',
+    care: 'Machine wash cold inside out with like colors.'
+  },
+  {
+    id: 'rad-07',
+    title: 'SΨGIL TACTICAL MOTO JACKET',
+    subtitle: 'Distressed washed denim & matte lambskin with utility buckles and D-ring straps',
+    category: 'jackets',
+    categoryLabel: 'JACKETS',
+    price: 2600,
+    compareAtPrice: 3400,
     isSale: true,
     isFeatured: true,
     isHeroSpotlight: false,
-    stockLeft: 3,
-    badge: 'PRE-ORDER (BATCH 01)',
-    badgeType: 'yellow',
+    stockLeft: 8,
+    badge: 'HERO ALLOCATION',
+    badgeType: 'crimson',
     images: [
-      '/assets/genz_hero_yellow.jpg',
-      '/assets/genz_hero_crimson.jpg',
-      '/assets/craftsmanship.jpg'
+      '/assets/sygil_jacket_moto.jpg',
+      '/assets/radian_cropped_jacket.jpg',
+      '/assets/sygil_story_portrait.jpg'
     ],
     colors: [
-      { name: 'Pitch Black / Cyber Gold', hex: '#010000', img: '/assets/genz_hero_yellow.jpg' },
-      { name: 'Crimson Shadow', hex: '#dc143c', img: '/assets/genz_hero_crimson.jpg' }
+      { name: 'Obsidian Washed', hex: '#010000', img: '/assets/sygil_jacket_moto.jpg' }
     ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
-    description: 'Engineered from ultra-heavy 650gsm Italian loopback cotton. Features an architectural double-layered hood that holds its shape, oversized two-way gunmetal zipper, and cyber-gold runic embroidery.',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    description: 'A brutalist convergence of Florentine leather craft and cyber-tactical architecture. Multi-compartment exterior chest & sleeve pockets with custom gunmetal release buckles and D-ring harnesses.',
     details: [
-      '650gsm 100% Organic Italian Combed Cotton',
-      'Double-ply structured hood with custom brass aglet drawstrings',
-      'Two-way Excella matte front zipper',
-      'Heavy 2x2 ribbing at cuffs and hem band',
-      'Cash on Delivery payment upon courier arrival'
+      '14oz washed black denim bonded with full-grain Italian lambskin',
+      'Excella two-way gunmetal front zipper and ergonomic moto panels',
+      'Adjustable waist cinch straps with engraved SΨGIL hardware',
+      'Full breathable silk cupro interior lining',
+      '100% Cash On Delivery • Pay courier upon physical inspection'
     ],
-    fit: 'Exaggerated boxy streetwear silhouette with drop shoulders.',
-    care: 'Machine wash cold inside out, hang to dry in shade.'
+    fit: 'Cropped waist with relaxed chest and articulated sleeves.',
+    care: 'Specialist dry clean only.'
   },
+  {
+    id: 'rad-10',
+    title: 'INDUSTRIAL MULTI-STRAP CARGO PANTS',
+    subtitle: 'Heavyweight wide-leg cargo pants with tactical straps, metal hardware & D-rings',
+    category: 'pants',
+    categoryLabel: 'PANTS',
+    price: 2600,
+    compareAtPrice: 3100,
+    isSale: false,
+    isFeatured: true,
+    isHeroSpotlight: false,
+    stockLeft: 14,
+    badge: 'CORE SILHOUETTE',
+    badgeType: 'yellow',
+    images: [
+      '/assets/sygil_pants_cargo.jpg',
+      '/assets/sygil_hero_cinematic.jpg'
+    ],
+    colors: [
+      { name: 'Washed Charcoal Black', hex: '#08080a', img: '/assets/sygil_pants_cargo.jpg' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    description: 'Engineered for commanding street presence. 12-pocket tactical wide-leg silhouette with dual suspender straps, metal D-rings, modular zip compartments, and adjustable toggle ankles.',
+    details: [
+      'Heavyweight 380gsm washed twill with distress wash',
+      '12 functional utility pockets with reinforced gusset seams',
+      'Dual adjustable industrial harness straps with alloy clips',
+      'Cinch toggle cords at ankles for flared or jogger profile',
+      'Pay cash in EGP directly to courier upon arrival'
+    ],
+    fit: 'Exaggerated wide-leg drape with high-rise waist.',
+    care: 'Machine wash cold, air dry.'
+  },
+
+  // ==========================================
+  // ATELIER PRE-ORDERS & COMPLEMENTARY GRAILS
+  // ==========================================
   {
     id: 'rad-02',
     title: 'RUNIC OVERSIZED BOX-FIT PULLOVER HOODIE',
@@ -242,13 +209,13 @@ export const PRODUCTS = [
     badgeType: 'crimson',
     images: [
       '/assets/genz_hero_crimson.jpg',
-      '/assets/genz_hero_yellow.jpg'
+      '/assets/sygil_hero_cinematic.jpg'
     ],
     colors: [
       { name: 'Obsidian Black', hex: '#0a0a0c', img: '/assets/genz_hero_crimson.jpg' },
-      { name: 'Cyber Gold Accent', hex: '#ffd312', img: '/assets/genz_hero_yellow.jpg' }
+      { name: 'Cyber Gold Accent', hex: '#ffd312', img: '/assets/sygil_hero_cinematic.jpg' }
     ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     description: 'Constructed from a custom-developed 700gsm brushed fleece with substantial hand feel. Minimalist front with high-density SΨGIL occult tonal back print and seamless kangaroo pocket.',
     details: [
       '700gsm ultra-dense fleece with brushed peach finish interior',
@@ -272,17 +239,16 @@ export const PRODUCTS = [
     isFeatured: false,
     isHeroSpotlight: false,
     stockLeft: 2,
-    badge: '2 PRE-ORDERS LEFT',
+    badge: '2 ALLOCATIONS LEFT',
     badgeType: 'crimson',
     images: [
       '/assets/hero_runway.jpg',
-      '/assets/genz_hero_crimson.jpg'
+      '/assets/sygil_story_portrait.jpg'
     ],
     colors: [
-      { name: 'Faded Charcoal', hex: '#1a1a1f', img: '/assets/hero_runway.jpg' },
-      { name: 'Crimson Wash', hex: '#dc143c', img: '/assets/genz_hero_crimson.jpg' }
+      { name: 'Faded Charcoal', hex: '#1a1a1f', img: '/assets/hero_runway.jpg' }
     ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     description: 'Each piece undergoes a 12-hour mineral acid wash and individual hand-distressing in Florence. Fully lined with heavy 350gsm thermal waffle knit for maximum insulation.',
     details: [
       'Outer: 550gsm loopback cotton • Lining: 350gsm thermal waffle',
@@ -293,33 +259,61 @@ export const PRODUCTS = [
     fit: 'Relaxed oversized silhouette.',
     care: 'Hand wash cold or gentle cycle.'
   },
-
-  // ==========================================
-  // SWEATSHIRTS
-  // ==========================================
+  {
+    id: 'rad-08',
+    title: 'STAND-COLLAR TAILORED LEATHER JACKET',
+    subtitle: 'Full-grain Italian nappa with hidden placket and mandarin collar',
+    category: 'jackets',
+    categoryLabel: 'JACKETS',
+    price: 3800,
+    compareAtPrice: 4400,
+    isSale: false,
+    isFeatured: true,
+    isHeroSpotlight: false,
+    stockLeft: 4,
+    badge: 'BATCH 01 PRE-ORDER',
+    badgeType: 'yellow',
+    images: [
+      '/assets/radian_leather_top.jpg',
+      '/assets/radian_cropped_jacket.jpg'
+    ],
+    colors: [
+      { name: 'Pitch Black', hex: '#010000', img: '/assets/radian_leather_top.jpg' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    description: 'Minimalist luxury leather jacket sculpted with a clean mandarin stand collar and concealed magnetic front placket. Architectural curved hem and extended tailored cuffs.',
+    details: [
+      '100% Grade-A Italian Calfskin Nappa',
+      'Concealed front snap placket with stand collar',
+      'Curved sculptural hemline engineered for layering',
+      'Pre-order batch dispatch in 2 weeks',
+      '100% Cash on Delivery'
+    ],
+    fit: 'Clean tailored box silhouette.',
+    care: 'Specialist leather dry clean only.'
+  },
   {
     id: 'rad-04',
     title: 'BOX-CUT HEAVY FRENCH TERRY CREWNECK',
     subtitle: '580gsm organic Peruvian cotton with embossed tonal sigil',
-    category: 'sweatshirts',
-    categoryLabel: 'SWEATSHIRTS',
+    category: 'hoodies',
+    categoryLabel: 'HOODIES',
     price: 2900,
     compareAtPrice: 3400,
     isSale: true,
-    isFeatured: true,
+    isFeatured: false,
     isHeroSpotlight: false,
     stockLeft: 5,
     badge: 'PRE-ORDER FAVORITE',
     badgeType: 'yellow',
     images: [
       '/assets/knit_sweater.jpg',
-      '/assets/genz_hero_yellow.jpg'
+      '/assets/sygil_tshirt_sigil.jpg'
     ],
     colors: [
-      { name: 'Pure Onyx', hex: '#010000', img: '/assets/knit_sweater.jpg' },
-      { name: 'Oatmeal Stone', hex: '#d9cfbe', img: '/assets/knit_sweater.jpg' }
+      { name: 'Pure Onyx', hex: '#010000', img: '/assets/knit_sweater.jpg' }
     ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
     description: 'The quintessential luxury streetwear crewneck sweatshirt. 580gsm long-staple combed cotton terry with chunky 3-inch ribbed collar, vintage V-insert, and tonal high-density embossed sigil on the chest.',
     details: [
       '580gsm 100% Organic Peruvian Combed Cotton',
@@ -329,81 +323,15 @@ export const PRODUCTS = [
     ],
     fit: 'Boxy drop-shoulder cut with fitted waist rib.',
     care: 'Machine wash cold inside out.'
-  },
-  {
-    id: 'rad-05',
-    title: 'CHUNKY BRUSHED ALPACA FLEECE SWEATSHIRT',
-    subtitle: 'Heavy 5-gauge Peruvian baby alpaca fleece knit in undyed stone',
-    category: 'sweatshirts',
-    categoryLabel: 'SWEATSHIRTS',
-    price: 3600,
-    compareAtPrice: 4200,
-    isSale: false,
-    isFeatured: true,
-    isHeroSpotlight: false,
-    stockLeft: 4,
-    badge: 'PRE-ORDER',
-    badgeType: 'yellow',
-    images: [
-      '/assets/knit_sweater.jpg',
-      '/assets/lookbook_hotspot.jpg'
-    ],
-    colors: [
-      { name: 'Oatmeal Stone', hex: '#d9cfbe', img: '/assets/knit_sweater.jpg' },
-      { name: 'Anthracite Dark', hex: '#1c1c20', img: '/assets/hero_runway.jpg' }
-    ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
-    description: 'Spun from sustainably sheared Peruvian baby alpaca and organic merino wool fleece. Oversized brioche rib stitch with extended knuckle cuffs and seamless mock crewneck.',
-    details: [
-      '70% Peruvian Baby Alpaca Fleece, 30% Organic Merino Wool',
-      '5-gauge heavy brioche rib knit sweatshirt silhouette',
-      'Pre-order batch dispatch in 2 weeks',
-      'Zero upfront payment • 100% Cash on Delivery',
-      'Knitted in Arequipa, Peru'
-    ],
-    fit: 'Relaxed slouchy streetwear drape.',
-    care: 'Hand wash cold, dry flat.'
-  },
-  {
-    id: 'rad-06',
-    title: 'ARCHITECTURAL RAW-EDGE RAGLAN SWEATSHIRT',
-    subtitle: '600gsm scuba-fleece hybrid with articulated elbow darts & raw hem',
-    category: 'sweatshirts',
-    categoryLabel: 'SWEATSHIRTS',
-    price: 3100,
-    compareAtPrice: 3600,
-    isSale: false,
-    isFeatured: true,
-    isHeroSpotlight: false,
-    stockLeft: 3,
-    badge: 'LIMITED (50 PIECES)',
-    badgeType: 'crimson',
-    images: [
-      '/assets/hero_oxblood.jpg',
-      '/assets/knit_sweater.jpg'
-    ],
-    colors: [
-      { name: 'Charcoal Black', hex: '#0f0f12', img: '/assets/hero_oxblood.jpg' },
-      { name: 'Crimson Shadow', hex: '#dc143c', img: '/assets/genz_hero_crimson.jpg' }
-    ],
-    sizes: ['EU 44', 'EU 46', 'EU 48', 'EU 50', 'EU 52'],
-    description: 'A structural hybrid combining heavyweight cotton fleece with bonded scuba jersey for crisp sculptural drape. Articulated sleeve darting and laser-cut raw bottom hem.',
-    details: [
-      '600gsm scuba-fleece bonded technical textile',
-      'Articulated curved elbow darting for natural arm posture',
-      'Laser-cut raw edge hem that will not unravel',
-      'Cash on Delivery payment upon doorstep inspection'
-    ],
-    fit: 'Sculptural boxy fit with clean lines.',
-    care: 'Dry clean recommended.'
   }
 ];
 
 export const CATEGORIES = [
-  { id: 'all', name: 'ALL PRE-ORDERS', count: PRODUCTS.length },
-  { id: 'hoodies', name: 'HOODIES', count: 3, image: '/assets/genz_hero_yellow.jpg' },
-  { id: 'sweatshirts', name: 'SWEATSHIRTS', count: 3, image: '/assets/knit_sweater.jpg' },
-  { id: 'tops', name: 'TOPS', count: 4, image: '/assets/radian_cropped_jacket.jpg' }
+  { id: 'all', name: 'ALL GRAILS', count: 8 },
+  { id: 'hoodies', name: 'HOODIES', count: 3, image: '/assets/sygil_hoodie_darkritual.jpg' },
+  { id: 't-shirts', name: 'T-SHIRTS', count: 2, image: '/assets/sygil_tshirt_sigil.jpg' },
+  { id: 'jackets', name: 'JACKETS', count: 2, image: '/assets/sygil_jacket_moto.jpg' },
+  { id: 'pants', name: 'PANTS', count: 1, image: '/assets/sygil_pants_cargo.jpg' }
 ];
 
 export const LOOKBOOK_HOTSPOTS = [

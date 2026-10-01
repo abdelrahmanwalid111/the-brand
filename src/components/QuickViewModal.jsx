@@ -97,11 +97,20 @@ export default function QuickViewModal() {
           <X size={18} />
         </button>
 
-        {/* Left: Product Editorial Gallery */}
+        {/* Left: Product Editorial Gallery from Figma */}
         <div style={{ padding: '24px', backgroundColor: '#010000' }}>
           <div
             onClick={handleOpenFullPage}
-            style={{ position: 'relative', aspectRatio: '3/4', borderRadius: '12px', overflow: 'hidden', marginBottom: '12px', border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer' }}
+            style={{
+              position: 'relative',
+              aspectRatio: '3/4',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              marginBottom: '12px',
+              border: '1.5px solid #ffd312',
+              boxShadow: '0 0 25px rgba(0,0,0,0.8), 0 0 15px rgba(255,211,18,0.2)',
+              cursor: 'pointer'
+            }}
           >
             <img
               src={product.images ? product.images[activeImageIndex] : '/assets/leather_tee.jpg'}
@@ -110,7 +119,7 @@ export default function QuickViewModal() {
             />
           </div>
 
-          {/* Thumbnails */}
+          {/* Thumbnails with active crimson border from Figma */}
           {product.images && product.images.length > 1 && (
             <div style={{ display: 'flex', gap: '8px' }}>
               {product.images.map((img, idx) => (
@@ -122,10 +131,13 @@ export default function QuickViewModal() {
                     height: '75px',
                     borderRadius: '6px',
                     overflow: 'hidden',
-                    border: `2px solid ${activeImageIndex === idx ? '#ffd312' : 'transparent'}`,
+                    border: `2px solid ${activeImageIndex === idx ? '#dc143c' : 'rgba(255,255,255,0.15)'}`,
+                    boxShadow: activeImageIndex === idx ? '0 0 12px rgba(220,20,60,0.5)' : 'none',
                     opacity: activeImageIndex === idx ? 1 : 0.6,
                     padding: 0,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    backgroundColor: '#08080a',
+                    transition: 'all 0.2s'
                   }}
                 >
                   <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -135,12 +147,12 @@ export default function QuickViewModal() {
           )}
         </div>
 
-        {/* Right: Info */}
+        {/* Right: Info from Figma */}
         <div style={{ padding: '32px 28px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-              <span style={{ fontSize: '0.72rem', fontWeight: '900', letterSpacing: '0.1em', color: '#ffd312', textTransform: 'uppercase' }}>
-                {product.categoryLabel || product.category}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '4px' }}>
+              <span style={{ fontSize: '0.74rem', fontWeight: '900', letterSpacing: '0.12em', color: '#dc143c', textTransform: 'uppercase' }}>
+                DARK RITUAL COLLECTION
               </span>
               <button
                 onClick={handleOpenFullPage}
@@ -160,24 +172,32 @@ export default function QuickViewModal() {
 
             <h3
               onClick={handleOpenFullPage}
-              style={{ fontSize: '1.35rem', fontWeight: '900', color: '#ffffff', lineHeight: 1.2, marginBottom: '6px', cursor: 'pointer' }}
+              style={{ fontSize: '1.45rem', fontWeight: '900', color: '#ffffff', lineHeight: 1.2, marginBottom: '6px', cursor: 'pointer', textTransform: 'uppercase' }}
             >
               {product.title}
             </h3>
 
-            <p style={{ fontSize: '0.8rem', color: '#8c8c9e', marginBottom: '16px' }}>
-              {product.subtitle}
+            <p style={{ fontSize: '0.82rem', color: '#8c8c9e', marginBottom: '16px', lineHeight: 1.5 }}>
+              {product.description || product.subtitle}
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '20px' }}>
-              <span style={{ fontSize: '1.5rem', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+              <span style={{ fontSize: '1.7rem', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
                 {formatPrice(product.price)}
               </span>
-              {product.compareAtPrice && (
-                <span style={{ fontSize: '0.95rem', color: '#8c8c9e', textDecoration: 'line-through' }}>
-                  {formatPrice(product.compareAtPrice)}
-                </span>
-              )}
+              <span
+                style={{
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
+                  fontSize: '0.68rem',
+                  fontWeight: '900',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  letterSpacing: '0.08em'
+                }}
+              >
+                LIMITED
+              </span>
             </div>
 
             {/* Colors */}
@@ -269,10 +289,36 @@ export default function QuickViewModal() {
 
               <button
                 onClick={handleAddToCart}
-                className="btn-primary"
-                style={{ flex: '1 1 180px', padding: '12px 16px', fontSize: 'clamp(0.78rem, 1.8vw, 0.85rem)' }}
+                style={{
+                  flex: '1 1 180px',
+                  padding: '13px 20px',
+                  fontSize: 'clamp(0.82rem, 1.8vw, 0.9rem)',
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '9999px',
+                  fontWeight: '900',
+                  letterSpacing: '0.08em',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 18px rgba(220, 20, 60, 0.45)',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ff2a55';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.boxShadow = '0 6px 22px rgba(220, 20, 60, 0.65)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#dc143c';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 18px rgba(220, 20, 60, 0.45)';
+                }}
               >
-                {addedSuccess ? 'PRE-ORDER RESERVED' : `RESERVE • ${formatPrice(product.price * quantity)} (COD)`}
+                {addedSuccess ? 'PRE-ORDER RESERVED' : `ADD TO CART • ${formatPrice(product.price * quantity)} (COD)`}
               </button>
 
               <button

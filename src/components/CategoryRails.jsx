@@ -3,60 +3,117 @@ import { CATEGORIES } from '../data/storeData';
 import { ArrowRight } from 'lucide-react';
 
 export default function CategoryRails({ onSelectCategory, activeCategory }) {
-  const categoriesWithImages = CATEGORIES.filter((c) => c.image);
+  // The 4 main showcase categories matching Figma: HOODIES, T-SHIRTS, JACKETS, PANTS
+  const categoriesToDisplay = CATEGORIES.filter((c) => c.id !== 'all' && c.image);
 
   return (
-    <section id="wardrobe-section" style={{ padding: '64px 0 32px', scrollMarginTop: '60px' }}>
-      <div className="store-container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
+    <section id="wardrobe-section" style={{ position: 'relative', padding: '48px 0 32px', scrollMarginTop: '60px', overflow: 'hidden' }}>
+      {/* Atmospheric Crimson Ambient Glow from "More From The Ritual" */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '15%',
+          right: '-8%',
+          width: '560px',
+          height: '560px',
+          background: 'radial-gradient(circle, rgba(220, 20, 60, 0.22) 0%, rgba(180, 10, 40, 0.08) 45%, transparent 70%)',
+          filter: 'blur(55px)',
+          pointerEvents: 'none',
+          zIndex: 0
+        }}
+      />
+
+      <div className="store-container" style={{ position: 'relative', zIndex: 1 }}>
+        {/* Section Header */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            marginBottom: '28px',
+            flexWrap: 'wrap',
+            gap: '12px'
+          }}
+        >
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-              <span className="sticker-badge">
-                CURATED PIECES
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <span
+                style={{
+                  fontSize: '0.68rem',
+                  fontWeight: '900',
+                  letterSpacing: '0.14em',
+                  color: '#dc143c',
+                  textTransform: 'uppercase'
+                }}
+              >
+                THE RITUAL WARDROBE
               </span>
-              <span className="sticker-cash" style={{ fontSize: '0.64rem', padding: '2px 8px' }}>
-                HOODIES • SWEATSHIRTS • TOPS
+              <span style={{ color: 'rgba(255,255,255,0.2)' }}>•</span>
+              <span style={{ fontSize: '0.68rem', color: '#ffd312', fontWeight: '900', letterSpacing: '0.08em' }}>
+                66 PIECES ONLY
               </span>
             </div>
-            <h2 style={{ fontSize: 'clamp(2rem, 4.2vw, 3.2rem)', color: '#ffffff', fontWeight: '900', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-              The wardrobe
+            <h2
+              style={{
+                fontSize: 'clamp(1.8rem, 3.8vw, 2.8rem)',
+                color: '#ffffff',
+                fontWeight: '900',
+                letterSpacing: '0.02em',
+                textTransform: 'uppercase',
+                margin: 0
+              }}
+            >
+              The Wardrobe
             </h2>
             <div className="title-red-line" />
-            <div style={{ fontSize: '0.76rem', color: '#ffd312', fontFamily: 'var(--font-mono)', fontWeight: '800', letterSpacing: '0.08em', marginTop: '4px' }}>
-              BATCH 01 RUNWAY EDITIONS • 0 EGP DUE TODAY
-            </div>
           </div>
+
           <button
             onClick={() => onSelectCategory('all')}
             style={{
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
-              fontSize: '0.8rem',
-              fontWeight: '900',
-              letterSpacing: '0.08em',
+              gap: '8px',
+              padding: '10px 22px',
+              backgroundColor: 'transparent',
+              border: '1.5px solid #ffd312',
+              borderRadius: '6px',
               color: '#ffd312',
+              fontSize: '0.76rem',
+              fontWeight: '900',
+              letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              transition: 'color 0.2s',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+              marginBottom: '8px'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#ffd312';
+              e.currentTarget.style.color = '#010000';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 211, 18, 0.5), 3px 3px 0px #ffffff';
+              e.currentTarget.style.transform = 'translate(-2px, -2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = '#ffd312';
+              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.transform = 'translate(0, 0)';
             }}
           >
             <span>VIEW ALL GRAILS</span>
-            <ArrowRight size={15} />
+            <ArrowRight size={14} />
           </button>
         </div>
 
-        {/* Rails Grid */}
+        {/* 4 Category Grid Cards from Figma */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(145px, 28vw, 240px), 1fr))',
-            gap: 'clamp(10px, 2vw, 16px)'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(200px, 22vw, 280px), 1fr))',
+            gap: 'clamp(12px, 2vw, 20px)'
           }}
         >
-          {categoriesWithImages.map((cat) => {
+          {categoriesToDisplay.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
               <div
@@ -64,67 +121,135 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
                 onClick={() => onSelectCategory(cat.id)}
                 style={{
                   position: 'relative',
-                  height: 'clamp(200px, 30vw, 320px)',
+                  height: 'clamp(260px, 32vw, 360px)',
                   borderRadius: '16px',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  border: `2px solid ${isActive ? '#ffd312' : 'rgba(255,255,255,0.12)'}`,
-                  boxShadow: isActive ? '0 0 20px rgba(255,211,18,0.4)' : 'none',
-                  transition: 'all var(--transition-smooth)'
+                  backgroundColor: '#050508',
+                  border: `1.5px solid ${isActive ? '#ffd312' : 'rgba(255,255,255,0.1)'}`,
+                  boxShadow: isActive ? '0 0 24px rgba(255,211,18,0.35)' : 'none',
+                  transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-6px)';
                   e.currentTarget.style.borderColor = '#ffd312';
-                  e.currentTarget.style.boxShadow = '4px 4px 0px #ffd312';
-                  const img = e.currentTarget.querySelector('img');
+                  e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.95), 0 0 30px rgba(220, 20, 60, 0.45), 0 0 15px rgba(255, 211, 18, 0.3)';
+                  const img = e.currentTarget.querySelector('.cat-garment-img');
                   if (img) img.style.transform = 'scale(1.08)';
+                  const arrow = e.currentTarget.querySelector('.cat-arrow');
+                  if (arrow) arrow.style.transform = 'translateX(6px)';
+                  const glow = e.currentTarget.querySelector('.cat-bg-glow');
+                  if (glow) {
+                    glow.style.opacity = '1';
+                    glow.style.transform = 'scale(1.1)';
+                  }
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = isActive ? '#ffd312' : 'rgba(255,255,255,0.12)';
-                  e.currentTarget.style.boxShadow = isActive ? '0 0 20px rgba(255,211,18,0.4)' : 'none';
-                  const img = e.currentTarget.querySelector('img');
+                  e.currentTarget.style.borderColor = isActive ? '#ffd312' : 'rgba(255,255,255,0.1)';
+                  e.currentTarget.style.boxShadow = isActive ? '0 0 24px rgba(255,211,18,0.35)' : 'none';
+                  const img = e.currentTarget.querySelector('.cat-garment-img');
                   if (img) img.style.transform = 'scale(1)';
+                  const arrow = e.currentTarget.querySelector('.cat-arrow');
+                  if (arrow) arrow.style.transform = 'translateX(0)';
+                  const glow = e.currentTarget.querySelector('.cat-bg-glow');
+                  if (glow) {
+                    glow.style.opacity = isActive ? '1' : '0.65';
+                    glow.style.transform = 'scale(1)';
+                  }
                 }}
               >
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
-                  }}
-                />
-                {/* Gradient */}
+                {/* Atmospheric Crimson Background Glow from "More From The Ritual" */}
                 <div
+                  className="cat-bg-glow"
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'linear-gradient(to top, rgba(1,1,0,0.95) 0%, rgba(1,1,0,0.2) 60%, rgba(1,1,0,0.5) 100%)'
+                    background: 'radial-gradient(circle at 50% 40%, rgba(220, 20, 60, 0.28) 0%, rgba(180, 10, 40, 0.12) 35%, rgba(255, 211, 18, 0.04) 55%, transparent 75%)',
+                    pointerEvents: 'none',
+                    transition: 'opacity 0.4s ease, transform 0.4s ease',
+                    opacity: isActive ? 1 : 0.65
                   }}
                 />
 
-                {/* Content */}
+                {/* Garment Cutout Image */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: '16px 16px 80px 16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <img
+                    className="cat-garment-img"
+                    src={cat.image}
+                    alt={cat.name}
+                    style={{
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.9))',
+                      transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                  />
+                </div>
+
+                {/* Bottom Content Bar from Figma: Category Title + shop now -> */}
                 <div
                   style={{
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    padding: 'clamp(12px, 3vw, 20px)',
+                    padding: 'clamp(14px, 2.5vw, 20px)',
+                    background: 'linear-gradient(to top, rgba(1,1,0,0.98) 0%, rgba(1,1,0,0.85) 60%, transparent 100%)',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    zIndex: 2
+                    gap: '4px',
+                    zIndex: 5
                   }}
                 >
-                  <span className="sticker-dark" style={{ width: 'fit-content', marginBottom: '6px', fontSize: '0.62rem' }}>
-                    {cat.count} PIECES
-                  </span>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(0.95rem, 2vw, 1.2rem)', fontWeight: '900', color: '#ffffff', letterSpacing: '0.04em' }}>
+                  <div
+                    style={{
+                      fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+                      fontWeight: '900',
+                      color: '#ffffff',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                      fontFamily: 'var(--font-heading)',
+                      lineHeight: 1
+                    }}
+                  >
                     {cat.name}
+                  </div>
+
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontSize: '0.8rem',
+                      fontWeight: '800',
+                      color: '#ffffff',
+                      letterSpacing: '0.04em',
+                      width: 'fit-content'
+                    }}
+                  >
+                    <span style={{ borderBottom: '1.5px solid #dc143c', paddingBottom: '2px' }}>shop now</span>
+                    <span
+                      className="cat-arrow"
+                      style={{
+                        color: '#dc143c',
+                        fontSize: '1rem',
+                        transition: 'transform 0.25s ease',
+                        display: 'inline-block'
+                      }}
+                    >
+                      →
+                    </span>
                   </div>
                 </div>
               </div>
