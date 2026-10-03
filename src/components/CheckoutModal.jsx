@@ -34,8 +34,20 @@ export default function CheckoutModal() {
 
   const [trackingNumber, setTrackingNumber] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [confirmedTotal, setConfirmedTotal] = useState(0);
 
   if (!isCheckoutOpen) return null;
+
+  const handleCloseModal = () => {
+    setIsCheckoutOpen(false);
+    if (step === 'confirmed') {
+      setTimeout(() => {
+        setStep('shipping');
+        setTrackingNumber('');
+        setConfirmedTotal(0);
+      }, 300);
+    }
+  };
 
   const handleNextToConfirmation = (e) => {
     e.preventDefault();
@@ -45,6 +57,7 @@ export default function CheckoutModal() {
   const handleCompletePreOrder = (e) => {
     e.preventDefault();
     setIsProcessing(true);
+    setConfirmedTotal(finalTotal);
     setTimeout(() => {
       setIsProcessing(false);
       const randomPreOrderId = `SYGIL-PRE-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -69,9 +82,7 @@ export default function CheckoutModal() {
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(8px, 2.5vw, 16px)' }}>
       <div
-        onClick={() => {
-          if (step !== 'confirmed') setIsCheckoutOpen(false);
-        }}
+        onClick={handleCloseModal}
         style={{
           position: 'fixed',
           inset: 0,
@@ -85,8 +96,8 @@ export default function CheckoutModal() {
         style={{
           position: 'relative',
           backgroundColor: '#08080a',
-          border: '2px solid #ffd312',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 35px rgba(255,211,18,0.35)',
+          border: '2px solid #dc143c',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 35px rgba(220,20,60,0.4), 0 0 10px rgba(212,175,55,0.2)',
           borderRadius: '24px',
           width: '100%',
           maxWidth: '860px',
@@ -97,9 +108,9 @@ export default function CheckoutModal() {
         }}
       >
         <button
-          onClick={() => setIsCheckoutOpen(false)}
+          onClick={handleCloseModal}
           aria-label="Close pre-order modal"
-          style={{ position: 'absolute', top: '20px', right: '20px', color: '#ffd312', background: 'transparent', border: 'none', cursor: 'pointer' }}
+          style={{ position: 'absolute', top: '20px', right: '20px', color: '#dc143c', background: 'transparent', border: 'none', cursor: 'pointer' }}
         >
           <X size={24} />
         </button>
@@ -123,9 +134,9 @@ export default function CheckoutModal() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', fontWeight: '900' }}>
-                <span style={{ color: step === 'shipping' ? '#ffd312' : '#ffffff' }}>1. Delivery Address</span>
+                <span style={{ color: step === 'shipping' ? '#dc143c' : '#ffffff' }}>1. Delivery Address</span>
                 <span style={{ color: '#8c8c9e' }}>→</span>
-                <span style={{ color: step === 'confirmation' ? '#ffd312' : '#8c8c9e' }}>2. Cash Confirmation</span>
+                <span style={{ color: step === 'confirmation' ? '#dc143c' : '#8c8c9e' }}>2. Cash Confirmation</span>
               </div>
             </div>
 
@@ -158,7 +169,7 @@ export default function CheckoutModal() {
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '900', color: '#ffd312', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '900', color: '#d4af37', marginBottom: '4px' }}>
                         PHONE / WHATSAPP NUMBER (FOR COURIER ARRIVAL CALL)
                       </label>
                       <input
@@ -167,7 +178,7 @@ export default function CheckoutModal() {
                         placeholder="+20 10 0000 0000"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', backgroundColor: '#010000', border: '1.5px solid #ffd312', color: '#ffffff', fontSize: '0.82rem', outline: 'none', fontFamily: 'var(--font-mono)' }}
+                        style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', backgroundColor: '#010000', border: '1.5px solid #d4af37', color: '#ffffff', fontSize: '0.82rem', outline: 'none', fontFamily: 'var(--font-mono)' }}
                       />
                     </div>
 
@@ -239,29 +250,29 @@ export default function CheckoutModal() {
                 ) : (
                   <form onSubmit={handleCompletePreOrder} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     {/* Destination Summary Box */}
-                    <div style={{ padding: '14px', borderRadius: '12px', backgroundColor: '#010000', border: '1.5px solid #ffd312' }}>
+                    <div style={{ padding: '14px', borderRadius: '12px', backgroundColor: '#010000', border: '1.5px solid #d4af37' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', marginBottom: '4px' }}>
                         <span style={{ color: '#8c8c9e' }}>Delivery Address:</span>
                         <span style={{ color: '#ffffff', fontWeight: '800' }}>{formData.address}, {formData.city}</span>
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', marginBottom: '6px' }}>
                         <span style={{ color: '#8c8c9e' }}>Courier Call Phone:</span>
-                        <span style={{ color: '#ffd312', fontWeight: '800', fontFamily: 'var(--font-mono)' }}>{formData.phone}</span>
+                        <span style={{ color: '#d4af37', fontWeight: '800', fontFamily: 'var(--font-mono)' }}>{formData.phone}</span>
                       </div>
-                      <button type="button" onClick={() => setStep('shipping')} style={{ fontSize: '0.7rem', color: '#ffd312', fontWeight: '900', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer' }}>
+                      <button type="button" onClick={() => setStep('shipping')} style={{ fontSize: '0.7rem', color: '#d4af37', fontWeight: '900', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer' }}>
                         Edit Address & Contact
                       </button>
                     </div>
 
                     {/* Cash Payment Guarantee Card */}
-                    <div style={{ padding: '18px', borderRadius: '14px', backgroundColor: 'rgba(255, 211, 18, 0.08)', border: '2px solid #ffd312', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <div style={{ color: '#ffd312', fontWeight: '900', fontSize: '0.88rem' }}>
+                    <div style={{ padding: '18px', borderRadius: '14px', backgroundColor: 'rgba(220, 20, 60, 0.08)', border: '2px solid #dc143c', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <div style={{ color: '#dc143c', fontWeight: '900', fontSize: '0.88rem' }}>
                         <span>100% CASH PAYMENT UPON DELIVERY</span>
                       </div>
                       <p style={{ fontSize: '0.8rem', color: '#dcdce6', lineHeight: 1.5 }}>
-                        No credit card or online transaction is required. You will hand the exact amount of <strong style={{ color: '#ffd312' }}>{formatPrice(finalTotal)}</strong> in cash directly to the courier upon doorstep handover.
+                        No credit card or online transaction is required. You will hand the exact amount of <strong style={{ color: '#d4af37' }}>{formatPrice(finalTotal)}</strong> in cash directly to the courier upon doorstep handover.
                       </p>
-                      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '6px', borderTop: '1px solid rgba(255,211,18,0.2)' }}>
+                      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '6px', borderTop: '1px solid rgba(220, 20, 60, 0.25)' }}>
                         <span style={{ fontSize: '0.72rem', color: '#ffffff' }}>
                           • 0 EGP Due Today
                         </span>
@@ -281,7 +292,7 @@ export default function CheckoutModal() {
                         id="needChangeCheck"
                         checked={formData.needChange}
                         onChange={(e) => setFormData({ ...formData, needChange: e.target.checked })}
-                        style={{ accentColor: '#ffd312', width: '16px', height: '16px', cursor: 'pointer' }}
+                        style={{ accentColor: '#dc143c', width: '16px', height: '16px', cursor: 'pointer' }}
                       />
                       <label htmlFor="needChangeCheck" style={{ fontSize: '0.78rem', color: '#ffffff', fontWeight: '700', cursor: 'pointer' }}>
                         I will need cash change from the courier
@@ -381,9 +392,9 @@ export default function CheckoutModal() {
             </p>
 
             {/* Pre-Order Voucher Box */}
-            <div style={{ padding: '22px 26px', borderRadius: '18px', backgroundColor: '#010000', border: '2px solid #ffd312', maxWidth: '520px', margin: '0 auto 28px', textAlign: 'left', boxShadow: '4px 4px 0px #ffd312' }}>
+            <div style={{ padding: '22px 26px', borderRadius: '18px', backgroundColor: '#010000', border: '2px solid #dc143c', maxWidth: '520px', margin: '0 auto 28px', textAlign: 'left', boxShadow: '4px 4px 0px #d4af37' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '8px' }}>
-                <span style={{ fontSize: '0.72rem', color: '#ffd312', fontWeight: '900' }}>SΨGIL OFFICIAL PRE-ORDER VOUCHER:</span>
+                <span style={{ fontSize: '0.72rem', color: '#d4af37', fontWeight: '900' }}>SΨGIL OFFICIAL PRE-ORDER VOUCHER:</span>
                 <span style={{ fontSize: '0.7rem', color: '#dc143c', fontWeight: '900' }}>BATCH 01 QUEUE</span>
               </div>
 
@@ -407,7 +418,7 @@ export default function CheckoutModal() {
                 <div>
                   <span style={{ color: '#8c8c9e', display: 'block' }}>Exact Cash Due to Courier:</span>
                   <span style={{ fontWeight: '900', color: '#ffd312', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>
-                    {formatPrice(finalTotal)}
+                    {formatPrice(confirmedTotal || finalTotal)}
                   </span>
                 </div>
               </div>
@@ -424,7 +435,7 @@ export default function CheckoutModal() {
               </button>
 
               <button
-                onClick={() => setIsCheckoutOpen(false)}
+                onClick={handleCloseModal}
                 className="btn-primary"
                 style={{ padding: '12px 28px', fontSize: '0.82rem' }}
               >

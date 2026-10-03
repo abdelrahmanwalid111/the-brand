@@ -1,15 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Plus, Eye } from 'lucide-react';
-import { useStore } from '../context/StoreContext';
-import { PRODUCTS } from '../data/storeData';
+import React, { useEffect, useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export default function HeroSection({ onShopClick }) {
-  const { openQuickView, formatPrice } = useStore();
-  const [activeHotspot, setActiveHotspot] = useState(null);
-
   // Direct DOM refs for GPU-accelerated 60/120fps parallax with ZERO React re-renders on scroll
   const bgImageRef = useRef(null);
-  const hotspotsContainerRef = useRef(null);
   const contentRef = useRef(null);
   const scrollCueRef = useRef(null);
 
@@ -21,31 +15,7 @@ export default function HeroSection({ onShopClick }) {
     titleRed: 'MORE',
     tagline: 'Premium Streetwear For Those Who Move Different',
     description: 'Handcrafted in strict 66-piece runway allocations in Florence. 0 EGP due today — inspect & pay cash upon doorstep delivery.',
-    image: '/assets/sygil_hero_cinematic.jpg',
-    hotspots: [
-      {
-        id: 'hs-hero-1',
-        productId: 'rad-01',
-        title: 'DARK RITUAL 650GSM HOODIE',
-        shortLabel: 'DARK RITUAL HOODIE',
-        category: 'HOODIES',
-        price: 2600,
-        x: 35,
-        y: 45,
-        image: '/assets/sygil_hoodie_darkritual.jpg'
-      },
-      {
-        id: 'hs-hero-2',
-        productId: 'rad-06',
-        title: 'SACRED GEOMETRY BOX-CUT TEE',
-        shortLabel: 'SACRED GEOMETRY TEE',
-        category: 'T-SHIRTS',
-        price: 2600,
-        x: 68,
-        y: 46,
-        image: '/assets/sygil_tshirt_sigil.jpg'
-      }
-    ]
+    image: '/assets/sygil_hero_cinematic.jpg'
   };
 
   // Silky 60/120fps Parallax via requestAnimationFrame
@@ -68,10 +38,6 @@ export default function HeroSection({ onShopClick }) {
 
         if (bgImageRef.current) {
           bgImageRef.current.style.transform = `scale(${scale}) translateY(${imageY}px)`;
-        }
-
-        if (hotspotsContainerRef.current) {
-          hotspotsContainerRef.current.style.transform = `translateY(${imageY}px)`;
         }
 
         if (contentRef.current) {
@@ -98,13 +64,6 @@ export default function HeroSection({ onShopClick }) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleHotspotClick = (productId) => {
-    const product = PRODUCTS.find((p) => p.id === productId);
-    if (product) {
-      openQuickView(product);
-    }
-  };
 
   return (
     <section
@@ -160,187 +119,6 @@ export default function HeroSection({ onShopClick }) {
             pointerEvents: 'none'
           }}
         />
-      </div>
-
-      {/* 2. Interactive Garment Radar Hotspot Pins */}
-      <div
-        ref={hotspotsContainerRef}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 30,
-          pointerEvents: 'none',
-          willChange: 'transform'
-        }}
-      >
-        {heroData.hotspots.map((hs) => {
-          const isCardOpen = activeHotspot?.id === hs.id;
-          return (
-            <div
-              key={hs.id}
-              style={{
-                position: 'absolute',
-                top: `${hs.y}%`,
-                left: `${hs.x}%`,
-                transform: 'translate(-50%, -50%)',
-                pointerEvents: 'auto',
-                zIndex: isCardOpen ? 45 : 30
-              }}
-              onMouseEnter={() => setActiveHotspot(hs)}
-              onMouseLeave={() => setActiveHotspot(null)}
-            >
-              {/* Radar Pulse Button and Label */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleHotspotClick(hs.productId);
-                  }}
-                  className="radar-sonar-pin"
-                  aria-label={`View ${hs.title}`}
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '50%',
-                    backgroundColor: '#ffd312',
-                    border: '2.5px solid #010000',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#010000',
-                    cursor: 'pointer',
-                    boxShadow: '0 0 22px rgba(255, 211, 18, 0.95), 0 4px 15px rgba(0,0,0,0.9)',
-                    transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.22)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-                >
-                  <Plus size={19} strokeWidth={3.5} />
-                </button>
-
-                {/* Floating Label Badge (desktop / tablet) */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleHotspotClick(hs.productId);
-                  }}
-                  className="desktop-only"
-                  style={{
-                    backgroundColor: 'rgba(1, 1, 0, 0.92)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1.5px solid #ffd312',
-                    color: '#ffffff',
-                    padding: '5px 12px',
-                    borderRadius: '9999px',
-                    fontSize: '0.68rem',
-                    fontWeight: '800',
-                    letterSpacing: '0.04em',
-                    whiteSpace: 'nowrap',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.85)',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#ffd312';
-                    e.currentTarget.style.color = '#010000';
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(1, 1, 0, 0.92)';
-                    e.currentTarget.style.color = '#ffffff';
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
-                >
-                  <span>{hs.shortLabel}</span>
-                  <span style={{ color: 'inherit', fontWeight: '900', fontFamily: 'var(--font-mono)' }}>
-                    • {formatPrice(hs.price)}
-                  </span>
-                </button>
-              </div>
-
-              {/* Floating Garment Preview Card */}
-              {isCardOpen && (
-                <div
-                  className="glass-modal hotspot-card-enter"
-                  onClick={() => handleHotspotClick(hs.productId)}
-                  style={{
-                    position: 'absolute',
-                    bottom: '48px',
-                    left: hs.x > 50 ? 'auto' : '0',
-                    right: hs.x > 50 ? '0' : 'auto',
-                    transform: 'none',
-                    width: 'min(82vw, 250px)',
-                    padding: '12px',
-                    borderRadius: '14px',
-                    border: '1.5px solid #ffd312',
-                    boxShadow: '0 20px 50px rgba(0,0,0,0.95), 0 0 25px rgba(255,211,18,0.3)',
-                    cursor: 'pointer',
-                    zIndex: 50,
-                    backgroundColor: 'rgba(5, 5, 8, 0.96)'
-                  }}
-                >
-                  <div
-                    style={{
-                      aspectRatio: '1',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                      marginBottom: '8px',
-                      backgroundColor: '#010000',
-                      border: '1px solid rgba(255,255,255,0.1)'
-                    }}
-                  >
-                    <img
-                      src={hs.image}
-                      alt={hs.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>
-                    <span style={{ fontSize: '0.62rem', color: '#ffd312', fontWeight: '900', textTransform: 'uppercase' }}>
-                      {hs.category}
-                    </span>
-                    <span style={{ fontSize: '0.62rem', color: '#dc143c', fontWeight: '900' }}>
-                      0 EGP TODAY
-                    </span>
-                  </div>
-                  <div style={{ fontSize: '0.78rem', fontWeight: '900', color: '#ffffff', lineHeight: 1.25, marginBottom: '6px' }}>
-                    {hs.title}
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.86rem', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>
-                      {formatPrice(hs.price)}
-                    </span>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleHotspotClick(hs.productId);
-                      }}
-                      style={{
-                        padding: '4px 10px',
-                        backgroundColor: '#ffd312',
-                        color: '#010000',
-                        fontSize: '0.65rem',
-                        fontWeight: '900',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '4px'
-                      }}
-                    >
-                      <Eye size={11} />
-                      <span>VIEW</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
       </div>
 
       {/* 3. High-Voltage Figma Headline & Action Block */}
@@ -448,22 +226,69 @@ export default function HeroSection({ onShopClick }) {
             {heroData.description}
           </p>
 
-          {/* Dual CTAs from Figma: VIEW LOOKBOOK + SHOP NOW */}
+          {/* Dual CTAs: SHOP NOW (Primary Red) + VIEW LOOKBOOK (Secondary Gold) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => onShopClick && onShopClick()}
+              style={{
+                padding: '13px 28px',
+                backgroundColor: '#dc143c',
+                color: '#ffffff',
+                border: '2px solid #dc143c',
+                borderRadius: '9999px',
+                fontWeight: '900',
+                fontSize: '0.82rem',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                boxShadow: '3px 3px 0px #d4af37, 0 0 25px rgba(220, 20, 60, 0.45)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#ff2a55';
+                e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                e.currentTarget.style.boxShadow = '5px 5px 0px #ffd312, 0 0 30px rgba(220, 20, 60, 0.7)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#dc143c';
+                e.currentTarget.style.transform = 'none';
+                e.currentTarget.style.boxShadow = '3px 3px 0px #d4af37, 0 0 25px rgba(220, 20, 60, 0.45)';
+              }}
+            >
+              <span>SHOP NOW</span>
+              <span
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#dc143c'
+                }}
+              >
+                <ArrowRight size={14} strokeWidth={3} />
+              </span>
+            </button>
+
             <button
               onClick={() => {
                 const el = document.getElementById('lookbook-section') || document.getElementById('wardrobe-section');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
               style={{
-                padding: '12px 28px',
-                backgroundColor: 'rgba(1, 1, 0, 0.7)',
-                color: '#ffd312',
-                border: '2px solid #ffd312',
-                borderRadius: '6px',
+                padding: '12px 26px',
+                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                color: '#ffffff',
+                border: '1.5px solid #d4af37',
+                borderRadius: '9999px',
                 fontWeight: '900',
-                fontSize: '0.78rem',
-                letterSpacing: '0.1em',
+                fontSize: '0.82rem',
+                letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
@@ -472,63 +297,17 @@ export default function HeroSection({ onShopClick }) {
                 gap: '8px'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#ffd312';
-                e.currentTarget.style.color = '#010000';
-                e.currentTarget.style.boxShadow = '0 0 25px rgba(255,211,18,0.5)';
+                e.currentTarget.style.backgroundColor = '#d4af37';
+                e.currentTarget.style.color = '#000000';
+                e.currentTarget.style.boxShadow = '0 0 25px rgba(212,175,55,0.5), 3px 3px 0px #dc143c';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(1, 1, 0, 0.7)';
-                e.currentTarget.style.color = '#ffd312';
+                e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.75)';
+                e.currentTarget.style.color = '#ffffff';
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
               <span>VIEW LOOKBOOK</span>
-            </button>
-
-            <button
-              onClick={onShopClick}
-              style={{
-                padding: '10px 22px',
-                backgroundColor: 'rgba(10, 10, 14, 0.95)',
-                color: '#ffffff',
-                border: '1.5px solid rgba(255, 255, 255, 0.25)',
-                borderRadius: '9999px',
-                fontWeight: '900',
-                fontSize: '0.78rem',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#dc143c';
-                e.currentTarget.style.transform = 'translateX(2px)';
-                e.currentTarget.style.boxShadow = '0 0 22px rgba(220, 20, 60, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
-                e.currentTarget.style.transform = 'none';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              <span>SHOP NOW</span>
-              <span
-                style={{
-                  width: '26px',
-                  height: '26px',
-                  borderRadius: '50%',
-                  backgroundColor: '#dc143c',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff'
-                }}
-              >
-                <ArrowRight size={14} strokeWidth={3} />
-              </span>
             </button>
           </div>
         </div>

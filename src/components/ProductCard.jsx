@@ -53,9 +53,9 @@ export default function ProductCard({ product }) {
       }}
       onMouseEnter={(e) => {
         setIsHovered(true);
-        e.currentTarget.style.borderColor = '#ffd312';
+        e.currentTarget.style.borderColor = '#dc143c';
         e.currentTarget.style.transform = 'translate(-3px, -3px)';
-        e.currentTarget.style.boxShadow = '4px 4px 0px #ffd312';
+        e.currentTarget.style.boxShadow = '4px 4px 0px #d4af37';
       }}
       onMouseLeave={(e) => {
         setIsHovered(false);
@@ -158,8 +158,8 @@ export default function ProductCard({ product }) {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.15)';
-              e.currentTarget.style.borderColor = '#ffd312';
-              e.currentTarget.style.color = '#ffd312';
+              e.currentTarget.style.borderColor = '#dc143c';
+              e.currentTarget.style.color = '#dc143c';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
@@ -179,7 +179,7 @@ export default function ProductCard({ product }) {
             left: 0,
             right: 0,
             padding: '12px',
-            background: 'linear-gradient(to top, rgba(1,1,0,0.98) 0%, rgba(1,1,0,0.88) 70%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.88) 70%, transparent 100%)',
             display: 'flex',
             flexDirection: 'column',
             gap: '6px',
@@ -189,8 +189,8 @@ export default function ProductCard({ product }) {
             zIndex: 15
           }}
         >
-          <div style={{ fontSize: '0.68rem', fontWeight: '900', letterSpacing: '0.08em', color: '#ffd312', textTransform: 'uppercase' }}>
-            RESERVE PRE-ORDER (EU SIZE):
+          <div style={{ fontSize: '0.68rem', fontWeight: '900', letterSpacing: '0.08em', color: '#d4af37', textTransform: 'uppercase' }}>
+            RESERVE PRE-ORDER (SELECT SIZE):
           </div>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             {product.sizes ? (
@@ -202,9 +202,9 @@ export default function ProductCard({ product }) {
                     flex: '1 0 auto',
                     padding: '6px 10px',
                     borderRadius: '6px',
-                    backgroundColor: addingSize === size ? '#ffd312' : 'rgba(255,255,255,0.1)',
-                    color: addingSize === size ? '#010000' : '#ffffff',
-                    border: '1px solid rgba(255,255,255,0.25)',
+                    backgroundColor: addingSize === size ? '#dc143c' : 'rgba(255,255,255,0.1)',
+                    color: '#ffffff',
+                    border: addingSize === size ? '1px solid #d4af37' : '1px solid rgba(255,255,255,0.25)',
                     fontSize: '0.72rem',
                     fontWeight: '900',
                     fontFamily: 'var(--font-mono)',
@@ -213,9 +213,9 @@ export default function ProductCard({ product }) {
                   }}
                   onMouseEnter={(e) => {
                     if (addingSize !== size) {
-                      e.currentTarget.style.backgroundColor = '#ffd312';
-                      e.currentTarget.style.color = '#010000';
-                      e.currentTarget.style.borderColor = '#ffd312';
+                      e.currentTarget.style.backgroundColor = '#dc143c';
+                      e.currentTarget.style.color = '#ffffff';
+                      e.currentTarget.style.borderColor = '#d4af37';
                     }
                   }}
                   onMouseLeave={(e) => {
@@ -236,12 +236,12 @@ export default function ProductCard({ product }) {
                   width: '100%',
                   padding: '8px',
                   borderRadius: '6px',
-                  backgroundColor: '#ffd312',
-                  color: '#010000',
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
                   fontSize: '0.75rem',
                   fontWeight: '900',
                   cursor: 'pointer',
-                  border: 'none'
+                  border: '1px solid #d4af37'
                 }}
               >
                 PRE-ORDER (CASH ON DELIVERY)
@@ -278,7 +278,7 @@ export default function ProductCard({ product }) {
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden'
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#dc143c')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
           >
             {product.title}
@@ -317,8 +317,8 @@ export default function ProductCard({ product }) {
                     height: '16px',
                     borderRadius: '50%',
                     backgroundColor: c.hex,
-                    border: selectedColor === c.name ? '2px solid #ffd312' : '1px solid rgba(255,255,255,0.3)',
-                    outline: selectedColor === c.name ? '2px solid #ffffff' : 'none',
+                    border: selectedColor === c.name ? '2px solid #dc143c' : '1px solid rgba(255,255,255,0.3)',
+                    outline: selectedColor === c.name ? '2px solid #d4af37' : 'none',
                     cursor: 'pointer',
                     transition: 'transform 0.15s'
                   }}
@@ -386,12 +386,12 @@ export default function ProductCard({ product }) {
               marginTop: '10px',
               width: '100%',
               padding: '8px 12px',
-              backgroundColor: '#ffd312',
-              color: '#010000',
+              backgroundColor: '#dc143c',
+              color: '#ffffff',
               fontSize: '0.72rem',
               fontWeight: '900',
               borderRadius: '6px',
-              border: 'none',
+              border: '1px solid #d4af37',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '6px',

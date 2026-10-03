@@ -24,7 +24,7 @@ export default function CommunitySection() {
       aria-label="Community dispatches newsletter"
       style={{
         backgroundColor: '#010000',
-        borderTop: '1px solid rgba(255, 211, 18, 0.3)',
+        borderTop: '1px solid rgba(220, 20, 60, 0.4)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         padding: 'clamp(40px, 6vw, 64px) 0',
         color: '#ffffff'
@@ -107,7 +107,7 @@ export default function CommunitySection() {
                 transition: 'border-color 0.2s',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.6)'
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = '#ffd312')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = '#dc143c')}
               onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)')}
             >
               <input
@@ -214,7 +214,7 @@ export default function CommunitySection() {
                 alignItems: 'center'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#ffd312';
+                e.currentTarget.style.color = '#dc143c';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
@@ -242,7 +242,7 @@ export default function CommunitySection() {
                 alignItems: 'center'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#ffd312';
+                e.currentTarget.style.color = '#dc143c';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
@@ -268,7 +268,7 @@ export default function CommunitySection() {
                 alignItems: 'center'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#ffd312';
+                e.currentTarget.style.color = '#dc143c';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {

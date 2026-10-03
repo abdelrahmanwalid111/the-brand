@@ -1,21 +1,23 @@
 import React from 'react';
 import { useStore } from '../context/StoreContext';
 import { PRODUCTS } from '../data/storeData';
-import { X, Heart, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
+import { X, Heart, ShoppingBag, Trash2 } from 'lucide-react';
 
 export default function WishlistDrawer() {
-  const { isWishlistOpen, setIsWishlistOpen, wishlist, toggleWishlist, addToCart, formatPrice, openProductPage } = useStore();
+  const {
+    isWishlistOpen,
+    setIsWishlistOpen,
+    wishlist,
+    toggleWishlist,
+    addToCart,
+    formatPrice,
+    openProductPage,
+    openShopPage
+  } = useStore();
 
   if (!isWishlistOpen) return null;
 
   const savedProducts = PRODUCTS.filter((p) => wishlist.includes(p.id));
-
-  const handleMoveAllToBag = () => {
-    savedProducts.forEach((p) => {
-      addToCart(p, { quantity: 1 });
-    });
-    setIsWishlistOpen(false);
-  };
 
   const handleItemClick = (product) => {
     setIsWishlistOpen(false);
@@ -30,51 +32,183 @@ export default function WishlistDrawer() {
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          backdropFilter: 'blur(6px)'
+          backgroundColor: 'rgba(0, 0, 0, 0.82)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)'
         }}
       />
 
-      {/* Drawer */}
+      {/* Wishlist Drawer Container (Matching Cart Drawer in Style) */}
       <div
         className="responsive-drawer"
         style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '440px',
-          backgroundColor: 'var(--bg-secondary)',
-          borderLeft: '1px solid var(--card-border)',
+          maxWidth: '460px',
+          backgroundColor: '#010000',
+          borderLeft: '1.5px solid #dc143c',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           zIndex: 110,
-          boxShadow: 'var(--shadow-lg)'
+          boxShadow: '-12px 0 45px rgba(0,0,0,0.95), -2px 0 20px rgba(220, 20, 60, 0.25)',
+          color: '#ffffff'
         }}
       >
-        {/* Header */}
-        <div style={{ padding: 'clamp(14px, 3vw, 24px)', borderBottom: '1px solid var(--card-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Heart size={18} style={{ color: '#e11d48' }} fill="#e11d48" />
-            <h3 style={{ fontSize: '1rem', fontWeight: '800', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--fg-primary)' }}>
-              SAVED PIECES ({savedProducts.length})
-            </h3>
+        {/* =========================================
+            HEADER (SAVED PIECES + ITEMS COUNT + CLOSE X)
+            ========================================= */}
+        <div
+          style={{
+            padding: '24px 24px 18px',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start'
+          }}
+        >
+          <div>
+            <h2
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '1.45rem',
+                fontWeight: '900',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: '#ffffff',
+                margin: '0 0 4px 0',
+                lineHeight: 1
+              }}
+            >
+              SAVED PIECES
+            </h2>
+            <div
+              style={{
+                fontSize: '0.78rem',
+                fontWeight: '900',
+                letterSpacing: '0.08em',
+                color: '#ffd312',
+                textTransform: 'uppercase'
+              }}
+            >
+              {savedProducts.length} {savedProducts.length === 1 ? 'ITEM' : 'ITEMS'}
+            </div>
           </div>
+
           <button
             onClick={() => setIsWishlistOpen(false)}
-            aria-label="Close wishlist"
-            style={{ color: 'var(--fg-primary)', padding: '6px' }}
+            aria-label="Close saved pieces"
+            style={{
+              color: '#ffffff',
+              background: 'none',
+              border: 'none',
+              padding: '4px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'color 0.2s, transform 0.2s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#dc143c';
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#ffffff';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
           >
-            <X size={20} />
+            <X size={24} />
           </button>
         </div>
 
-        {/* List */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        {/* Top Perks Bar */}
+        {savedProducts.length > 0 && (
+          <div
+            style={{
+              padding: '10px 24px',
+              backgroundColor: 'rgba(220, 20, 60, 0.06)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontSize: '0.72rem',
+              fontWeight: '800',
+              letterSpacing: '0.04em'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ffd312' }}>
+              <Heart size={14} fill="#dc143c" color="#dc143c" />
+              <span>EXCLUSIVE ARCHIVE GRAILS</span>
+            </div>
+            <span style={{ color: '#8c8c9e' }}>100% COD AVAILABLE</span>
+          </div>
+        )}
+
+        {/* =========================================
+            SAVED ITEMS LIST (Scrollable)
+            ========================================= */}
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '8px 24px',
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
           {savedProducts.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '60px 0' }}>
-              <Heart size={44} style={{ color: 'var(--fg-muted)', opacity: 0.3, margin: '0 auto 16px' }} />
-              <p style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--fg-primary)', marginBottom: '8px' }}>Your Wishlist is empty</p>
-              <p style={{ fontSize: '0.8rem', color: 'var(--fg-muted)' }}>Tap the heart on any piece to save it for later review.</p>
+            <div style={{ textAlign: 'center', padding: '80px 20px', margin: 'auto' }}>
+              <div
+                style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  backgroundColor: '#08080a',
+                  border: '1.5px solid rgba(255, 255, 255, 0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  color: '#dc143c'
+                }}
+              >
+                <Heart size={28} />
+              </div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '1.1rem',
+                  fontWeight: '900',
+                  color: '#ffffff',
+                  marginBottom: '8px',
+                  textTransform: 'uppercase'
+                }}
+              >
+                YOUR WISHLIST IS EMPTY
+              </h3>
+              <p
+                style={{
+                  fontSize: '0.8rem',
+                  color: '#8c8c9e',
+                  marginBottom: '24px',
+                  maxWidth: '280px',
+                  margin: '0 auto 24px',
+                  lineHeight: 1.5
+                }}
+              >
+                Explore our occult grails and save your favorite pieces to reserve them later.
+              </p>
+              <button
+                onClick={() => {
+                  setIsWishlistOpen(false);
+                  openShopPage();
+                }}
+                className="btn-primary"
+                style={{ padding: '12px 28px', fontSize: '0.8rem' }}
+              >
+                DISCOVER GRAILS
+              </button>
             </div>
           ) : (
             savedProducts.map((item) => (
@@ -82,67 +216,191 @@ export default function WishlistDrawer() {
                 key={item.id}
                 style={{
                   display: 'flex',
+                  alignItems: 'center',
                   gap: '14px',
-                  padding: '12px',
-                  backgroundColor: 'var(--card-bg)',
-                  borderRadius: '12px',
-                  border: '1px solid var(--card-border)'
+                  padding: '18px 0',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
                 }}
               >
-                <img
-                  src={item.images[0]}
-                  alt={item.title}
+                {/* Product Thumbnail Image */}
+                <div
                   onClick={() => handleItemClick(item)}
-                  style={{ width: '64px', height: '80px', objectFit: 'cover', borderRadius: '8px', cursor: 'pointer' }}
-                />
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                      <h4
-                        onClick={() => handleItemClick(item)}
-                        style={{ fontSize: '0.78rem', fontWeight: '700', color: 'var(--fg-primary)', lineHeight: 1.2, cursor: 'pointer' }}
-                      >
-                        {item.title}
-                      </h4>
-                      <button
-                        onClick={() => toggleWishlist(item.id)}
-                        style={{ color: 'var(--fg-muted)', padding: '2px', background: 'none', border: 'none', cursor: 'pointer' }}
-                      >
-                        <Trash2 size={13} />
-                      </button>
-                    </div>
-                    <div style={{ fontSize: '0.82rem', fontWeight: '800', color: 'var(--accent)', marginTop: '4px' }}>
-                      {formatPrice(item.price)}
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      addToCart(item, { quantity: 1 });
-                      toggleWishlist(item.id);
-                    }}
-                    className="btn-primary"
-                    style={{ padding: '8px 12px', fontSize: '0.7rem', width: 'fit-content' }}
-                  >
-                    <ShoppingBag size={12} />
-                    <span>MOVE TO BAG</span>
-                  </button>
+                  style={{
+                    width: '74px',
+                    height: '74px',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    backgroundColor: '#08080a',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    flexShrink: 0,
+                    cursor: 'pointer'
+                  }}
+                >
+                  <img
+                    src={item.images?.[0] || item.image || '/assets/fallen_angel_tee.jpg'}
+                    alt={item.title}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                 </div>
+
+                {/* Info: Title, Subtitle, Price */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h4
+                    onClick={() => handleItemClick(item)}
+                    style={{
+                      fontSize: '0.86rem',
+                      fontWeight: '900',
+                      letterSpacing: '0.04em',
+                      color: '#ffffff',
+                      textTransform: 'uppercase',
+                      margin: '0 0 2px 0',
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}
+                    title={item.title}
+                  >
+                    {item.title}
+                  </h4>
+                  <div
+                    style={{
+                      fontSize: '0.72rem',
+                      color: '#8c8c9e',
+                      textTransform: 'uppercase',
+                      fontWeight: '700',
+                      marginBottom: '4px'
+                    }}
+                  >
+                    {item.categoryLabel || item.category || 'PRE-ORDER'}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '0.92rem',
+                      fontWeight: '900',
+                      color: '#ffd312',
+                      fontFamily: 'var(--font-mono)',
+                      letterSpacing: '0.02em'
+                    }}
+                  >
+                    {formatPrice(item.price)}
+                  </div>
+                </div>
+
+                {/* Move to bag Action Button */}
+                <button
+                  onClick={() => {
+                    addToCart(item, { quantity: 1 });
+                    toggleWishlist(item.id);
+                  }}
+                  aria-label={`Move ${item.title} to bag`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    backgroundColor: '#000000',
+                    border: '1px solid #d4af37',
+                    color: '#ffd312',
+                    fontSize: '0.74rem',
+                    fontWeight: '900',
+                    letterSpacing: '0.06em',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    transition: 'all 0.2s',
+                    whiteSpace: 'nowrap'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#dc143c';
+                    e.currentTarget.style.borderColor = '#dc143c';
+                    e.currentTarget.style.color = '#ffffff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#000000';
+                    e.currentTarget.style.borderColor = '#d4af37';
+                    e.currentTarget.style.color = '#ffd312';
+                  }}
+                >
+                  <ShoppingBag size={12} />
+                  <span>MOVE TO BAG</span>
+                </button>
+
+                {/* Red Trash Delete Button (Matching Cart) */}
+                <button
+                  onClick={() => toggleWishlist(item.id)}
+                  aria-label={`Remove ${item.title} from saved`}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#dc143c',
+                    cursor: 'pointer',
+                    padding: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    transition: 'transform 0.2s, color 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#ff2a55';
+                    e.currentTarget.style.transform = 'scale(1.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = '#dc143c';
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
+                >
+                  <Trash2 size={16} />
+                </button>
               </div>
             ))
           )}
         </div>
 
-        {/* Footer */}
+        {/* =========================================
+            FOOTER SECTION
+            ========================================= */}
         {savedProducts.length > 0 && (
-          <div style={{ padding: '20px 24px', backgroundColor: 'var(--bg-tertiary)', borderTop: '1px solid var(--card-border)' }}>
+          <div
+            style={{
+              padding: '16px 24px 20px',
+              backgroundColor: '#010000',
+              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            {/* Continue Shopping Gold Button */}
             <button
-              onClick={handleMoveAllToBag}
-              className="btn-primary"
-              style={{ width: '100%', padding: '14px', fontSize: '0.82rem' }}
+              onClick={() => setIsWishlistOpen(false)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                borderRadius: '8px',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#ffd312',
+                fontSize: '0.78rem',
+                fontWeight: '900',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                textAlign: 'center',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#dc143c';
+                e.currentTarget.style.borderColor = '#dc143c';
+                e.currentTarget.style.color = '#ffffff';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.color = '#ffd312';
+              }}
             >
-              <span>MOVE ALL TO BAG</span>
-              <ArrowRight size={15} />
+              CONTINUE SHOPPING
             </button>
           </div>
         )}

@@ -13,15 +13,15 @@ export default function PressWallAndReviews() {
         <div
           style={{
             backgroundColor: '#010000',
-            border: '2px solid #ffd312',
-            boxShadow: '4px 4px 0px #ffd312',
+            border: '2px solid #dc143c',
+            boxShadow: '4px 4px 0px #d4af37',
             borderRadius: '24px',
             padding: '48px clamp(24px, 5vw, 64px)',
             textAlign: 'center',
             position: 'relative'
           }}
         >
-          <div style={{ fontSize: '2.4rem', color: '#ffd312', opacity: 0.6, lineHeight: 1, marginBottom: '12px', fontFamily: 'serif' }}>
+          <div style={{ fontSize: '2.4rem', color: '#dc143c', opacity: 0.8, lineHeight: 1, marginBottom: '12px', fontFamily: 'serif' }}>
             “
           </div>
 
@@ -40,7 +40,7 @@ export default function PressWallAndReviews() {
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-            <span style={{ fontSize: '0.92rem', fontWeight: '900', letterSpacing: '0.12em', color: '#ffd312', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.92rem', fontWeight: '900', letterSpacing: '0.12em', color: '#d4af37', textTransform: 'uppercase' }}>
               {quote.publication}
             </span>
             <span style={{ fontSize: '0.74rem', color: '#8c8c9e', letterSpacing: '0.05em' }}>
@@ -59,7 +59,7 @@ export default function PressWallAndReviews() {
                   width: activePressIndex === i ? '28px' : '8px',
                   height: '6px',
                   borderRadius: '3px',
-                  backgroundColor: activePressIndex === i ? '#ffd312' : 'rgba(255,255,255,0.2)',
+                  backgroundColor: activePressIndex === i ? '#dc143c' : 'rgba(255,255,255,0.2)',
                   transition: 'all 0.3s',
                   border: 'none',
                   cursor: 'pointer'

@@ -7,6 +7,15 @@ export function StoreProvider({ children }) {
   const [preset, setPreset] = useState('cyber');
   const [currency, setCurrency] = useState('EGP');
 
+  // Current View: 'home' | 'shop'
+  const [currentView, setCurrentView] = useState(() => {
+    try {
+      const hash = window.location.hash;
+      if (hash === '#shop') return 'shop';
+    } catch {}
+    return 'home';
+  });
+
   // Selected Product for Dedicated Product Page
   const [selectedProduct, setSelectedProduct] = useState(() => {
     try {
@@ -20,19 +29,22 @@ export function StoreProvider({ children }) {
     return null;
   });
 
+  // Active Shop Category Filter
+  const [activeCategory, setActiveCategory] = useState('all');
+
   // Cart (Pre-Order Bag)
   const [cart, setCart] = useState(() => {
     try {
       const saved = localStorage.getItem('sygil_cart');
       return saved ? JSON.parse(saved) : [
         {
-          cartId: 'rad-01-EU 48-Pitch Black / Cyber Gold',
+          cartId: 'rad-01-M-Pitch Black / Cyber Gold',
           productId: 'rad-01',
           title: 'SΨGIL 650GSM OCCULT HEAVYWEIGHT ZIP HOODIE',
           price: 3600,
-          image: '/assets/genz_hero_yellow.jpg',
+          image: '/assets/sygil_hoodie_darkritual.jpg',
           color: 'Pitch Black / Cyber Gold',
-          size: 'EU 48',
+          size: 'M',
           quantity: 1,
           isPreOrder: true
         }
@@ -79,8 +91,14 @@ export function StoreProvider({ children }) {
           setSelectedProduct(found);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      } else if (!hash || hash === '#' || hash === '#collection-section' || hash === '#lookbook-section' || hash === '#editorial-section' || hash === '#faq-section') {
+      } else if (hash === '#shop' || hash === '#collection-section') {
         setSelectedProduct(null);
+        setCurrentView('shop');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (!hash || hash === '#' || hash === '#home') {
+        setSelectedProduct(null);
+        setCurrentView('home');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
     window.addEventListener('hashchange', handleHashChange);
@@ -131,6 +149,45 @@ export function StoreProvider({ children }) {
 
   const closeProductPage = () => {
     setSelectedProduct(null);
+    try {
+      window.history.pushState("", document.title, window.location.pathname + window.location.search);
+    } catch {
+      window.location.hash = '';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const openShopPage = (category = null) => {
+    setSelectedProduct(null);
+    setQuickViewProduct(null);
+    setIsCartOpen(false);
+    setIsSearchOpen(false);
+    setIsWishlistOpen(false);
+    setIsSizeGuideOpen(false);
+    setIsNewsletterOpen(false);
+    setIsCheckoutOpen(false);
+    if (typeof category === 'string' && category.trim()) {
+      setActiveCategory(category.trim());
+    } else {
+      setActiveCategory('all');
+    }
+    setCurrentView('shop');
+    try {
+      window.location.hash = 'shop';
+    } catch {}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const openHomePage = () => {
+    setSelectedProduct(null);
+    setQuickViewProduct(null);
+    setIsCartOpen(false);
+    setIsSearchOpen(false);
+    setIsWishlistOpen(false);
+    setIsSizeGuideOpen(false);
+    setIsNewsletterOpen(false);
+    setIsCheckoutOpen(false);
+    setCurrentView('home');
     try {
       window.history.pushState("", document.title, window.location.pathname + window.location.search);
     } catch {
@@ -269,6 +326,12 @@ export function StoreProvider({ children }) {
         currency,
         setCurrency,
         formatPrice,
+        currentView,
+        setCurrentView,
+        activeCategory,
+        setActiveCategory,
+        openShopPage,
+        openHomePage,
         selectedProduct,
         openProductPage,
         closeProductPage,

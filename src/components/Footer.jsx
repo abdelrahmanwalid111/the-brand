@@ -3,8 +3,18 @@ import { useStore } from '../context/StoreContext';
 import AnimatedLogo from './AnimatedLogo';
 
 export default function Footer({ onNavigateSection }) {
-  const { showToast } = useStore();
+  const { showToast, openHomePage } = useStore();
   const [journalEmail, setJournalEmail] = useState('');
+
+  const handleLogoClick = () => {
+    if (onNavigateSection) {
+      onNavigateSection('home');
+    } else if (openHomePage) {
+      openHomePage();
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const handleJournalSubmit = (e) => {
     e.preventDefault();
@@ -15,13 +25,22 @@ export default function Footer({ onNavigateSection }) {
   };
 
   return (
-    <footer id="contact-section" style={{ backgroundColor: '#010000', borderTop: '2px solid #ffd312', paddingTop: '80px', paddingBottom: '40px', color: '#dcdce6' }}>
+    <footer id="contact-section" style={{ backgroundColor: '#010000', borderTop: '2px solid #dc143c', paddingTop: '80px', paddingBottom: '40px', color: '#dcdce6' }}>
       <div className="store-container">
         {/* Top: Brand Heading & Journal Capture */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 'clamp(28px, 4vw, 48px)', marginBottom: '48px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '40px' }}>
           <div>
-            <div style={{ marginBottom: '16px' }}>
-              <AnimatedLogo size="lg" showText={true} />
+            <div
+              style={{ marginBottom: '16px', display: 'inline-block', cursor: 'pointer' }}
+              onClick={handleLogoClick}
+              role="button"
+              tabIndex={0}
+              aria-label="Return to Homepage"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') handleLogoClick();
+              }}
+            >
+              <AnimatedLogo size="lg" showText={true} onClick={handleLogoClick} />
             </div>
             <p style={{ fontSize: '0.9rem', color: '#8c8c9e', maxWidth: '460px', lineHeight: 1.6 }}>
               The occult cyber-atelier defining next-generation brutalist streetwear. Handcrafted in limited 50–150 piece batches in Florence, Tokyo, and Biella. 100% Cash On Delivery pre-order platform.
@@ -71,7 +90,7 @@ export default function Footer({ onNavigateSection }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: 'clamp(24px, 4vw, 48px)', marginBottom: '48px' }}>
           {/* Client Services */}
           <div>
-            <h5 style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', color: '#ffd312', textTransform: 'uppercase', marginBottom: '18px' }}>
+            <h5 style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', color: '#d4af37', textTransform: 'uppercase', marginBottom: '18px' }}>
               CLIENT SERVICES
             </h5>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.86rem' }}>
@@ -84,7 +103,7 @@ export default function Footer({ onNavigateSection }) {
                     else document.getElementById('faq-section')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   style={{ color: '#dcdce6', textDecoration: 'none', transition: 'color 0.2s, transform 0.2s', display: 'inline-block' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffd312'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#dc143c'; e.currentTarget.style.transform = 'translateX(4px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = '#dcdce6'; e.currentTarget.style.transform = 'translateX(0)'; }}
                 >
                   Return Policy
@@ -99,7 +118,7 @@ export default function Footer({ onNavigateSection }) {
                     else document.getElementById('editorial-section')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   style={{ color: '#dcdce6', textDecoration: 'none', transition: 'color 0.2s, transform 0.2s', display: 'inline-block' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffd312'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#dc143c'; e.currentTarget.style.transform = 'translateX(4px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = '#dcdce6'; e.currentTarget.style.transform = 'translateX(0)'; }}
                 >
                   About
@@ -113,7 +132,7 @@ export default function Footer({ onNavigateSection }) {
                     document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   style={{ color: '#dcdce6', textDecoration: 'none', transition: 'color 0.2s, transform 0.2s', display: 'inline-block' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffd312'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#dc143c'; e.currentTarget.style.transform = 'translateX(4px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = '#dcdce6'; e.currentTarget.style.transform = 'translateX(0)'; }}
                 >
                   Contact
@@ -128,7 +147,7 @@ export default function Footer({ onNavigateSection }) {
                     else document.getElementById('faq-section')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                   style={{ color: '#dcdce6', textDecoration: 'none', transition: 'color 0.2s, transform 0.2s', display: 'inline-block' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#ffd312'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#dc143c'; e.currentTarget.style.transform = 'translateX(4px)'; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = '#dcdce6'; e.currentTarget.style.transform = 'translateX(0)'; }}
                 >
                   FAQ
@@ -139,7 +158,7 @@ export default function Footer({ onNavigateSection }) {
 
           {/* Follow Us */}
           <div>
-            <h5 style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', color: '#ffd312', textTransform: 'uppercase', marginBottom: '18px' }}>
+            <h5 style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', color: '#d4af37', textTransform: 'uppercase', marginBottom: '18px' }}>
               FOLLOW US
             </h5>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -159,7 +178,7 @@ export default function Footer({ onNavigateSection }) {
                   width: 'fit-content'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#ffd312';
+                  e.currentTarget.style.color = '#dc143c';
                   e.currentTarget.style.transform = 'translateX(4px)';
                 }}
                 onMouseLeave={(e) => {
@@ -204,7 +223,7 @@ export default function Footer({ onNavigateSection }) {
                   width: 'fit-content'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#ffd312';
+                  e.currentTarget.style.color = '#dc143c';
                   e.currentTarget.style.transform = 'translateX(4px)';
                 }}
                 onMouseLeave={(e) => {
@@ -246,7 +265,7 @@ export default function Footer({ onNavigateSection }) {
 
           {/* Cash Payment Badges */}
           <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px', fontSize: '0.72rem', fontWeight: '900' }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', padding: '4px 10px', borderRadius: '4px', backgroundColor: '#08080a', border: '1.5px solid #ffd312', color: '#ffd312' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', padding: '4px 10px', borderRadius: '4px', backgroundColor: '#08080a', border: '1.5px solid #d4af37', color: '#d4af37' }}>
               100% CASH ON DELIVERY
             </span>
             <span style={{ display: 'inline-flex', alignItems: 'center', padding: '4px 10px', borderRadius: '4px', backgroundColor: '#08080a', border: '1.5px solid #dc143c', color: '#ffffff' }}>

@@ -9,11 +9,11 @@ export default function SizeGuideModal() {
   if (!isSizeGuideOpen) return null;
 
   const apparelSizes = [
-    { eu: 'EU 44', chestCm: '88 – 92 cm', waistCm: '72 – 76 cm', shoulderCm: '44.0 cm', sleeveCm: '63.0 cm', garmentLengthCm: '74.0 cm' },
-    { eu: 'EU 46', chestCm: '92 – 96 cm', waistCm: '76 – 80 cm', shoulderCm: '45.5 cm', sleeveCm: '64.5 cm', garmentLengthCm: '76.0 cm' },
-    { eu: 'EU 48', chestCm: '96 – 100 cm', waistCm: '80 – 84 cm', shoulderCm: '47.0 cm', sleeveCm: '66.0 cm', garmentLengthCm: '78.0 cm' },
-    { eu: 'EU 50', chestCm: '100 – 106 cm', waistCm: '84 – 90 cm', shoulderCm: '48.5 cm', sleeveCm: '67.5 cm', garmentLengthCm: '80.0 cm' },
-    { eu: 'EU 52', chestCm: '106 – 112 cm', waistCm: '90 – 96 cm', shoulderCm: '50.0 cm', sleeveCm: '69.0 cm', garmentLengthCm: '82.0 cm' }
+    { alpha: 'XS', eu: 'EU 44', chestCm: '88 – 92 cm', waistCm: '72 – 76 cm', shoulderCm: '44.0 cm', sleeveCm: '63.0 cm', garmentLengthCm: '74.0 cm' },
+    { alpha: 'S', eu: 'EU 46', chestCm: '92 – 96 cm', waistCm: '76 – 80 cm', shoulderCm: '45.5 cm', sleeveCm: '64.5 cm', garmentLengthCm: '76.0 cm' },
+    { alpha: 'M', eu: 'EU 48', chestCm: '96 – 100 cm', waistCm: '80 – 84 cm', shoulderCm: '47.0 cm', sleeveCm: '66.0 cm', garmentLengthCm: '78.0 cm' },
+    { alpha: 'L', eu: 'EU 50', chestCm: '100 – 106 cm', waistCm: '84 – 90 cm', shoulderCm: '48.5 cm', sleeveCm: '67.5 cm', garmentLengthCm: '80.0 cm' },
+    { alpha: 'XL', eu: 'EU 52', chestCm: '106 – 112 cm', waistCm: '90 – 96 cm', shoulderCm: '50.0 cm', sleeveCm: '69.0 cm', garmentLengthCm: '82.0 cm' }
   ];
 
   const shoeSizes = [
@@ -44,7 +44,7 @@ export default function SizeGuideModal() {
         style={{
           position: 'relative',
           backgroundColor: '#08080a',
-          border: '2px solid #ffd312',
+          border: '2px solid #dc143c',
           borderRadius: '20px',
           width: '100%',
           maxWidth: '740px',
@@ -52,7 +52,7 @@ export default function SizeGuideModal() {
           overflowY: 'auto',
           zIndex: 140,
           padding: 'clamp(20px, 3.5vw, 32px) clamp(14px, 3vw, 28px)',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255,211,18,0.25)'
+          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(220,20,60,0.3)'
         }}
       >
         <button
@@ -62,7 +62,7 @@ export default function SizeGuideModal() {
             position: 'absolute',
             top: '20px',
             right: '20px',
-            color: '#ffd312',
+            color: '#dc143c',
             background: 'none',
             border: 'none',
             cursor: 'pointer'
@@ -92,9 +92,9 @@ export default function SizeGuideModal() {
               style={{
                 padding: '8px 16px',
                 borderRadius: '9999px',
-                backgroundColor: activeTab === 'apparel' ? '#ffd312' : 'rgba(255,255,255,0.06)',
-                color: activeTab === 'apparel' ? '#010000' : '#ffffff',
-                border: `1.5px solid ${activeTab === 'apparel' ? '#010000' : 'rgba(255,255,255,0.15)'}`,
+                backgroundColor: activeTab === 'apparel' ? '#dc143c' : 'rgba(255,255,255,0.06)',
+                color: '#ffffff',
+                border: `1.5px solid ${activeTab === 'apparel' ? '#d4af37' : 'rgba(255,255,255,0.15)'}`,
                 fontSize: '0.76rem',
                 fontWeight: '900',
                 cursor: 'pointer'
@@ -107,9 +107,9 @@ export default function SizeGuideModal() {
               style={{
                 padding: '8px 16px',
                 borderRadius: '9999px',
-                backgroundColor: activeTab === 'footwear' ? '#ffd312' : 'rgba(255,255,255,0.06)',
-                color: activeTab === 'footwear' ? '#010000' : '#ffffff',
-                border: `1.5px solid ${activeTab === 'footwear' ? '#010000' : 'rgba(255,255,255,0.15)'}`,
+                backgroundColor: activeTab === 'footwear' ? '#dc143c' : 'rgba(255,255,255,0.06)',
+                color: '#ffffff',
+                border: `1.5px solid ${activeTab === 'footwear' ? '#d4af37' : 'rgba(255,255,255,0.15)'}`,
                 fontSize: '0.76rem',
                 fontWeight: '900',
                 cursor: 'pointer'
@@ -119,7 +119,7 @@ export default function SizeGuideModal() {
             </button>
           </div>
 
-          <div style={{ padding: '6px 14px', borderRadius: '9999px', backgroundColor: 'rgba(255,211,18,0.1)', border: '1px solid #ffd312', color: '#ffd312', fontSize: '0.72rem', fontWeight: '900', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ padding: '6px 14px', borderRadius: '9999px', backgroundColor: 'rgba(212,175,55,0.1)', border: '1px solid #d4af37', color: '#d4af37', fontSize: '0.72rem', fontWeight: '900', fontFamily: 'var(--font-mono)' }}>
             METRIC UNIT: CENTIMETERS (CM)
           </div>
         </div>
@@ -129,8 +129,9 @@ export default function SizeGuideModal() {
           <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '2px solid #ffd312', color: '#ffd312' }}>
-                  <th style={{ padding: '12px 10px', fontWeight: '900' }}>EU SIZE</th>
+                <tr style={{ borderBottom: '2px solid #dc143c', color: '#d4af37' }}>
+                  <th style={{ padding: '12px 10px', fontWeight: '900' }}>SIZE</th>
+                  <th style={{ padding: '12px 10px', fontWeight: '900' }}>EU CONV</th>
                   <th style={{ padding: '12px 10px', fontWeight: '900' }}>CHEST (CM)</th>
                   <th style={{ padding: '12px 10px', fontWeight: '900' }}>WAIST (CM)</th>
                   <th style={{ padding: '12px 10px', fontWeight: '900' }}>SHOULDER (CM)</th>
@@ -141,7 +142,8 @@ export default function SizeGuideModal() {
               <tbody>
                 {apparelSizes.map((row, i) => (
                   <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', color: '#dcdce6' }}>
-                    <td style={{ padding: '14px 10px', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>{row.eu}</td>
+                    <td style={{ padding: '14px 10px', fontWeight: '900', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>{row.alpha}</td>
+                    <td style={{ padding: '14px 10px', fontWeight: '800', color: '#d4af37', fontFamily: 'var(--font-mono)' }}>{row.eu}</td>
                     <td style={{ padding: '14px 10px', fontFamily: 'var(--font-mono)' }}>{row.chestCm}</td>
                     <td style={{ padding: '14px 10px', fontFamily: 'var(--font-mono)' }}>{row.waistCm}</td>
                     <td style={{ padding: '14px 10px', fontFamily: 'var(--font-mono)' }}>{row.shoulderCm}</td>
@@ -156,7 +158,7 @@ export default function SizeGuideModal() {
           <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '2px solid #ffd312', color: '#ffd312' }}>
+                <tr style={{ borderBottom: '2px solid #dc143c', color: '#d4af37' }}>
                   <th style={{ padding: '12px 10px', fontWeight: '900' }}>EU SIZE</th>
                   <th style={{ padding: '12px 10px', fontWeight: '900' }}>FOOT LENGTH (CM)</th>
                   <th style={{ padding: '12px 10px', fontWeight: '900' }}>INSOLE WIDTH (CM)</th>
@@ -165,7 +167,7 @@ export default function SizeGuideModal() {
               <tbody>
                 {shoeSizes.map((row, i) => (
                   <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', color: '#dcdce6' }}>
-                    <td style={{ padding: '14px 10px', fontWeight: '900', color: '#ffd312', fontFamily: 'var(--font-mono)' }}>{row.eu}</td>
+                    <td style={{ padding: '14px 10px', fontWeight: '900', color: '#d4af37', fontFamily: 'var(--font-mono)' }}>{row.eu}</td>
                     <td style={{ padding: '14px 10px', fontFamily: 'var(--font-mono)' }}>{row.footCm}</td>
                     <td style={{ padding: '14px 10px', fontFamily: 'var(--font-mono)' }}>{row.insoleWidthCm}</td>
                   </tr>
@@ -176,8 +178,8 @@ export default function SizeGuideModal() {
         )}
 
         {/* Advisory */}
-        <div style={{ padding: '16px', borderRadius: '12px', backgroundColor: '#010000', border: '1px solid rgba(255,211,18,0.3)', fontSize: '0.78rem', color: '#dcdce6', lineHeight: 1.6 }}>
-          <span style={{ color: '#ffd312', fontWeight: '900' }}>Atelier Fit Note: </span>
+        <div style={{ padding: '16px', borderRadius: '12px', backgroundColor: '#010000', border: '1px solid #dc143c', fontSize: '0.78rem', color: '#dcdce6', lineHeight: 1.6 }}>
+          <span style={{ color: '#d4af37', fontWeight: '900' }}>Atelier Fit Note: </span>
           All pieces are patterned according to European standard atelier blocks with architectural drape. Measurements are provided in exact centimeters (cm). If your measurements fall between two EU sizes, order the larger EU size for a relaxed drape or the smaller EU size for a closer silhouette.
         </div>
       </div>

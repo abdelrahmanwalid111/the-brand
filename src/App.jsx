@@ -4,7 +4,8 @@ import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import MarqueeTicker from './components/MarqueeTicker';
 import CategoryRails from './components/CategoryRails';
-import ProductGrid from './components/ProductGrid';
+import ShopPage from './components/ShopPage';
+import FeaturedGrailsSection from './components/FeaturedGrailsSection';
 import ShopTheLookHotspots from './components/ShopTheLookHotspots';
 import EditorialStorySection from './components/EditorialStorySection';
 import CommunitySection from './components/CommunitySection';
@@ -23,8 +24,7 @@ import CheckoutModal from './components/CheckoutModal';
 import ToastNotification from './components/ToastNotification';
 
 function StoreMain() {
-  const { setIsNewsletterOpen, selectedProduct, closeProductPage } = useStore();
-  const [activeCategory, setActiveCategory] = useState('all');
+  const { setIsNewsletterOpen, selectedProduct, closeProductPage, currentView, openShopPage, openHomePage, activeCategory } = useStore();
   const [showFloatingDiscount, setShowFloatingDiscount] = useState(false);
 
   useEffect(() => {
@@ -55,23 +55,32 @@ function StoreMain() {
     );
     lines.forEach((l) => observer.observe(l));
     return () => observer.disconnect();
-  }, [selectedProduct]);
+  }, [selectedProduct, currentView]);
 
   const scrollToSection = (sectionId) => {
     if (selectedProduct) {
       closeProductPage();
     }
+    if (sectionId === 'shop' || sectionId === 'collection-section') {
+      openShopPage();
+      return;
+    }
+    if (sectionId === 'home') {
+      openHomePage();
+      return;
+    }
+    if (sectionId.startsWith('category-')) {
+      const catId = sectionId.replace('category-', '');
+      openShopPage(catId);
+      return;
+    }
+    if (currentView === 'shop') {
+      openHomePage();
+    }
     setTimeout(() => {
-      if (sectionId.startsWith('category-')) {
-        const catId = sectionId.replace('category-', '');
-        setActiveCategory(catId);
-        const el = document.getElementById('collection-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        const el = document.getElementById(sectionId);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, selectedProduct ? 60 : 0);
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 60);
   };
 
   return (
@@ -82,39 +91,39 @@ function StoreMain() {
       {/* 2. Floating Frosted Pill Header */}
       <Navbar onNavigateSection={scrollToSection} />
 
-      {/* Main Content Area: PDP or Full Homepage */}
+      {/* Main Content Area: PDP or Dedicated Shop Page or Full Homepage */}
       {selectedProduct ? (
         <main style={{ flex: 1 }}>
           <ProductPage />
+        </main>
+      ) : currentView === 'shop' ? (
+        <main style={{ flex: 1 }}>
+          <ShopPage onNavigateHome={openHomePage} />
         </main>
       ) : (
         <main style={{ flex: 1 }}>
           {/* 3. Runway Campaign Hero Carousel */}
           <HeroSection
-            onShopClick={() => scrollToSection('collection-section')}
+            onShopClick={() => openShopPage()}
           />
 
           {/* 4. Quick Category Selector Rails */}
           <CategoryRails
             activeCategory={activeCategory}
             onSelectCategory={(catId) => {
-              setActiveCategory(catId);
-              scrollToSection('collection-section');
+              openShopPage(catId);
             }}
           />
 
-          {/* 5. Signature Product Catalog ("More From The Ritual") */}
-          <ProductGrid
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          />
+          {/* 5. Curated 3-Piece Showcase (Replacing full Shop catalog on Homepage) */}
+          <FeaturedGrailsSection onExploreShop={openShopPage} />
 
           {/* 6. Interactive Radar Hotspots */}
           <ShopTheLookHotspots />
 
           {/* 7. The Sygil Story ("MORE THAN JUST CLOTHES") */}
           <EditorialStorySection
-            onExploreStory={() => scrollToSection('collection-section')}
+            onExploreStory={() => openShopPage()}
           />
 
           {/* 10. Stay In The Loop (Figma Community Newsletter Strip) */}
@@ -163,24 +172,24 @@ function StoreMain() {
             gap: '6px',
             padding: 'clamp(7px, 1.5vw, 10px) clamp(12px, 2.5vw, 18px)',
             borderRadius: '9999px',
-            backgroundColor: '#ffd312',
-            color: '#010000',
+            backgroundColor: '#dc143c',
+            color: '#ffffff',
             fontSize: 'clamp(0.68rem, 1.8vw, 0.78rem)',
             fontWeight: '900',
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            border: '2px solid #010000',
-            boxShadow: '3px 3px 0px #ffffff',
+            border: '2px solid #dc143c',
+            boxShadow: '3px 3px 0px #d4af37',
             transition: 'all 0.2s'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#ffffff';
-            e.currentTarget.style.boxShadow = '4px 4px 0px #dc143c';
+            e.currentTarget.style.backgroundColor = '#ff2a55';
+            e.currentTarget.style.boxShadow = '4px 4px 0px #ffd312, 0 0 16px rgba(220, 20, 60, 0.6)';
             e.currentTarget.style.transform = 'translate(-2px, -2px)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#ffd312';
-            e.currentTarget.style.boxShadow = '3px 3px 0px #ffffff';
+            e.currentTarget.style.backgroundColor = '#dc143c';
+            e.currentTarget.style.boxShadow = '3px 3px 0px #d4af37';
             e.currentTarget.style.transform = 'translate(0, 0)';
           }}
         >

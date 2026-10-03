@@ -50,8 +50,8 @@ export default function NewsletterModal() {
         style={{
           position: 'relative',
           backgroundColor: '#08080a',
-          border: '2px solid #ffd312',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255,211,18,0.3)',
+          border: '2px solid #dc143c',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(220,20,60,0.35)',
           borderRadius: '24px',
           width: '100%',
           maxWidth: '540px',
@@ -64,7 +64,7 @@ export default function NewsletterModal() {
         <button
           onClick={() => setIsNewsletterOpen(false)}
           aria-label="Close modal"
-          style={{ position: 'absolute', top: '16px', right: '16px', color: '#ffd312', background: 'none', border: 'none', cursor: 'pointer' }}
+          style={{ position: 'absolute', top: '16px', right: '16px', color: '#dc143c', background: 'none', border: 'none', cursor: 'pointer' }}
         >
           <X size={22} />
         </button>
@@ -120,7 +120,7 @@ export default function NewsletterModal() {
           </div>
         ) : (
           <div>
-            <div style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(255, 211, 18, 0.2)', border: '2px solid #ffd312', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: '#ffd312' }}>
+            <div style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(220, 20, 60, 0.2)', border: '2px solid #dc143c', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: '#ffffff' }}>
               <Check size={32} strokeWidth={3} />
             </div>
 
@@ -141,14 +141,14 @@ export default function NewsletterModal() {
                 padding: '14px 20px',
                 borderRadius: '12px',
                 backgroundColor: '#010000',
-                border: '2px dashed #ffd312',
+                border: '2px dashed #dc143c',
                 marginBottom: '24px',
-                boxShadow: '2px 2px 0px #ffd312'
+                boxShadow: '2px 2px 0px #d4af37'
               }}
             >
               <div style={{ textAlign: 'left' }}>
                 <div style={{ fontSize: '0.68rem', color: '#8c8c9e', fontWeight: '900' }}>YOUR PRE-ORDER CODE:</div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.35rem', fontWeight: '900', color: '#ffd312', letterSpacing: '0.1em' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.35rem', fontWeight: '900', color: '#d4af37', letterSpacing: '0.1em' }}>
                   SYGIL15
                 </div>
               </div>
@@ -157,11 +157,11 @@ export default function NewsletterModal() {
                 style={{
                   padding: '8px 16px',
                   borderRadius: '8px',
-                  backgroundColor: '#ffd312',
-                  color: '#010000',
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
                   fontSize: '0.78rem',
                   fontWeight: '900',
-                  border: 'none',
+                  border: '1px solid #d4af37',
                   cursor: 'pointer'
                 }}
               >

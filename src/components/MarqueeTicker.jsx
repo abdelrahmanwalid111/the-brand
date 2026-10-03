@@ -69,12 +69,12 @@ export default function MarqueeTicker() {
                 fontWeight: '900',
                 fontFamily: 'var(--font-heading)',
                 letterSpacing: '0.14em',
-                color: '#dc143c',
+                color: '#ffffff',
                 textTransform: 'uppercase'
               }}
             >
               <span>{text}</span>
-              <span style={{ color: '#dc143c', opacity: 0.5, fontSize: '0.75rem' }}>•</span>
+              <span style={{ color: '#ffd312', fontSize: '0.75rem' }}>•</span>
             </div>
           );
         })}

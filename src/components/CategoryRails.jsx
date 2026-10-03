@@ -76,9 +76,9 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
               gap: '8px',
               padding: '10px 22px',
               backgroundColor: 'transparent',
-              border: '1.5px solid #ffd312',
-              borderRadius: '6px',
-              color: '#ffd312',
+              border: '1.5px solid #d4af37',
+              borderRadius: '9999px',
+              color: '#ffffff',
               fontSize: '0.76rem',
               fontWeight: '900',
               letterSpacing: '0.12em',
@@ -88,14 +88,16 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
               marginBottom: '8px'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#ffd312';
-              e.currentTarget.style.color = '#010000';
-              e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 211, 18, 0.5), 3px 3px 0px #ffffff';
+              e.currentTarget.style.backgroundColor = '#dc143c';
+              e.currentTarget.style.borderColor = '#dc143c';
+              e.currentTarget.style.color = '#ffffff';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(220, 20, 60, 0.5), 3px 3px 0px #d4af37';
               e.currentTarget.style.transform = 'translate(-2px, -2px)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.color = '#ffd312';
+              e.currentTarget.style.borderColor = '#d4af37';
+              e.currentTarget.style.color = '#ffffff';
               e.currentTarget.style.boxShadow = 'none';
               e.currentTarget.style.transform = 'translate(0, 0)';
             }}
@@ -120,13 +122,13 @@ export default function CategoryRails({ onSelectCategory, activeCategory }) {
                   overflow: 'hidden',
                   cursor: 'pointer',
                   backgroundColor: '#050508',
-                  border: `1.5px solid ${isActive ? '#ffd312' : 'rgba(255,255,255,0.1)'}`,
-                  boxShadow: isActive ? '0 0 24px rgba(255,211,18,0.35)' : 'none',
+                  border: `1.5px solid ${isActive ? '#dc143c' : 'rgba(255,255,255,0.1)'}`,
+                  boxShadow: isActive ? '0 0 24px rgba(220,20,60,0.5)' : 'none',
                   transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.borderColor = '#ffd312';
+                  e.currentTarget.style.borderColor = '#dc143c';
                   e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.95), 0 0 30px rgba(220, 20, 60, 0.45), 0 0 15px rgba(255, 211, 18, 0.3)';
                   const img = e.currentTarget.querySelector('.cat-garment-img');
                   if (img) img.style.transform = 'scale(1.08)';

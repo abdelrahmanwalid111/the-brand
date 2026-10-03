@@ -71,12 +71,12 @@ export default function SearchOverlay() {
             display: 'flex',
             alignItems: 'center',
             gap: '16px',
-            borderBottom: '3px solid #ffd312',
+            borderBottom: '3px solid #dc143c',
             paddingBottom: '16px',
             marginBottom: '24px'
           }}
         >
-          <Search size={30} style={{ color: '#ffd312' }} />
+          <Search size={30} style={{ color: '#dc143c' }} />
           <input
             ref={inputRef}
             type="text"
@@ -95,7 +95,7 @@ export default function SearchOverlay() {
             }}
           />
           {query && (
-            <button onClick={() => setQuery('')} style={{ color: '#ffd312', padding: '4px', background: 'none', border: 'none', cursor: 'pointer' }}>
+            <button onClick={() => setQuery('')} style={{ color: '#dc143c', padding: '4px', background: 'none', border: 'none', cursor: 'pointer' }}>
               <X size={22} />
             </button>
           )}
@@ -105,11 +105,11 @@ export default function SearchOverlay() {
             style={{
               padding: '8px 18px',
               borderRadius: '9999px',
-              backgroundColor: '#ffd312',
-              color: '#010000',
+              backgroundColor: '#dc143c',
+              color: '#ffffff',
               fontSize: '0.78rem',
               fontWeight: '900',
-              border: '1.5px solid #010000',
+              border: '1.5px solid #d4af37',
               cursor: 'pointer'
             }}
           >
@@ -119,7 +119,7 @@ export default function SearchOverlay() {
 
         {/* Popular Tags */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
-          <span style={{ fontSize: '0.74rem', color: '#ffd312', fontWeight: '900', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.74rem', color: '#d4af37', fontWeight: '900', textTransform: 'uppercase' }}>
             TRENDING:
           </span>
           {popularTags.map((tag) => (
@@ -138,9 +138,9 @@ export default function SearchOverlay() {
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#ffd312';
-                e.currentTarget.style.color = '#010000';
-                e.currentTarget.style.borderColor = '#ffd312';
+                e.currentTarget.style.backgroundColor = '#dc143c';
+                e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.borderColor = '#d4af37';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
@@ -177,8 +177,8 @@ export default function SearchOverlay() {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translate(-3px, -3px)';
-                    e.currentTarget.style.borderColor = '#ffd312';
-                    e.currentTarget.style.boxShadow = '3px 3px 0px #ffd312';
+                    e.currentTarget.style.borderColor = '#dc143c';
+                    e.currentTarget.style.boxShadow = '3px 3px 0px #d4af37';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translate(0, 0)';
@@ -192,7 +192,7 @@ export default function SearchOverlay() {
                     style={{ width: '100%', height: '220px', objectFit: 'cover' }}
                   />
                   <div style={{ padding: '14px' }}>
-                    <div style={{ fontSize: '0.68rem', color: '#ffd312', fontWeight: '900', textTransform: 'uppercase', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '0.68rem', color: '#d4af37', fontWeight: '900', textTransform: 'uppercase', marginBottom: '4px' }}>
                       {product.categoryLabel || product.category}
                     </div>
                     <div style={{ fontSize: '0.85rem', fontWeight: '900', color: '#ffffff', lineHeight: 1.2, marginBottom: '6px' }}>
@@ -212,7 +212,7 @@ export default function SearchOverlay() {
             </div>
           ) : (
             <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', color: '#ffd312', textTransform: 'uppercase', marginBottom: '16px' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: '900', letterSpacing: '0.12em', color: '#d4af37', textTransform: 'uppercase', marginBottom: '16px' }}>
                 FEATURED GRAILS
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px' }}>

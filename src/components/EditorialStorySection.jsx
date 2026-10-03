@@ -1,9 +1,8 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
 
 export default function EditorialStorySection({ onExploreStory }) {
   return (
-    <section id="editorial-section" style={{ padding: 'clamp(50px, 8vw, 100px) 0', backgroundColor: '#010000', borderTop: '1px solid rgba(255, 211, 18, 0.25)' }}>
+    <section id="editorial-section" style={{ padding: 'clamp(50px, 8vw, 100px) 0', backgroundColor: '#010000', borderTop: '1px solid rgba(220, 20, 60, 0.4)' }}>
       <div className="store-container">
         <div
           style={{
@@ -21,8 +20,8 @@ export default function EditorialStorySection({ onExploreStory }) {
                 overflow: 'hidden',
                 aspectRatio: '4/3',
                 backgroundColor: '#050508',
-                border: '1.5px solid #ffd312',
-                boxShadow: '0 0 35px rgba(0,0,0,0.9), 0 0 25px rgba(255,211,18,0.2)'
+                border: '1.5px solid #dc143c',
+                boxShadow: '0 0 35px rgba(0,0,0,0.9), 0 0 25px rgba(220,20,60,0.25)'
               }}
             >
               <img
@@ -44,8 +43,8 @@ export default function EditorialStorySection({ onExploreStory }) {
                 backgroundColor: 'rgba(8, 8, 10, 0.95)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
-                border: '1.5px solid #ffd312',
-                boxShadow: '3px 3px 0px #dc143c'
+                border: '1.5px solid #dc143c',
+                boxShadow: '3px 3px 0px #d4af37'
               }}
             >
               <p
@@ -68,7 +67,7 @@ export default function EditorialStorySection({ onExploreStory }) {
                   flexWrap: 'wrap',
                   gap: '4px',
                   fontSize: '0.66rem',
-                  color: '#ffd312',
+                  color: '#d4af37',
                   fontWeight: '900',
                   letterSpacing: '0.06em'
                 }}
@@ -135,14 +134,14 @@ export default function EditorialStorySection({ onExploreStory }) {
 
             {/* Credential Badges */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '14px', marginBottom: '32px' }}>
-              <div style={{ padding: '14px 16px', borderRadius: '12px', backgroundColor: '#08080a', border: '1.5px solid rgba(255,211,18,0.3)' }}>
-                <div style={{ fontSize: '1.4rem', fontWeight: '900', color: '#ffd312', marginBottom: '2px', fontFamily: 'var(--font-mono)' }}>66 PIECES</div>
+              <div style={{ padding: '14px 16px', borderRadius: '12px', backgroundColor: '#08080a', border: '1.5px solid #d4af37' }}>
+                <div style={{ fontSize: '1.4rem', fontWeight: '900', color: '#d4af37', marginBottom: '2px', fontFamily: 'var(--font-mono)' }}>66 PIECES</div>
                 <div style={{ fontSize: '0.7rem', color: '#8c8c9e', textTransform: 'uppercase', fontWeight: '800' }}>
                   Strict pre-order allocation
                 </div>
               </div>
 
-              <div style={{ padding: '14px 16px', borderRadius: '12px', backgroundColor: '#08080a', border: '1.5px solid rgba(220,20,60,0.4)' }}>
+              <div style={{ padding: '14px 16px', borderRadius: '12px', backgroundColor: '#08080a', border: '1.5px solid #dc143c' }}>
                 <div style={{ fontSize: '1.4rem', fontWeight: '900', color: '#dc143c', marginBottom: '2px', fontFamily: 'var(--font-mono)' }}>100% COD</div>
                 <div style={{ fontSize: '0.7rem', color: '#8c8c9e', textTransform: 'uppercase', fontWeight: '800' }}>
                   Cash On Doorstep Delivery

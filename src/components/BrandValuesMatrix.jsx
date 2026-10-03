@@ -26,8 +26,8 @@ export default function BrandValuesMatrix() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translate(-3px, -3px)';
-                  e.currentTarget.style.borderColor = '#ffd312';
-                  e.currentTarget.style.boxShadow = '4px 4px 0px #ffd312';
+                  e.currentTarget.style.borderColor = '#dc143c';
+                  e.currentTarget.style.boxShadow = '4px 4px 0px #d4af37';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translate(0, 0)';
@@ -40,7 +40,7 @@ export default function BrandValuesMatrix() {
                     fontSize: '1.4rem',
                     fontWeight: '900',
                     fontFamily: 'var(--font-mono)',
-                    color: '#ffd312',
+                    color: '#d4af37',
                     letterSpacing: '0.05em'
                   }}
                 >
@@ -66,7 +66,7 @@ export default function BrandValuesMatrix() {
               </span>
             </div>
             <h3 style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.7rem)', color: '#ffffff', fontWeight: '900' }}>
-              FREQUENTLY ASKED QUESTIONS <span style={{ color: '#ffd312' }}>///</span>
+              FREQUENTLY ASKED QUESTIONS <span style={{ color: '#dc143c' }}>///</span>
             </h3>
             <div className="title-red-line title-red-line-center" />
           </div>
@@ -78,7 +78,7 @@ export default function BrandValuesMatrix() {
                 <div
                   key={idx}
                   style={{
-                    border: `1.5px solid ${isOpen ? '#ffd312' : 'rgba(255, 255, 255, 0.12)'}`,
+                    border: `1.5px solid ${isOpen ? '#dc143c' : 'rgba(255, 255, 255, 0.12)'}`,
                     borderRadius: '14px',
                     backgroundColor: '#08080a',
                     overflow: 'hidden',
@@ -103,7 +103,7 @@ export default function BrandValuesMatrix() {
                     }}
                   >
                     <span>{faq.q}</span>
-                    <ChevronDown size={18} style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', color: '#ffd312' }} />
+                    <ChevronDown size={18} style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', color: '#d4af37' }} />
                   </button>
 
                   {isOpen && (

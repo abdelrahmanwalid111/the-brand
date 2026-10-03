@@ -17,10 +17,19 @@ export default function QuickViewModal() {
   const product = quickViewProduct;
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(product?.sizes ? product.sizes[0] : 'EU 48');
+  const [selectedSize, setSelectedSize] = useState(product?.sizes ? product.sizes[0] : 'M');
   const [selectedColor, setSelectedColor] = useState(product?.colors ? product.colors[0].name : '');
   const [quantity, setQuantity] = useState(1);
   const [addedSuccess, setAddedSuccess] = useState(false);
+
+  const [prevProductId, setPrevProductId] = useState(product?.id);
+  if (product?.id !== prevProductId) {
+    setPrevProductId(product?.id);
+    setSelectedColor(product?.colors?.[0]?.name || '');
+    setSelectedSize(product?.sizes?.[0] || 'M');
+    setActiveImageIndex(0);
+    setQuantity(1);
+  }
 
   if (!product) return null;
 
@@ -30,7 +39,7 @@ export default function QuickViewModal() {
     addToCart(product, {
       size: selectedSize,
       color: selectedColor,
-      image: product.images ? product.images[activeImageIndex] : '/assets/leather_tee.jpg',
+      image: product.images ? product.images[activeImageIndex] : (product.image || '/assets/sygil_hoodie_darkritual.jpg'),
       quantity
     });
     setAddedSuccess(true);
@@ -63,8 +72,8 @@ export default function QuickViewModal() {
         style={{
           position: 'relative',
           backgroundColor: '#08080a',
-          border: '2px solid #ffd312',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255,211,18,0.3)',
+          border: '2px solid #dc143c',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(220,20,60,0.35)',
           borderRadius: '20px',
           width: '100%',
           maxWidth: '860px',
@@ -84,8 +93,8 @@ export default function QuickViewModal() {
             right: '16px',
             zIndex: 30,
             backgroundColor: '#010000',
-            color: '#ffd312',
-            border: '1.5px solid #ffd312',
+            color: '#dc143c',
+            border: '1.5px solid #dc143c',
             borderRadius: '50%',
             padding: '8px',
             display: 'flex',
@@ -107,8 +116,8 @@ export default function QuickViewModal() {
               borderRadius: '12px',
               overflow: 'hidden',
               marginBottom: '12px',
-              border: '1.5px solid #ffd312',
-              boxShadow: '0 0 25px rgba(0,0,0,0.8), 0 0 15px rgba(255,211,18,0.2)',
+              border: '1.5px solid #dc143c',
+              boxShadow: '0 0 25px rgba(0,0,0,0.8), 0 0 15px rgba(220,20,60,0.25)',
               cursor: 'pointer'
             }}
           >
@@ -242,7 +251,7 @@ export default function QuickViewModal() {
                       closeQuickView();
                       setIsSizeGuideOpen(true);
                     }}
-                    style={{ color: '#ffd312', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer' }}
+                    style={{ color: '#d4af37', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer' }}
                   >
                     EU Size Guide (CM)
                   </button>
@@ -255,9 +264,9 @@ export default function QuickViewModal() {
                       style={{
                         padding: '8px 14px',
                         borderRadius: '6px',
-                        backgroundColor: selectedSize === s ? '#ffd312' : 'rgba(255,255,255,0.06)',
-                        color: selectedSize === s ? '#010000' : '#ffffff',
-                        border: `1.5px solid ${selectedSize === s ? '#010000' : 'rgba(255,255,255,0.2)'}`,
+                        backgroundColor: selectedSize === s ? '#dc143c' : 'rgba(255,255,255,0.06)',
+                        color: '#ffffff',
+                        border: `1.5px solid ${selectedSize === s ? '#d4af37' : 'rgba(255,255,255,0.2)'}`,
                         fontSize: '0.78rem',
                         fontWeight: '900',
                         fontFamily: 'var(--font-mono)',
@@ -275,14 +284,14 @@ export default function QuickViewModal() {
           {/* Action Row */}
           <div>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#010000', borderRadius: '9999px', padding: '2px 8px', border: '1.5px solid #ffd312' }}>
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ padding: '6px', color: '#ffd312', background: 'none', border: 'none', cursor: 'pointer' }}>
+              <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#010000', borderRadius: '9999px', padding: '2px 8px', border: '1.5px solid #d4af37' }}>
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ padding: '6px', color: '#d4af37', background: 'none', border: 'none', cursor: 'pointer' }}>
                   <Minus size={12} />
                 </button>
                 <span style={{ fontSize: '0.85rem', fontWeight: '900', minWidth: '24px', textAlign: 'center', color: '#ffffff', fontFamily: 'var(--font-mono)' }}>
                   {quantity}
                 </span>
-                <button onClick={() => setQuantity(quantity + 1)} style={{ padding: '6px', color: '#ffd312', background: 'none', border: 'none', cursor: 'pointer' }}>
+                <button onClick={() => setQuantity(quantity + 1)} style={{ padding: '6px', color: '#d4af37', background: 'none', border: 'none', cursor: 'pointer' }}>
                   <Plus size={12} />
                 </button>
               </div>

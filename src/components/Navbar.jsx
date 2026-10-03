@@ -10,7 +10,8 @@ export default function Navbar({ onNavigateSection }) {
     wishlist,
     setIsCartOpen,
     setIsSearchOpen,
-    setIsWishlistOpen
+    setIsWishlistOpen,
+    openHomePage
   } = useStore();
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -97,6 +98,19 @@ export default function Navbar({ onNavigateSection }) {
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
+    }
+  };
+
+  const handleLogoClick = () => {
+    setMobileMenuOpen(false);
+    setMegaMenuOpen(false);
+    setMoreDropdownOpen(false);
+    if (onNavigateSection) {
+      onNavigateSection('home');
+    } else if (openHomePage) {
+      openHomePage();
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -213,13 +227,13 @@ export default function Navbar({ onNavigateSection }) {
               width: '100%',
               padding: isScrolled ? '8px clamp(12px, 2.5vw, 24px)' : '12px clamp(12px, 3.5vw, 56px)',
               borderRadius: isScrolled ? '9999px' : '0',
-              borderTop: isScrolled ? '1.5px solid #ffd312' : 'none',
-              borderLeft: isScrolled ? '1.5px solid #ffd312' : 'none',
-              borderRight: isScrolled ? '1.5px solid #ffd312' : 'none',
-              borderBottom: isScrolled ? '1.5px solid #ffd312' : '1px solid rgba(255, 255, 255, 0.08)',
-              backgroundColor: isScrolled ? 'rgba(1, 1, 0, 0.94)' : 'transparent',
+              borderTop: isScrolled ? '1.5px solid #dc143c' : 'none',
+              borderLeft: isScrolled ? '1.5px solid #dc143c' : 'none',
+              borderRight: isScrolled ? '1.5px solid #dc143c' : 'none',
+              borderBottom: isScrolled ? '1.5px solid #dc143c' : '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: isScrolled ? 'rgba(0, 0, 0, 0.95)' : 'transparent',
               boxShadow: isScrolled
-                ? '0 12px 35px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 211, 18, 0.28)'
+                ? '0 12px 35px rgba(0, 0, 0, 0.95), 0 0 25px rgba(220, 20, 60, 0.35)'
                 : 'none',
               backdropFilter: isScrolled ? 'blur(18px)' : 'none',
               WebkitBackdropFilter: isScrolled ? 'blur(18px)' : 'none',
@@ -250,7 +264,7 @@ export default function Navbar({ onNavigateSection }) {
                   justifyContent: 'center'
                 }}
               >
-                {mobileMenuOpen || megaMenuOpen ? <X size={22} style={{ color: '#ffd312' }} /> : <Menu size={22} />}
+                {mobileMenuOpen || megaMenuOpen ? <X size={22} style={{ color: '#dc143c' }} /> : <Menu size={22} />}
               </button>
 
               <div className="desktop-links desktop-only" style={{ alignItems: 'center', gap: isScrolled ? '14px' : '22px' }}>
@@ -266,13 +280,13 @@ export default function Navbar({ onNavigateSection }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
-                      color: megaMenuOpen && activeMegaTab === 'shop' ? '#ffd312' : '#ffffff',
+                      color: megaMenuOpen && activeMegaTab === 'shop' ? '#dc143c' : '#ffffff',
                       fontSize: isScrolled ? '0.75rem' : '0.8rem',
                       fontWeight: '800',
                       letterSpacing: '0.06em',
                       textTransform: 'uppercase',
                       padding: '4px 0',
-                      borderBottom: megaMenuOpen && activeMegaTab === 'shop' ? '2px solid #ffd312' : '2px solid transparent',
+                      borderBottom: megaMenuOpen && activeMegaTab === 'shop' ? '2px solid #dc143c' : '2px solid transparent',
                       transition: 'color 0.2s, border-bottom 0.2s',
                       background: 'none',
                       borderTop: 'none',
@@ -280,7 +294,7 @@ export default function Navbar({ onNavigateSection }) {
                       borderRight: 'none',
                       cursor: 'pointer'
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#dc143c')}
                     onMouseLeave={(e) => {
                       if (!megaMenuOpen || activeMegaTab !== 'shop') e.currentTarget.style.color = '#ffffff';
                     }}
@@ -308,13 +322,13 @@ export default function Navbar({ onNavigateSection }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
-                      color: megaMenuOpen && activeMegaTab === 'collection' ? '#ffd312' : '#ffffff',
+                      color: megaMenuOpen && activeMegaTab === 'collection' ? '#dc143c' : '#ffffff',
                       fontSize: isScrolled ? '0.75rem' : '0.8rem',
                       fontWeight: '800',
                       letterSpacing: '0.06em',
                       textTransform: 'uppercase',
                       padding: '4px 0',
-                      borderBottom: megaMenuOpen && activeMegaTab === 'collection' ? '2px solid #ffd312' : '2px solid transparent',
+                      borderBottom: megaMenuOpen && activeMegaTab === 'collection' ? '2px solid #dc143c' : '2px solid transparent',
                       transition: 'color 0.2s, border-bottom 0.2s',
                       background: 'none',
                       borderTop: 'none',
@@ -322,7 +336,7 @@ export default function Navbar({ onNavigateSection }) {
                       borderRight: 'none',
                       cursor: 'pointer'
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#dc143c')}
                     onMouseLeave={(e) => {
                       if (!megaMenuOpen || activeMegaTab !== 'collection') e.currentTarget.style.color = '#ffffff';
                     }}
@@ -350,7 +364,7 @@ export default function Navbar({ onNavigateSection }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
-                      color: moreDropdownOpen ? '#ffd312' : '#ffffff',
+                      color: moreDropdownOpen ? '#dc143c' : '#ffffff',
                       fontSize: isScrolled ? '0.75rem' : '0.8rem',
                       fontWeight: '800',
                       letterSpacing: '0.06em',
@@ -361,7 +375,7 @@ export default function Navbar({ onNavigateSection }) {
                       border: 'none',
                       cursor: 'pointer'
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#dc143c')}
                     onMouseLeave={(e) => {
                       if (!moreDropdownOpen) e.currentTarget.style.color = '#ffffff';
                     }}
@@ -387,8 +401,8 @@ export default function Navbar({ onNavigateSection }) {
                         style={{
                           padding: '8px',
                           borderRadius: '12px',
-                          border: '1.5px solid #ffd312',
-                          boxShadow: '0 15px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255,211,18,0.25)',
+                          border: '1.5px solid #dc143c',
+                          boxShadow: '0 15px 40px rgba(0,0,0,0.9), 0 0 20px rgba(220,20,60,0.3)',
                           display: 'flex',
                           flexDirection: 'column',
                           gap: '2px',
@@ -414,8 +428,8 @@ export default function Navbar({ onNavigateSection }) {
                             transition: 'all 0.2s'
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'rgba(255, 211, 18, 0.15)';
-                            e.currentTarget.style.color = '#ffd312';
+                            e.currentTarget.style.backgroundColor = 'rgba(220, 20, 60, 0.15)';
+                            e.currentTarget.style.color = '#dc143c';
                             e.currentTarget.style.transform = 'translateX(4px)';
                           }}
                           onMouseLeave={(e) => {
@@ -425,7 +439,7 @@ export default function Navbar({ onNavigateSection }) {
                           }}
                         >
                           <span>About</span>
-                          <span style={{ fontSize: '0.65rem', color: '#ffd312', opacity: 0.7 }}>///</span>
+                          <span style={{ fontSize: '0.65rem', color: '#ffd312', opacity: 0.8 }}>///</span>
                         </button>
 
                         <button
@@ -447,8 +461,8 @@ export default function Navbar({ onNavigateSection }) {
                             transition: 'all 0.2s'
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'rgba(255, 211, 18, 0.15)';
-                            e.currentTarget.style.color = '#ffd312';
+                            e.currentTarget.style.backgroundColor = 'rgba(220, 20, 60, 0.15)';
+                            e.currentTarget.style.color = '#dc143c';
                             e.currentTarget.style.transform = 'translateX(4px)';
                           }}
                           onMouseLeave={(e) => {
@@ -458,7 +472,7 @@ export default function Navbar({ onNavigateSection }) {
                           }}
                         >
                           <span>FAQ</span>
-                          <span style={{ fontSize: '0.65rem', color: '#ffd312', opacity: 0.7 }}>///</span>
+                          <span style={{ fontSize: '0.65rem', color: '#ffd312', opacity: 0.8 }}>///</span>
                         </button>
 
                         <button
@@ -480,8 +494,8 @@ export default function Navbar({ onNavigateSection }) {
                             transition: 'all 0.2s'
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'rgba(255, 211, 18, 0.15)';
-                            e.currentTarget.style.color = '#ffd312';
+                            e.currentTarget.style.backgroundColor = 'rgba(220, 20, 60, 0.15)';
+                            e.currentTarget.style.color = '#dc143c';
                             e.currentTarget.style.transform = 'translateX(4px)';
                           }}
                           onMouseLeave={(e) => {
@@ -491,7 +505,7 @@ export default function Navbar({ onNavigateSection }) {
                           }}
                         >
                           <span>Contact</span>
-                          <span style={{ fontSize: '0.65rem', color: '#ffd312', opacity: 0.7 }}>///</span>
+                          <span style={{ fontSize: '0.65rem', color: '#ffd312', opacity: 0.8 }}>///</span>
                         </button>
                       </div>
                     </div>
@@ -500,9 +514,18 @@ export default function Navbar({ onNavigateSection }) {
               </div>
             </div>
 
-            {/* Center Brand Logo (Animated) */}
-            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <AnimatedLogo size={isScrolled ? 'sm' : 'md'} showText={true} />
+            {/* Center Brand Logo */}
+            <div
+              style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', flexShrink: 0 }}
+              onClick={handleLogoClick}
+              role="button"
+              tabIndex={0}
+              aria-label="Return to Homepage"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') handleLogoClick();
+              }}
+            >
+              <AnimatedLogo size={isScrolled ? 'sm' : 'md'} showText={true} onClick={handleLogoClick} />
             </div>
 
             {/* Right Action Icons & Utilities */}
@@ -519,7 +542,7 @@ export default function Navbar({ onNavigateSection }) {
                   cursor: 'pointer',
                   transition: 'color 0.2s'
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffd312')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#dc143c')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
                 aria-label="Search items"
                 title="Search Archive"
@@ -570,7 +593,7 @@ export default function Navbar({ onNavigateSection }) {
                 )}
               </button>
 
-              {/* Cart Button */}
+              {/* Cart Button - Red Primary with Gold Badge */}
               <button
                 onClick={() => setIsCartOpen(true)}
                 style={{
@@ -578,11 +601,12 @@ export default function Navbar({ onNavigateSection }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  backgroundColor: '#ffd312',
-                  color: '#010000',
-                  padding: isScrolled ? '6px 10px' : '6px 12px',
+                  backgroundColor: '#dc143c',
+                  color: '#ffffff',
+                  padding: isScrolled ? '6px 12px' : '6px 14px',
                   borderRadius: '9999px',
-                  border: '1.5px solid #010000',
+                  border: '1.5px solid #dc143c',
+                  boxShadow: '0 0 16px rgba(220, 20, 60, 0.45)',
                   fontWeight: '900',
                   fontSize: '0.74rem',
                   letterSpacing: '0.06em',
@@ -591,11 +615,13 @@ export default function Navbar({ onNavigateSection }) {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'scale(1.05)';
-                  e.currentTarget.style.boxShadow = '0 0 16px rgba(255,211,18,0.5)';
+                  e.currentTarget.style.backgroundColor = '#ff2a55';
+                  e.currentTarget.style.boxShadow = '0 0 22px rgba(220,20,60,0.7), 0 0 10px #ffd312';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.backgroundColor = '#dc143c';
+                  e.currentTarget.style.boxShadow = '0 0 16px rgba(220, 20, 60, 0.45)';
                 }}
                 aria-label="View pre-order bag"
               >
@@ -604,10 +630,10 @@ export default function Navbar({ onNavigateSection }) {
                 {cartItemCount > 0 && (
                   <span
                     style={{
-                      backgroundColor: '#010000',
-                      color: '#ffd312',
+                      backgroundColor: '#d4af37',
+                      color: '#000000',
                       borderRadius: '9999px',
-                      padding: '2px 6px',
+                      padding: '2px 7px',
                       fontSize: '0.68rem',
                       fontWeight: '900',
                       fontFamily: 'var(--font-mono)'
@@ -660,8 +686,8 @@ export default function Navbar({ onNavigateSection }) {
               zIndex: 2,
               marginTop: `${navTopOffset}px`,
               backgroundColor: 'rgba(3, 3, 5, 0.98)',
-              borderBottom: '2px solid #ffd312',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.98), 0 0 35px rgba(255, 211, 18, 0.25)',
+              borderBottom: '2px solid #dc143c',
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.98), 0 0 35px rgba(220, 20, 60, 0.35)',
               maxHeight: `calc(100vh - ${navTopOffset}px)`,
               overflowY: 'auto'
             }}
@@ -711,14 +737,14 @@ export default function Navbar({ onNavigateSection }) {
                           textTransform: 'uppercase',
                           fontFamily: 'var(--font-heading)',
                           color: activeMegaTab === 'shop' ? '#ffffff' : 'rgba(255,255,255,0.4)',
-                          borderBottom: activeMegaTab === 'shop' ? '2.5px solid #ffd312' : 'none',
+                          borderBottom: activeMegaTab === 'shop' ? '2.5px solid #dc143c' : 'none',
                           paddingBottom: '2px',
                           transition: 'all 0.2s'
                         }}
                       >
                         SHOP
                       </span>
-                      <span style={{ color: activeMegaTab === 'shop' ? '#ffd312' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
+                      <span style={{ color: activeMegaTab === 'shop' ? '#dc143c' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
                         ›
                       </span>
                     </button>
@@ -745,14 +771,14 @@ export default function Navbar({ onNavigateSection }) {
                           textTransform: 'uppercase',
                           fontFamily: 'var(--font-heading)',
                           color: activeMegaTab === 'material' ? '#ffffff' : 'rgba(255,255,255,0.4)',
-                          borderBottom: activeMegaTab === 'material' ? '2.5px solid #ffd312' : 'none',
+                          borderBottom: activeMegaTab === 'material' ? '2.5px solid #dc143c' : 'none',
                           paddingBottom: '2px',
                           transition: 'all 0.2s'
                         }}
                       >
                         MATERIAL
                       </span>
-                      <span style={{ color: activeMegaTab === 'material' ? '#ffd312' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
+                      <span style={{ color: activeMegaTab === 'material' ? '#dc143c' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
                         ›
                       </span>
                     </button>
@@ -779,14 +805,14 @@ export default function Navbar({ onNavigateSection }) {
                           textTransform: 'uppercase',
                           fontFamily: 'var(--font-heading)',
                           color: activeMegaTab === 'collection' ? '#ffffff' : 'rgba(255,255,255,0.4)',
-                          borderBottom: activeMegaTab === 'collection' ? '2.5px solid #ffd312' : 'none',
+                          borderBottom: activeMegaTab === 'collection' ? '2.5px solid #dc143c' : 'none',
                           paddingBottom: '2px',
                           transition: 'all 0.2s'
                         }}
                       >
                         ALL COLLECTIONS
                       </span>
-                      <span style={{ color: activeMegaTab === 'collection' ? '#ffd312' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
+                      <span style={{ color: activeMegaTab === 'collection' ? '#dc143c' : 'transparent', fontSize: '1.2rem', fontWeight: '900' }}>
                         ›
                       </span>
                     </button>
@@ -1065,8 +1091,8 @@ export default function Navbar({ onNavigateSection }) {
                       fontSize: '0.72rem',
                       fontWeight: '900',
                       letterSpacing: '0.06em',
-                      color: '#010000',
-                      backgroundColor: '#ffd312',
+                      color: '#ffffff',
+                      backgroundColor: '#dc143c',
                       padding: '6px 14px',
                       borderRadius: '9999px',
                       cursor: 'pointer',
@@ -1106,7 +1132,7 @@ export default function Navbar({ onNavigateSection }) {
               width: '88%',
               maxWidth: '360px',
               backgroundColor: '#050508',
-              borderRight: '2px solid #ffd312',
+              borderRight: '2px solid #dc143c',
               padding: '24px 20px',
               display: 'flex',
               flexDirection: 'column',
@@ -1119,10 +1145,21 @@ export default function Navbar({ onNavigateSection }) {
           >
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <AnimatedLogo size="sm" showText={true} />
+                <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={handleLogoClick}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Return to Homepage"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') handleLogoClick();
+                  }}
+                >
+                  <AnimatedLogo size="sm" showText={true} onClick={handleLogoClick} />
+                </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  style={{ color: '#ffd312', background: 'none', border: 'none', padding: '8px', cursor: 'pointer' }}
+                  style={{ color: '#dc143c', background: 'none', border: 'none', padding: '8px', cursor: 'pointer' }}
                   aria-label="Close navigation"
                 >
                   <X size={26} />
