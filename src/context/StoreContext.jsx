@@ -30,10 +30,26 @@ export function StoreProvider({ children }) {
     }
   }, [products]);
 
+  // Helper to detect dashboard route in path or hash
+  const isDashboardRoute = () => {
+    try {
+      const path = (window.location.pathname || '').replace(/\/+$/, '');
+      const hash = (window.location.hash || '').replace(/\/+$/, '');
+      return (
+        path === '/dashboard' ||
+        path.endsWith('/dashboard') ||
+        hash === '#dashboard' ||
+        hash === '#/dashboard'
+      );
+    } catch {
+      return false;
+    }
+  };
+
   // Current View: 'home' | 'shop' | 'dashboard'
   const [currentView, setCurrentView] = useState(() => {
     try {
-      if (window.location.pathname === '/dashboard' || window.location.hash === '#dashboard') {
+      if (isDashboardRoute()) {
         return 'dashboard';
       }
       const hash = window.location.hash;
@@ -125,7 +141,7 @@ export function StoreProvider({ children }) {
     const handleNavigation = () => {
       const hash = window.location.hash;
       const path = window.location.pathname;
-      if (path === '/dashboard' || hash === '#dashboard') {
+      if (isDashboardRoute()) {
         setSelectedProduct(null);
         setCurrentView('dashboard');
         window.scrollTo({ top: 0, behavior: 'smooth' });
