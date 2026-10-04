@@ -4,13 +4,14 @@ import { LOOKBOOK_HOTSPOTS, PRODUCTS } from '../data/storeData';
 import { Plus, Eye, X, ArrowRight, ShoppingBag } from 'lucide-react';
 
 export default function ShopTheLookHotspots() {
-  const { formatPrice, openQuickView, openProductPage, addToCart } = useStore();
+  const { formatPrice, openQuickView, openProductPage, addToCart, products } = useStore();
+  const allProducts = (products && products.length > 0) ? products : PRODUCTS;
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [isPinned, setIsPinned] = useState(false);
   const closeTimerRef = useRef(null);
 
   const getProductForHotspot = (hs) => {
-    return PRODUCTS.find((p) => p.id === hs.productId) || PRODUCTS[0];
+    return allProducts.find((p) => p.id === hs.productId) || allProducts[0];
   };
 
   const handleMouseEnter = (hs) => {

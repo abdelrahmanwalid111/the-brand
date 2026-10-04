@@ -14,10 +14,12 @@ export default function ProductPage({ product: propProduct }) {
     isInWishlist,
     setIsSizeGuideOpen,
     openShopPage,
-    openHomePage
+    openHomePage,
+    products
   } = useStore();
 
-  const product = propProduct || selectedProduct || PRODUCTS[0];
+  const allProducts = (products && products.length > 0) ? products : PRODUCTS;
+  const product = propProduct || selectedProduct || allProducts[0];
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(product?.colors ? product.colors[0].name : '');
@@ -61,7 +63,7 @@ export default function ProductPage({ product: propProduct }) {
   };
 
   // Recommended related pieces
-  const relatedProducts = PRODUCTS.filter((p) => p.id !== product.id && (p.category === product.category || p.isFeatured)).slice(0, 4);
+  const relatedProducts = allProducts.filter((p) => p.id !== product.id && (p.category === product.category || p.isFeatured)).slice(0, 4);
 
   return (
     <div style={{ backgroundColor: '#000000', minHeight: '100vh', color: '#ffffff', paddingTop: '24px', paddingBottom: '80px' }}>

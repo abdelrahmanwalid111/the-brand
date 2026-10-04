@@ -7,9 +7,35 @@ export function StoreProvider({ children }) {
   const [preset, setPreset] = useState('cyber');
   const [currency, setCurrency] = useState('EGP');
 
-  // Current View: 'home' | 'shop'
+  // Dynamic Products Catalog with LocalStorage Persistence
+  const [products, setProducts] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sygil_products');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      console.error('Error loading products from localStorage', e);
+    }
+    return PRODUCTS;
+  });
+
+  // Save products whenever changed
+  useEffect(() => {
+    try {
+      localStorage.setItem('sygil_products', JSON.stringify(products));
+    } catch (e) {
+      console.error('Error saving products to localStorage', e);
+    }
+  }, [products]);
+
+  // Current View: 'home' | 'shop' | 'dashboard'
   const [currentView, setCurrentView] = useState(() => {
     try {
+      if (window.location.pathname === '/dashboard' || window.location.hash === '#dashboard') {
+        return 'dashboard';
+      }
       const hash = window.location.hash;
       if (hash === '#shop') return 'shop';
     } catch {}
@@ -28,6 +54,20 @@ export function StoreProvider({ children }) {
     } catch {}
     return null;
   });
+
+  // Quick Add / Edit Product Modal State
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+
+  const openAddProductModal = (productToEdit = null) => {
+    setEditingProduct(productToEdit);
+    setIsProductModalOpen(true);
+  };
+
+  const closeProductModal = () => {
+    setIsProductModalOpen(false);
+    setEditingProduct(null);
+  };
 
   // Active Shop Category Filter
   const [activeCategory, setActiveCategory] = useState('all');
@@ -80,13 +120,18 @@ export function StoreProvider({ children }) {
   // Toast notification
   const [toast, setToast] = useState(null);
 
-  // Listen to hash change for back/forward browser buttons
+  // Listen to hash change & popstate for back/forward browser buttons
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleNavigation = () => {
       const hash = window.location.hash;
-      if (hash && hash.startsWith('#product-')) {
+      const path = window.location.pathname;
+      if (path === '/dashboard' || hash === '#dashboard') {
+        setSelectedProduct(null);
+        setCurrentView('dashboard');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash && hash.startsWith('#product-')) {
         const prodId = hash.replace('#product-', '');
-        const found = PRODUCTS.find((p) => p.id === prodId);
+        const found = products.find((p) => p.id === prodId) || PRODUCTS.find((p) => p.id === prodId);
         if (found) {
           setSelectedProduct(found);
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -101,9 +146,13 @@ export function StoreProvider({ children }) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+    window.addEventListener('hashchange', handleNavigation);
+    window.addEventListener('popstate', handleNavigation);
+    return () => {
+      window.removeEventListener('hashchange', handleNavigation);
+      window.removeEventListener('popstate', handleNavigation);
+    };
+  }, [products]);
 
   useEffect(() => {
     localStorage.setItem('sygil_cart', JSON.stringify(cart));
@@ -173,7 +222,11 @@ export function StoreProvider({ children }) {
     }
     setCurrentView('shop');
     try {
-      window.location.hash = 'shop';
+      if (window.location.pathname === '/dashboard') {
+        window.history.pushState({}, document.title, '/#shop');
+      } else {
+        window.location.hash = 'shop';
+      }
     } catch {}
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -189,11 +242,89 @@ export function StoreProvider({ children }) {
     setIsCheckoutOpen(false);
     setCurrentView('home');
     try {
-      window.history.pushState("", document.title, window.location.pathname + window.location.search);
+      if (window.location.pathname === '/dashboard') {
+        window.history.pushState({}, document.title, '/');
+      } else {
+        window.history.pushState({}, document.title, window.location.pathname + window.location.search);
+      }
     } catch {
       window.location.hash = '';
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const openDashboardPage = () => {
+    setSelectedProduct(null);
+    setQuickViewProduct(null);
+    setIsCartOpen(false);
+    setIsSearchOpen(false);
+    setIsWishlistOpen(false);
+    setIsSizeGuideOpen(false);
+    setIsNewsletterOpen(false);
+    setIsCheckoutOpen(false);
+    setCurrentView('dashboard');
+    try {
+      if (window.location.pathname !== '/dashboard') {
+        window.history.pushState({}, document.title, '/dashboard');
+      }
+    } catch {
+      window.location.hash = 'dashboard';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Product Catalog CRUD Handlers
+  const addProduct = (newProduct) => {
+    const productWithId = {
+      ...newProduct,
+      id: newProduct.id || `prod-${Date.now()}`,
+      images: Array.isArray(newProduct.images) && newProduct.images.length > 0
+        ? newProduct.images
+        : [newProduct.image || '/assets/fallen_angel_tee.jpg'],
+      price: Number(newProduct.price) || 0,
+      compareAtPrice: Number(newProduct.compareAtPrice) || (Number(newProduct.price) ? Math.round(Number(newProduct.price) * 1.35) : 0),
+      sizes: newProduct.sizes && newProduct.sizes.length > 0 ? newProduct.sizes : ['S', 'M', 'L', 'XL'],
+      colors: newProduct.colors && newProduct.colors.length > 0 ? newProduct.colors : [
+        { name: 'Pitch Black', hex: '#000000', img: (newProduct.images && newProduct.images[0]) || '/assets/fallen_angel_tee.jpg' }
+      ],
+      stockLeft: Number(newProduct.stockLeft) || 15,
+      isPreOrder: true
+    };
+
+    setProducts((prev) => [productWithId, ...prev]);
+    showToast(`Piece "${productWithId.title}" added to catalog!`, 'success');
+    return productWithId;
+  };
+
+  const updateProduct = (productId, updatedFields) => {
+    setProducts((prev) =>
+      prev.map((p) => {
+        if (p.id === productId) {
+          const updated = { ...p, ...updatedFields };
+          if (updatedFields.price !== undefined) updated.price = Number(updatedFields.price);
+          if (updatedFields.compareAtPrice !== undefined) updated.compareAtPrice = Number(updatedFields.compareAtPrice);
+          if (updatedFields.stockLeft !== undefined) updated.stockLeft = Number(updatedFields.stockLeft);
+          return updated;
+        }
+        return p;
+      })
+    );
+    showToast('Product updated successfully!', 'success');
+  };
+
+  const deleteProduct = (productId) => {
+    setProducts((prev) => prev.filter((p) => p.id !== productId));
+    setWishlist((prev) => prev.filter((id) => id !== productId));
+    setCart((prev) => prev.filter((item) => item.productId !== productId && item.id !== productId));
+    showToast('Piece removed from catalog', 'info');
+  };
+
+  const resetProductsToDefault = () => {
+    setProducts(PRODUCTS);
+    try {
+      localStorage.removeItem('sygil_products');
+    } catch {}
+    showToast('Catalog restored to default archive', 'info');
   };
 
   const addToCart = (product, options = {}) => {
@@ -328,6 +459,17 @@ export function StoreProvider({ children }) {
         formatPrice,
         currentView,
         setCurrentView,
+        products,
+        setProducts,
+        addProduct,
+        updateProduct,
+        deleteProduct,
+        resetProductsToDefault,
+        openDashboardPage,
+        isProductModalOpen,
+        openAddProductModal,
+        closeProductModal,
+        editingProduct,
         activeCategory,
         setActiveCategory,
         openShopPage,

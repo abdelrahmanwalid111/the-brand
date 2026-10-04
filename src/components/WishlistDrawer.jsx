@@ -12,12 +12,14 @@ export default function WishlistDrawer() {
     addToCart,
     formatPrice,
     openProductPage,
-    openShopPage
+    openShopPage,
+    products
   } = useStore();
 
   if (!isWishlistOpen) return null;
 
-  const savedProducts = PRODUCTS.filter((p) => wishlist.includes(p.id));
+  const allProducts = (products && products.length > 0) ? products : PRODUCTS;
+  const savedProducts = allProducts.filter((p) => wishlist.includes(p.id));
 
   const handleItemClick = (product) => {
     setIsWishlistOpen(false);

@@ -4,7 +4,18 @@ import { PRODUCTS, CATEGORIES } from '../data/storeData';
 import { Heart, ShoppingBag, SlidersHorizontal, ChevronDown, ChevronUp, X, Check } from 'lucide-react';
 
 export default function ShopPage({ onNavigateHome }) {
-  const { addToCart, toggleWishlist, isInWishlist, openProductPage, formatPrice, activeCategory, setActiveCategory } = useStore();
+  const {
+    products,
+    addToCart,
+    toggleWishlist,
+    isInWishlist,
+    openProductPage,
+    formatPrice,
+    activeCategory,
+    setActiveCategory
+  } = useStore();
+
+  const allProducts = (products && products.length > 0) ? products : PRODUCTS;
 
   // Filter States
   const [selectedCategory, setSelectedCategory] = useState(activeCategory || 'all');
@@ -57,7 +68,7 @@ export default function ShopPage({ onNavigateHome }) {
 
   // Filter products
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return allProducts.filter((product) => {
       // Category filter
       if (selectedCategory && selectedCategory !== 'all' && typeof selectedCategory === 'string' && product.category !== selectedCategory) {
         return false;
@@ -85,7 +96,7 @@ export default function ShopPage({ onNavigateHome }) {
       }
       return true;
     });
-  }, [selectedCategory, selectedSize, selectedColor, maxPrice]);
+  }, [allProducts, selectedCategory, selectedSize, selectedColor, maxPrice]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -99,14 +110,14 @@ export default function ShopPage({ onNavigateHome }) {
 
   // Dynamic category counts
   const categoryCounts = useMemo(() => {
-    const counts = { all: PRODUCTS.length };
+    const counts = { all: allProducts.length };
     CATEGORIES.forEach((cat) => {
       if (cat.id !== 'all') {
-        counts[cat.id] = PRODUCTS.filter((p) => p.category === cat.id).length;
+        counts[cat.id] = allProducts.filter((p) => p.category === cat.id).length;
       }
     });
     return counts;
-  }, []);
+  }, [allProducts]);
 
   return (
     <div id="shop-page-root" style={{ backgroundColor: '#000000', color: '#ffffff', minHeight: '100vh', paddingBottom: '80px' }}>
@@ -612,36 +623,36 @@ export default function ShopPage({ onNavigateHome }) {
               {/* Sort By Dropdown matching Mockup */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ fontSize: '0.78rem', color: '#8c8c9e', fontWeight: '800' }}>Sort by:</span>
-                <div style={{ position: 'relative' }}>
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    style={{
-                      appearance: 'none',
-                      backgroundColor: '#08080a',
-                      border: '1.5px solid #d4af37',
-                      borderRadius: '8px',
-                      padding: '8px 32px 8px 14px',
-                      color: '#ffffff',
-                      fontSize: '0.8rem',
-                      fontWeight: '800',
-                      cursor: 'pointer',
-                      outline: 'none'
-                    }}
-                  >
-                    <option value="featured">Featured</option>
-                    <option value="newest">Newest</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                  </select>
-                  <ChevronDown
-                    size={14}
-                    color="#d4af37"
-                    style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      style={{
+                        appearance: 'none',
+                        backgroundColor: '#08080a',
+                        border: '1.5px solid #d4af37',
+                        borderRadius: '8px',
+                        padding: '8px 32px 8px 14px',
+                        color: '#ffffff',
+                        fontSize: '0.8rem',
+                        fontWeight: '800',
+                        cursor: 'pointer',
+                        outline: 'none'
+                      }}
+                    >
+                      <option value="featured">Featured</option>
+                      <option value="newest">Newest</option>
+                      <option value="price-asc">Price: Low to High</option>
+                      <option value="price-desc">Price: High to Low</option>
+                    </select>
+                    <ChevronDown
+                      size={14}
+                      color="#d4af37"
+                      style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
             {/* 4-COLUMN PRODUCTS GRID */}
             {sortedProducts.length === 0 ? (

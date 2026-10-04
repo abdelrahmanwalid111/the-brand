@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
-import { PRODUCTS } from '../data/storeData';
 import { Heart, ShoppingBag, ArrowRight, ShieldCheck, Check } from 'lucide-react';
 
 export default function FeaturedGrailsSection({ onExploreShop }) {
   const {
+    products,
     openProductPage,
     addToCart,
     toggleWishlist,
@@ -16,8 +16,9 @@ export default function FeaturedGrailsSection({ onExploreShop }) {
   const [hoveredId, setHoveredId] = useState(null);
   const [addingId, setAddingId] = useState(null);
 
-  // Curate exactly the first 3 runway pinnacle showpieces
-  const trinityProducts = PRODUCTS.slice(0, 3);
+  // Curate dynamic trinity from live products (prefers isFeatured, fallback to first 3)
+  const featuredOnly = (products || []).filter((p) => p.isFeatured);
+  const trinityProducts = (featuredOnly.length >= 3 ? featuredOnly : (products || [])).slice(0, 3);
 
   const handleShopClick = () => {
     if (onExploreShop) {

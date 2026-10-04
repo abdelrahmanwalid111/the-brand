@@ -4,7 +4,8 @@ import { PRODUCTS } from '../data/storeData';
 import { Search, X } from 'lucide-react';
 
 export default function SearchOverlay() {
-  const { isSearchOpen, setIsSearchOpen, formatPrice, openProductPage } = useStore();
+  const { isSearchOpen, setIsSearchOpen, formatPrice, openProductPage, products } = useStore();
+  const allProducts = (products && products.length > 0) ? products : PRODUCTS;
   const [query, setQuery] = useState('');
   const inputRef = useRef(null);
 
@@ -24,7 +25,7 @@ export default function SearchOverlay() {
   const popularTags = ['650gsm Hoodie', 'Lambskin Moto Top', 'French Terry Crewneck', 'Acid Wash Hoodie', 'Stand-Collar Top', 'Alpaca Fleece'];
 
   const results = query.trim()
-    ? PRODUCTS.filter((p) =>
+    ? allProducts.filter((p) =>
         p.title.toLowerCase().includes(query.toLowerCase()) ||
         p.subtitle.toLowerCase().includes(query.toLowerCase()) ||
         p.category.toLowerCase().includes(query.toLowerCase()) ||
@@ -216,7 +217,7 @@ export default function SearchOverlay() {
                 FEATURED GRAILS
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px' }}>
-                {PRODUCTS.slice(0, 3).map((product) => (
+                {allProducts.slice(0, 3).map((product) => (
                   <div
                     key={product.id}
                     onClick={() => handleProductSelect(product)}

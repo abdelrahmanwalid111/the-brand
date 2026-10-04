@@ -23,9 +23,11 @@ export default function CartDrawer() {
     finalTotal,
     formatPrice,
     setIsCheckoutOpen,
-    openProductPage
+    openProductPage,
+    products
   } = useStore();
 
+  const allProducts = (products && products.length > 0) ? products : PRODUCTS;
   const [promoInput, setPromoInput] = useState('');
 
   if (!isCartOpen) return null;
@@ -39,7 +41,7 @@ export default function CartDrawer() {
   };
 
   const handleItemClick = (item) => {
-    const prod = PRODUCTS.find((p) => p.id === item.productId || p.id === item.id) || item;
+    const prod = allProducts.find((p) => p.id === item.productId || p.id === item.id) || item;
     setIsCartOpen(false);
     openProductPage(prod);
   };
